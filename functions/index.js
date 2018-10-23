@@ -1,5 +1,4 @@
 'use strict';
-//ALSO IMPORTANT!!!
 var https = require('https');
 
 
@@ -169,6 +168,7 @@ app.intent("catabus", (conv, {route}) => {
              }
            }
            var estimatedDeparture = stopData.Departures[0].EDTLocalTime;
+           //Javascript string functions not working?????
            var final = estimatedDeparture.substring(estimatedDeparture.indexOf("t")+1, estimatedDeparture.length-1);
            conv.close("The closest stop to you is at " + closest_stop.Name + ". The next departure is scheduled for " + final);
          })
