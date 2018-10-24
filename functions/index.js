@@ -1,55 +1,17 @@
 'use strict';
 var https = require('https');
-
+var catabus = require('./Catabus/busRoutes');
 
 const {dialogflow, Permission, Confirmation} = require('actions-on-google');
 const functions = require('firebase-functions');
 const app = dialogflow({debug: true});
 
 
-
-//Bus routes with ID for API url. Missing downtown and south atherton football shuttles.
-var busAssociation = {
-  "buses": [
-    {"name": "Blue loop", "id": 55},
-    {"name": "White Loop", "id": 57},
-    {"name": "Red link", "id": 51},
-    {"name": "Green link", "id": 53},
-    {"name": "A", "id": 1},
-    {"name": "B", "id": 4},
-    {"name": "C", "id": 7},
-    {"name": "F", "id": 10},
-    {"name": "G", "id": 11},
-    {"name":" HC", "id": 61},
-    {"name":" HM", "id": 60},
-    {"name": "K", "id": 16},
-    {"name": "N", "id": 22},
-    {"name": "NE", "id": 21},
-    {"name": "NV", "id": 25},
-    {"name": "R", "id": 31},
-    {"name": "RC", "id": 33},
-    {"name": "RP", "id": 34},
-    {"name": "S", "id": 37},
-    {"name": "UT", "id": 40},
-    {"name": "V", "id": 43},
-    {"name": "VE", "id": 42},
-    {"name": "VN", "id": 44},
-    {"name": "W", "id": 46},
-    {"name": "WE", "id": 45},
-    {"name": "XB", "id": 49},
-    {"name":" XG", "id": 50}
-  ]
-}
-
-
-
-
-
   let getLoop = function(route) {
     var busID = 55;
-    for(var i = 0; i < busAssociation.buses.length; i++) {
-      if(busAssociation.buses[i].name === route) {
-        busID = busAssociation.buses[i].id;
+    for(var i = 0; i < catabus.BUS_ROUTE_ID.buses.length; i++) {
+      if(catabus.BUS_ROUTE_ID.buses[i].name === route) {
+        busID = catabus.BUS_ROUTE_ID.buses[i].id;
       }
     }
 
