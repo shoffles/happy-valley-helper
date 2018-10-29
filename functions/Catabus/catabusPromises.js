@@ -1,5 +1,5 @@
 const https = require('https');
-const catabus = require('./busRoutes');
+const catabusRoutes = require('./busRoutes');
 
 
 function getDistance(user_lat, user_lng, stop_lat, stop_lng) {
@@ -7,7 +7,7 @@ function getDistance(user_lat, user_lng, stop_lat, stop_lng) {
 }
 
 
-function catabusLogic(route) {
+exports.function catabusLogic(route) {
   return getLoop(route)
    .then(function(fromResolve){
        var distance;
@@ -49,9 +49,9 @@ function catabusLogic(route) {
 
 let getLoop = function(route) {
   var busID = 55;
-  for(var i = 0; i < catabus.BUS_ROUTE_ID.buses.length; i++) {
-    if(catabus.BUS_ROUTE_ID.buses[i].name === route) {
-      busID = catabus.BUS_ROUTE_ID.buses[i].id;
+  for(var i = 0; i < catabusRoutes.BUS_ROUTE_ID.buses.length; i++) {
+    if(catabusRoutes.BUS_ROUTE_ID.buses[i].name === route) {
+      busID = catabusRoutes.BUS_ROUTE_ID.buses[i].id;
     }
   }
   return new Promise(function(resolve, reject) {
