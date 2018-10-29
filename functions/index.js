@@ -44,7 +44,7 @@ app.intent("random stuff", conv => {
 //WIP catabus functionality
 //Collects bus parameter for use in route definition
 app.intent("catabus", (conv, {route}) => {
-   catabusLogic(route);
+   catabus.catabusLogic(route);
 });
 
 
