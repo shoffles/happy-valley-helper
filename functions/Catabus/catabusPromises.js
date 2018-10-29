@@ -1,5 +1,5 @@
 const https = require('https');
-const catabus = require('./Catabus/busRoutes');
+const catabus = require('./busRoutes');
 
 
 function getDistance(user_lat, user_lng, stop_lat, stop_lng) {
