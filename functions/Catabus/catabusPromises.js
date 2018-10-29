@@ -7,7 +7,7 @@ function getDistance(user_lat, user_lng, stop_lat, stop_lng) {
 }
 
 
-exports.function catabusLogic(route) {
+exports.catabusLogic = function (route) {
   return getLoop(route)
    .then(function(fromResolve){
        var distance;
