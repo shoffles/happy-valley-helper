@@ -74,7 +74,7 @@ let getStopData = function(stopId) {
 
 app.intent("Default Welcome Intent", conv => {
   conv.ask(new Permission({
-      context: 'Welcome to Happy Valley Helper! To better your experience',
+      context: 'Welcome to Happy Valley Helper! ',
       permissions: 'DEVICE_PRECISE_LOCATION',
     }));
 });
@@ -105,44 +105,44 @@ app.intent("random stuff", conv => {
 //WIP catabus functionality
 //Collects bus parameter for use in route definition
 app.intent("catabus", (conv, {route}) => {
-  return getLoop(route)
-   .then(function(fromResolve){
-       var distance;
-       var closest_stop;
-       for(var i = 0; i < fromResolve.Stops.length; i++) {
-         if(i == 0) {
-           closest_stop = fromResolve.Stops[i];
-           distance = getDistance(conv.device.location.coordinates.latitude, conv.device.location.coordinates.longitude, fromResolve.Stops[i].Latitude, fromResolve.Stops[i].Longitude);
-         }
-         else {
-           if(getDistance(conv.device.location.coordinates.latitude, conv.device.location.coordinates.longitude, fromResolve.Stops[i].Latitude, fromResolve.Stops[i].Longitude) < distance) {
-             closest_stop = fromResolve.Stops[i];
-             distance = getDistance(conv.device.location.coordinates.latitude, conv.device.location.coordinates.longitude, fromResolve.Stops[i].Latitude, fromResolve.Stops[i].Longitude);
-           }
-         }
-       }
-       return  getStopData(closest_stop.StopId)
-        .then(function(resolveData){
-          var stopData;
-          for(var i = 0; i < resolveData[0].RouteDirections.length; i++) {
-            if(fromResolve.RouteId === resolveData[0].RouteDirections[i].RouteId) {
-              stopData = resolveData[0].RouteDirections[i];
+   return getLoop(route)
+    .then(function(fromResolve){
+        var distance;
+        var closest_stop;
+        for(var i = 0; i < fromResolve.Stops.length; i++) {
+          if(i == 0) {
+            closest_stop = fromResolve.Stops[i];
+            distance = getDistance(conv.device.location.coordinates.latitude, conv.device.location.coordinates.longitude, fromResolve.Stops[i].Latitude, fromResolve.Stops[i].Longitude);
+          }
+          else {
+            if(getDistance(conv.device.location.coordinates.latitude, conv.device.location.coordinates.longitude, fromResolve.Stops[i].Latitude, fromResolve.Stops[i].Longitude) < distance) {
+              closest_stop = fromResolve.Stops[i];
+              distance = getDistance(conv.device.location.coordinates.latitude, conv.device.location.coordinates.longitude, fromResolve.Stops[i].Latitude, fromResolve.Stops[i].Longitude);
             }
           }
-          var estimatedDeparture = stopData.Departures[0].EDTLocalTime;
-          //Javascript string functions not working?????
-          var final = estimatedDeparture.substring(estimatedDeparture.indexOf("t")+1, estimatedDeparture.length-1);
-          conv.close("The closest stop to you is at " + closest_stop.Name + ". The next departure is scheduled for " + final);
-        })
-        .catch(function(reject){
-           conv.close("The closest stop to you is at " + closest_stop.Name + ". I could not get schedule information though.");
-        });
-   })
-   .catch(function(fromReject){
-     conv.close("There was an error in retrieving this information, please try again.");
-   });
-});
+        }
+        return  getStopData(closest_stop.StopId)
+         .then(function(resolveData){
+           var stopData;
+           for(var i = 0; i < resolveData[0].RouteDirections.length; i++) {
+             if(fromResolve.RouteId === resolveData[0].RouteDirections[i].RouteId) {
+               stopData = resolveData[0].RouteDirections[i];
+             }
+           }
+           var estimatedDeparture = stopData.Departures[0].EDTLocalTime;
+           //Javascript string functions not working?????
+           var final = estimatedDeparture.substring(estimatedDeparture.indexOf("t")+1, estimatedDeparture.length-1);
+           conv.ask("The closest stop to you is at " + closest_stop.Name + ". The next departure is scheduled for " + final);
+         })
+         .catch(function(reject){
+            conv.ask("The closest stop to you is at " + closest_stop.Name + ". I could not get schedule information though.");
+         });
 
+    })
+    .catch(function(fromReject){
+      conv.ask("There was an error in retrieving this information, please try again.");
+    });
+});
 
 
 app.intent("graduation intent", conv => {
