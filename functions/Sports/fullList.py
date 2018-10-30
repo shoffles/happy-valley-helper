@@ -13,7 +13,10 @@ def main():
     out = "{"
     for e in lines:
         for a in e:
-            out += str(e[a])
+            dict = {}
+            dict = e[a]
+            for t in dict:
+                out += "[" + str(dict[t]) + "]"
         out += "}"
         print(out)
         out = "{"
