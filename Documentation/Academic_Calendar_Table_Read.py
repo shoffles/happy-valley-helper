@@ -1,12 +1,14 @@
 
+
 import requests
 import lxml.html as lh
 import pandas as pd
+from urllib.parse import urlsplit, urlunsplit
 
-#changes url to get information from right semester table
+
 def changeUrl(semester):
-    #split url into scheme, netloc, PATH, query, fragment. We only need this for path. Link is to current adacemic calendar
-    url = list(urlsplit('https://registrar.psu.edu/academic_calendar/fall18.cfm'))
+    #split url into scheme, netloc, PATH, query, fragment. We only need this for path
+    url = list(urlsplit('https://www.registrar.psu.edu/academic_calendar/fall18.cfm'))
     
     #Assigning the old path to variable
     oldPath = url[2]
@@ -29,12 +31,12 @@ def changeUrl(semester):
     url[2] = newPath
     #Unsplits url
     newUrl = urlunsplit(url)
-
+    
     return newUrl
 
 
 #This url changes per what year they ask for
-url= changeUrl('fall22')
+url = changeUrl('spring21')
 
 #Create a handle, page, to handle the contents of the website
 page = requests.get(url)
@@ -45,7 +47,6 @@ doc = lh.fromstring(page.content)
 #Parse data that are stored between <tr>..</tr> of HTML
 tr_elements = doc.xpath('//tr')
 
-
 #Create empty list
 col=[]
 i=0
@@ -54,9 +55,7 @@ i=0
 for t in tr_elements[0]:
     i+=1
     name=t.text_content()
-    print('%d:"%s"'%(i,name))
     col.append((name,[]))
-
 
 #Since out first row is the header, data is stored on the second row onwards
 for j in range(1,len(tr_elements)):
@@ -81,11 +80,9 @@ for j in range(1,len(tr_elements)):
         #Increment i for the next column
         i+=1
 
-
 Dict={title:column for (title,column) in col}
 df=pd.DataFrame(Dict)
 #df.head(1)
 #df[["Description", "Date"]]
 #orient will change the format of JSON so we can use it accordingly.
 df[["Description", "Date"]].to_json(orient='records')
-
