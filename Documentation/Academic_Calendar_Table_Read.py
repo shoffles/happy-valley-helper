@@ -1,19 +1,40 @@
 
-# coding: utf-8
-
-# In[52]:
-
-
 import requests
 import lxml.html as lh
 import pandas as pd
 
+#changes url to get information from right semester table
+def changeUrl(semester):
+    #split url into scheme, netloc, PATH, query, fragment. We only need this for path. Link is to current adacemic calendar
+    url = list(urlsplit('https://registrar.psu.edu/academic_calendar/fall18.cfm'))
+    
+    #Assigning the old path to variable
+    oldPath = url[2]
 
-# In[53]:
+    #Splitting the path up by slashes
+    components = oldPath.split('/')
+
+    #Splitting the last section of the path by period so we can change the term to the variable semester
+    compToChange = components[2].split('.')
+    #Changes term 
+    compToChange[0]= semester
+    #Reassembles that portion of the path
+    addPeriod ='.'.join(compToChange)
+    #Updates the components of the path
+    components[2]=addPeriod
+    #Reassembles the updated path
+    newPath = '/'.join(components)
+    
+    #Updates path in url
+    url[2] = newPath
+    #Unsplits url
+    newUrl = urlunsplit(url)
+
+    return newUrl
 
 
 #This url changes per what year they ask for
-url='http://registrar.psu.edu/academic_calendar/spring20.cfm'
+url= changeUrl('fall22')
 
 #Create a handle, page, to handle the contents of the website
 page = requests.get(url)
@@ -25,11 +46,6 @@ doc = lh.fromstring(page.content)
 tr_elements = doc.xpath('//tr')
 
 
-# In[54]:
-
-
-tr_elements = doc.xpath('//tr')
-
 #Create empty list
 col=[]
 i=0
@@ -40,9 +56,6 @@ for t in tr_elements[0]:
     name=t.text_content()
     print('%d:"%s"'%(i,name))
     col.append((name,[]))
-
-
-# In[55]:
 
 
 #Since out first row is the header, data is stored on the second row onwards
@@ -67,9 +80,6 @@ for j in range(1,len(tr_elements)):
         col[i][1].append(data)
         #Increment i for the next column
         i+=1
-
-
-# In[56]:
 
 
 Dict={title:column for (title,column) in col}
