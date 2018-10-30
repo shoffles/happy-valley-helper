@@ -7,11 +7,12 @@ const functions = require('firebase-functions');
 const app = dialogflow({debug: true});
 
 
-
+//Function for getting distance between users device and closest stop
 function getDistance(user_lat, user_lng, stop_lat, stop_lng) {
   return Math.sqrt(Math.pow(user_lat - stop_lat, 2) + Math.pow(user_lng - stop_lng, 2));
 }
 
+//Function for retreiving Bus Route details from catabus API
 let getLoop = function(route) {
   var busID = 55;
   for(var i = 0; i < catabusRoutes.BUS_ROUTE_ID.buses.length; i++) {
@@ -43,7 +44,7 @@ let getLoop = function(route) {
   });
 }
 
-
+//Function for retreiving Stop Details from catabus API
 let getStopData = function(stopId) {
   return new Promise(function(resolve, reject) {
     var optionsget = {
@@ -70,8 +71,10 @@ let getStopData = function(stopId) {
 }
 
 
+//Intents start here//
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~//
 
-
+//Welcome intent, asks for permission for location data(To be changed)
 app.intent("Default Welcome Intent", conv => {
   conv.ask(new Permission({
       context: 'Welcome to Happy Valley Helper! ',
@@ -109,6 +112,7 @@ app.intent("catabus", (conv, {route}) => {
     .then(function(fromResolve){
         var distance;
         var closest_stop;
+        //Loops through all stops, applying the getDistance function to find closest stop to user
         for(var i = 0; i < fromResolve.Stops.length; i++) {
           if(i == 0) {
             closest_stop = fromResolve.Stops[i];
@@ -124,11 +128,13 @@ app.intent("catabus", (conv, {route}) => {
         return  getStopData(closest_stop.StopId)
          .then(function(resolveData){
            var stopData;
+           //Loops through data looking for correct stop
            for(var i = 0; i < resolveData[0].RouteDirections.length; i++) {
              if(fromResolve.RouteId === resolveData[0].RouteDirections[i].RouteId) {
                stopData = resolveData[0].RouteDirections[i];
              }
            }
+           //Pulls the nearest estimated departure from correct stop data
            var estimatedDeparture = stopData.Departures[0].EDTLocalTime;
            //Javascript string functions not working?????
            var final = estimatedDeparture.substring(estimatedDeparture.indexOf("t")+1, estimatedDeparture.length-1);
@@ -170,7 +176,7 @@ app.intent("thanksgiving break", conv => {
   conv.close("There will be no classes from Sunday November 18th thru Saturday November 24th due to the Thanksgiving holiday.");
 });
 
-
+//This intent fires when permission is asked for
 app.intent('receive location', (conv, params, granted) => {
   const explicit = conv.arguments.get('PERMISSION');
   if(granted) {
@@ -184,6 +190,5 @@ app.intent('receive location', (conv, params, granted) => {
 });
 
 
-//Above are finished intents. Anything below needs to be added to web template. Needs training
 
 exports.dialogflowFirebaseFulfillment = functions.https.onRequest(app);
