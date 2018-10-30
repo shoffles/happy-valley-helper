@@ -24,11 +24,49 @@ let parser = new Parser({
     contentsnippet
     guid
 */
+fullList = [];
+
 
 parser.parseURL('https://gopsusports.com/calendar.ashx/calendar.rss?sport_id=0', function(err, feed) {
   console.log(feed.title);
-
   feed.items.forEach(function(entry) {
-    console.log("{" + entry.title + ", will be located at " + entry.location + ", will start on " + entry.startdate + ", will end on " + entry.enddate + ", the opponent will be " + entry.opponent + "}");
+    newItem = {
+      event : {
+        "title": entry.title,
+        "location": entry.location,
+        "startdate": entry.startdate,
+        "enddate": entry.enddate,
+        "opponent": entry.opponent
+      }
+    }
+    fullList.push(newItem);
+
   })
+
+  pyList(fullList);
 })
+
+
+function pyList(fullList){
+data = fullList;
+
+var spawn = require('child_process').spawn,
+py    = spawn('python', ['fullList.py']),
+data,
+dataString = '';
+
+/*Here we are saying that every time our node application receives data from the python process output stream(on 'data'), we want to convert that received data into a string and append it to the overall dataString.*/
+py.stdout.on('data', function(data){
+  console.log(data.toString());
+});
+
+/*Once the stream is done (on 'end') we want to simply log the received data to the console.*/
+py.stdout.on('end', function(){
+  console.log("End");
+});
+
+/*We have to stringify the data first otherwise our python process wont recognize it*/
+py.stdin.write(JSON.stringify(fullList));
+
+py.stdin.end();
+}
