@@ -24,7 +24,7 @@ let parser = new Parser({
     contentsnippet
     guid
 */
-fullList = [];
+let fullList = [];
 
 
 parser.parseURL('https://gopsusports.com/calendar.ashx/calendar.rss?sport_id=0', function(err, feed) {
@@ -42,12 +42,12 @@ parser.parseURL('https://gopsusports.com/calendar.ashx/calendar.rss?sport_id=0',
     fullList.push(newItem);
 
   })
-
-  pyList(fullList);
 })
 
+exports.fullList = function pyList(){
 
-function pyList(fullList){
+let dataList = "";
+
 data = fullList;
 
 var spawn = require('child_process').spawn,
@@ -57,12 +57,12 @@ dataString = '';
 
 /*Here we are saying that every time our node application receives data from the python process output stream(on 'data'), we want to convert that received data into a string and append it to the overall dataString.*/
 py.stdout.on('data', function(data){
-  console.log(data.toString());
+  dataList += data.toString();
 });
 
 /*Once the stream is done (on 'end') we want to simply log the received data to the console.*/
 py.stdout.on('end', function(){
-  console.log("End");
+  console.log(dataList);
 });
 
 /*We have to stringify the data first otherwise our python process wont recognize it*/
