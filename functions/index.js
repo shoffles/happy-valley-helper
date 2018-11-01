@@ -14,7 +14,7 @@ const app = dialogflow({
 
 app.intent("Default Welcome Intent", conv => {
     conv.ask(new Permission({
-        context: 'Welcome to Happy Valley Helper! To better your experience',
+        context: 'Welcome to Happy Valley Helper',
         permissions: 'DEVICE_PRECISE_LOCATION',
     }));
 });
@@ -45,18 +45,24 @@ app.intent("random stuff", conv => {
 //WIP catabus functionality
 //Collects bus parameter for use in route definition
 app.intent("catabus", (conv, {route}) => {
-    var catabus = async function(route) {
-        await cataAPIService.getRouteDetails(route)
-        .then((data) => {
-            console.log(data);
-            conv.close("Got data!");
-        })
-        .catch((error) => {
-            console.log("Error");
-            conv.close("Got error!");
-        });
-        conv.close("Nothing happened.");
-    }
+    var routeDetails;
+    var closest_stop;
+    return cataAPIService.getRouteDetails(route)
+    .then((routeData) => {
+        routeDetails = routeData;
+        closest_stop = cataAPIService.findClosestStop(routeData, conv.device.location);
+        return cataAPIService.getStopDetails(closest_stop.StopId)
+    })
+    .then((stopData) => {
+        var departure = cataAPIService.getStopDeparture(routeDetails, stopData);
+        const final = departure.slice(departure.indexOf("t")+1, departure.length-1);
+        console.log(final);
+        conv.ask("The closest stop to you is at " + closest_stop.Name + ". The next departure is scheduled for " + final);
+    })
+    .catch((error) => {
+        console.log(error);
+        conv.close("I can't get that information right now, please try again.");
+    });
 });
 
 
