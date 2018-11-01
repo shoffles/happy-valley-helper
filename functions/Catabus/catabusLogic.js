@@ -66,8 +66,6 @@ class cataAPIService {
           }
         }
         var estimatedDeparture = stop.Departures[0].EDTLocalTime;
-        //Javascript string functions not working?????
-
         return estimatedDeparture;
     }
 }
