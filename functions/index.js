@@ -107,10 +107,10 @@ app.intent("how many catabus", (conv, {route}) => {
     .then((routeData) => {
         number_of_buses = cataAPIService.getNumberOfBuses(routeData);
         if(number_of_buses == 0) {
-            conv.ask("There arent any buses running on that route right now.")
+            conv.ask("There arent any buses running on that route right now.");
         }
         else if(number_of_buses == 1) {
-            conv.ask("There is " + number_of_buses + " bus running on that route.")
+            conv.ask("There is " + number_of_buses + " bus running on that route.");
         }
         else {
             conv.ask("There are " + number_of_buses + " buses running on that route.");
@@ -130,7 +130,7 @@ app.intent("is the catabus", (conv, {route}) => {
             conv.ask("That route is not running right now.");
         }
         else {
-            conv.ask("That route is running right now.")
+            conv.ask("That route is running right now.");
         }
     })
     .catch((error) => {
