@@ -56,7 +56,15 @@ app.intent("catabus", (conv, {route}) => {
     .then((stopData) => {
         var departure = cataAPIService.getStopDeparture(routeDetails, stopData);
         const final = departure.slice(departure.indexOf("t")+1, departure.length-1);
-        console.log(final);
+        //Add logic for when the loop is done running.
+        /*
+        if(done) {
+            conv.ask("The closest stop to you is at " + closest_stop.Name + ". There are no buses running right now.")
+        }
+        else {
+            conv.ask("The closest stop to you is at " + closest_stop.Name + ". The next departure is scheduled for " + final);
+        }
+        */
         conv.ask("The closest stop to you is at " + closest_stop.Name + ". The next departure is scheduled for " + final);
     })
     .catch((error) => {
