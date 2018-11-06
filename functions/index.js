@@ -35,9 +35,6 @@ app.intent("class start", conv => {
     conv.close("The first day of class for the fall semester is Monday, August 20th.");
 });
 
-app.intent("latedrop deadline", conv => {
-    conv.ask("The late drop deadline is currently scheduled for November 9th at 11:59 PM EST.");
-});
 
 app.intent("latedrop start", conv => {
     conv.ask("The late drop period starts on Sunday, August 26th");
