@@ -1,7 +1,7 @@
 'use strict';
 //Requiring files
 var cataAPIService = require('./Catabus/catabusLogic');
-
+var academicCalender = require('./Academic Calender/academic_calender_logic');
 //Objects used for dialogflow
 const {
     dialogflow, Permission, Confirmation
