@@ -44,11 +44,9 @@ def main():
                             if str(dict["startdate"])[:4] == str(year):
                                 if int(str(dict["startdate"])[5:7]) > 6:
                                     print(dict["title"])
-                                    print(dict["startdate"])
                             elif str(dict["startdate"])[:4] == str(int(str(year)) + 1):
                                 if int(str(dict["startdate"])[5:7]) <= 6:
                                     print(dict["title"])
-                                    print(dict["startdate"])
                             else:
                                 continue
 
@@ -84,11 +82,9 @@ def main():
                                     if str(dict["startdate"])[:4] == str(year):
                                         if int(str(dict["startdate"])[5:7]) > 6:
                                             print(dict["title"])
-                                            print(dict["startdate"])
                                     elif str(dict["startdate"])[:4] == str(int(str(year)) + 1):
                                         if int(str(dict["startdate"])[5:7]) <= 6:
                                             print(dict["title"])
-                                            print(dict["startdate"])
                                     else:
                                         continue
 
@@ -116,11 +112,9 @@ def main():
                                 if str(dict["startdate"])[:4] == str(year):
                                     if int(str(dict["startdate"])[5:7]) > 6:
                                         print(dict["title"])
-                                        print(dict["startdate"])
                                 elif str(dict["startdate"])[:4] == str(int(str(year)) + 1):
                                     if int(str(dict["startdate"])[5:7]) <= 6:
                                         print(dict["title"])
-                                        print(dict["startdate"])
                                 else:
                                     continue
 
