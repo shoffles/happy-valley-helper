@@ -139,6 +139,18 @@ app.intent("is the catabus", (conv, {route}) => {
     })
 });
 
+app.intent("closest bus stop catabus", conv => {
+    return cataAPIService.getAllStops()
+    .then((data) => {
+        var closest_stop = cataAPIService.findClosestStopAllStops(data, conv.device.location);
+        conv.ask("Here: " + closest_stop.Name);
+    })
+    .catch((error) => {
+        console.log(error);
+        conv.ask("I can't get that information right now, please try again.");
+    })
+});
+
 
 //This intent fires when permission is asked for
 app.intent('receive location', (conv, params, granted) => {
