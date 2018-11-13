@@ -46,7 +46,38 @@ class cataAPIService {
         });
     }
 
+    async getAllStops() {
+        //Get request to cataAPI
+        return axios.get("https://realtime.catabus.com/InfoPoint/rest/RouteDetails/GetAllRouteDetails")
+        .then(response => {
+            return response.data;
+        })
+        .catch(error => {
+            console.log("Error occurred: " + error);
+            throw error;
+        });
+    }
 
+    findClosestStopAllStops(data, location) {
+        var distance;
+        var closest_stop;
+        for(var i = 0; i < data.length; i++) {
+            for(var j = 0; j < data[i].Stops.length; j++) {
+                if(i == 0 ) {
+                    closest_stop = data[i].Stops[i];
+                    distance = getDistance(location.coordinates.latitude, location.coordinates.longitude, data[i].Stops[i].Latitude, data[i].Stops[i].Longitude)
+                }
+                else {
+                    if(getDistance(location.coordinates.latitude, location.coordinates.longitude, data[i].Stops[j].Latitude, data[i].Stops[j].Longitude) < distance) {
+                        closest_stop = data[i].Stops[j];
+                        distance = getDistance(location.coordinates.latitude, location.coordinates.longitude, data[i].Stops[j].Latitude, data[i].Stops[j].Longitude);
+                    }
+
+                }
+            }
+        }
+        return closest_stop;
+    }
 
     //Logic for finding cloesest stop to a users device. Needs further development
     findClosestStop(data, location) {
