@@ -70,6 +70,8 @@ py.stdout.on('end', function(){
 py.stdin.write(JSON.stringify(fullList));
 
 py.stdin.end();
+
+return dataList;
 }
 
 exports.upcomingHomeGame = function pyHome(sport){
@@ -97,6 +99,8 @@ py.stdout.on('end', function(){
 py.stdin.write(JSON.stringify(fullList));
 
 py.stdin.end();
+
+return dataList;
 }
 
 exports.seasonSchedule function pySeason(sport, year){
@@ -124,6 +128,8 @@ py.stdout.on('end', function(){
 py.stdin.write(JSON.stringify(fullList));
 
 py.stdin.end();
+
+return dataList;
 }
 
 exports.upcomingGame = function pyResult(sport){
@@ -151,6 +157,8 @@ py.stdout.on('end', function(){
 py.stdin.write(JSON.stringify(fullList));
 
 py.stdin.end();
+
+return dataList;
 }
 
 exports.fullList = function pyList(){
@@ -178,4 +186,6 @@ py.stdout.on('end', function(){
 py.stdin.write(JSON.stringify(fullList));
 
 py.stdin.end();
+
+return dataList;
 }
