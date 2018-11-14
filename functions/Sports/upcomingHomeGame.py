@@ -1,6 +1,6 @@
 import sys, json, nltk, datetime
 
-co_sports = ['Football', 'Basketball', 'Track/Field', 'Fencing'] #non gender specific sports
+co_sports = ['Football', 'Basketball', 'Track/Field', 'Fencing', 'Wrestling'] #non gender specific sports
 gen_sports = ['Wrestling', 'Golf', 'Lacrosse', 'Tennis', 'Gymnastics', 'Volleyball', 'Swimming', 'Ice', 'Basketball'] #gender specific sports
 
 date = str(datetime.datetime.now())[:10]
