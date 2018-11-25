@@ -143,12 +143,17 @@ app.intent("closest bus stop catabus", conv => {
     return cataAPIService.getAllStops()
     .then((data) => {
         var closest_stop = cataAPIService.findClosestStopAllStops(data, conv.device.location);
-        conv.ask("Here: " + closest_stop.Name);
+        conv.ask("The closest bus stop to you is at " + closest_stop.Name);
     })
     .catch((error) => {
         console.log(error);
         conv.ask("I can't get that information right now, please try again.");
     })
+});
+
+
+app.intent("bus fare catabus", conv => {
+  conv.ask("The bus fair for all buses is 2 dollars except for the campus loops which are free.");
 });
 
 
