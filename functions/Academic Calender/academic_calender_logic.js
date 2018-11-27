@@ -30,6 +30,13 @@ class academicCalenderService{
 			year = yearDig
 			//console.log(year)
 		}
+		var strYear = year.toString()
+		//console.log(term+strYear.substr(2))
+		var semester = term+strYear.substr(2)
+		//combine term adn year
+
+		var spawn = require('child_process').spawn,
+		py = spawn('python',['Academic_Calendar_Table_Read.py', semester])
 
 
 
