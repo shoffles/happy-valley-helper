@@ -14,14 +14,7 @@ class cataAPIService {
 
     //Gets all routes details for a specific bus: ex. Blue loop
     async getRouteDetails(route) {
-        var busID;
-        //Looks for a match in the bus constants from user specified bus
-        for(var i = 0; i < catabusRoutes.BUS_ROUTE_ID.buses.length; i++) {
-          if(catabusRoutes.BUS_ROUTE_ID.buses[i].name === route) {
-            busID = catabusRoutes.BUS_ROUTE_ID.buses[i].id;
-            console.log("Got bus id: " + busID);
-          }
-        }
+        var busID = busIdMatch(route);
         //Get request to cataAPI
         return axios.get("www.https://realtime.catabus.com/InfoPoint/rest/RouteDetails/Get/" + busID)
         .then(response => {
@@ -58,8 +51,17 @@ class cataAPIService {
         });
     }
 
+    busIdMatch(route) {
+        var busID;
+        for(var i = 0; i < catabusRoutes.BUS_ROUTE_ID.buses.length; i++) {
+          if(catabusRoutes.BUS_ROUTE_ID.buses[i].name === route) {
+            busID = catabusRoutes.BUS_ROUTE_ID.buses[i].id;
+            return busID;
+          }
+        }
+        return 0;
+    }
 
-    //
     findClosestStopAllStops(data, location) {
         var distance;
         var closest_stop;
@@ -120,7 +122,7 @@ class cataAPIService {
         return closestBus;
     }
 
-    //Gets the estimated stop departure for a particular stop. Needs both a stop ID and a route ID to get the correct infomration
+    //Gets the estimated stop departure for a particular stop. Needs both a stop ID and a route ID to get the correct information
     //(Multiple routes use the same stops)
     getStopDeparture(routeData, stopData) {
         var stop;
@@ -134,13 +136,13 @@ class cataAPIService {
     }
 
 
-    //
+
     getNumberOfBuses(routeData) {
         var number_of_buses = routeData.Vehicles.length;
         return number_of_buses;
     }
 
-    //
+
     getAllBusPassengers(routeData) {
         var passengers;
         for(var i = 0; i < routeData.Vehicles.length; i++) {
