@@ -156,6 +156,31 @@ app.intent("bus fare catabus", conv => {
   conv.ask("The bus fair for all buses is 2 dollars except for the campus loops which are free.");
 });
 
+app.intent("bus passengers catabus", (conv, {route}) => {
+    return cataAPIService.getRouteDetails(route)
+    .then((routeData) => {
+        var numberOfPassengers = cataAPIService.getBusPassengers(routeData);
+        conv.ask("There are currently " + routeData.Vehicles.length + " busses running for that route, along with " + numberOfPassengers + " people on all buses.");
+    })
+    .catch((error) {
+        console.log(error);
+        conv.ask("I can't get that information right now, please try again.");
+    })
+});
+
+
+app.intent("closest bus catabus", route => {
+    return cataAPIService.getRouteDetails(route)
+    .then((routeData) => {
+        var closestBus = cataAPIService.findClosestBus(routeData, conv.device.location);
+        conv.ask("The closest bus to you just left " + closestBus.LastStop + " and is currently enroute to + " closestBus.Destination + ".");
+    })
+    .catch((error) => {
+        console.log(error);
+        conv.ask("I can't get that information right now, please try again.");
+    })
+});
+
 
 //This intent fires when permission is asked for
 app.intent('receive location', (conv, params, granted) => {
