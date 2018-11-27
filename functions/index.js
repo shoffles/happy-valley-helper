@@ -300,6 +300,52 @@ app.intent("when bus leaves this stop catabus", (conv, {route, stop}) => {
     }
 });
 
+//Needs testing and configuration
+app.intent("bus departures from stop catabus", (conve, {route, stop}) => {
+    var stopId = cataAPIService.stopIdMatch(stop);
+    var stopName;
+    var routeId = cataAPIService.busIdMatch(route);
+    var stopHasBus = false;
+    var routeDetails;
+    var departures = [];
+
+    if(stopId === 0 && routeId === 0) {
+        conv.ask("I couldnt find that bus or stop, please try again.");
+    }
+    else if (stopId === 0) {
+        conv.ask("I couldnt find that bus stop, please try again.");
+    }
+    else if (routeId === 0) {
+        conv.ask("I couldnt find that bus route, please try again.");
+    }
+    else {
+        return cataAPIService.getRouteDetails(route)
+        .then((routeData) => {
+            routeDetails = routeData;
+            for(var i = 0; i < routeData.Stops.length; i++) {
+                if(routeData.Stops[i].StopId === stopId) {
+                    stopHasBus = true;
+                    stopName = routeData.Stops[i].Name;
+                }
+            }
+            if(stopHasBus) {
+                return cataAPIService.getStopDetails(stopId)
+                .then((stopData) => {
+                    departures = cataAPIService.getAllEstimatedStopDeparture(routeDetails, stopData);
+                    conv.ask("There are currently " + departures[0] + " scheduled right now with the next one being at " + departures[1] + ".");
+                })
+            }
+            else {
+                conv.ask("That bus is not available at that stop, please try a different combination.");
+            }
+        })
+        .catch((error) => {
+            console.log(error);
+            conv.ask("I can't get that information right now, please try again.");
+        })
+    }
+});
+
 
 //This intent fires when permission is asked for
 app.intent('receive location', (conv, params, granted) => {
