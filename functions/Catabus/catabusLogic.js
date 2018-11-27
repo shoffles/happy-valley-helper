@@ -58,6 +58,8 @@ class cataAPIService {
         });
     }
 
+
+    //
     findClosestStopAllStops(data, location) {
         var distance;
         var closest_stop;
@@ -99,6 +101,25 @@ class cataAPIService {
         return closest_stop;
     }
 
+    //
+    findClosestBus(routeData, location) {
+        var closestBus;
+        var closestDistance;
+        for(var i = 0; i < routeData.Vehicles.length; i++) {
+            if( i == 0) {
+                closestBus = routeData.Vehicles[i];
+                closestDistance = getDistance(location.coordiants.latitude, location.coordiants.longitude, routeData.Vehicles[i].Latitude, routeData.Vehicles[i].Longitude);
+            }
+            else {
+                if(getDistance(location.coordiants.latitude, location.coordiants.longitude, routeData.Vehicles[i].Latitude, routeData.Vehicles[i].Longitude) < closestDistance) {
+                    closestBus = routeData.Vehicles[i];
+                    closestDistance = getDistance(location.coordiants.latitude, location.coordiants.longitude, routeData.Vehicles[i].Latitude, routeData.Vehicles[i].Longitude);
+                }
+            }
+        }
+        return closestBus;
+    }
+
     //Gets the estimated stop departure for a particular stop. Needs both a stop ID and a route ID to get the correct infomration
     //(Multiple routes use the same stops)
     getStopDeparture(routeData, stopData) {
@@ -112,9 +133,20 @@ class cataAPIService {
         return estimatedDeparture;
     }
 
+
+    //
     getNumberOfBuses(routeData) {
         var number_of_buses = routeData.Vehicles.length;
         return number_of_buses;
+    }
+
+    //
+    getAllBusPassengers(routeData) {
+        var passengers;
+        for(var i = 0; i < routeData.Vehicles.length; i++) {
+            passengers += routeData.Vehicles[i].OnBoard;
+        }
+        return passengers;
     }
 }
 //Exports cataAPIService class
