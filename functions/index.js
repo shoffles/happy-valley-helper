@@ -82,7 +82,7 @@ app.intent("wheres the catabus", (conv, {route}) => {
         return cataAPIService.getStopDetails(closest_stop.StopId)
     })
     .then((stopData) => {
-        var departure = cataAPIService.getStopDeparture(routeDetails, stopData);
+        var departure = cataAPIService.getEstimatedStopDeparture(routeDetails, stopData);
         const final = departure.slice(departure.indexOf("t")+1, departure.length-1);
         //Add logic for when the loop is done running.
         /*
@@ -197,15 +197,60 @@ app.intent("how long until bus catabus", (conv, {route}) => {
         return cataAPIService.getStopDetails(closestStop.StopId)
     })
     .then((stopData) => {
-        departure = cataAPIService.getStopDeparture(routeDetails, stopData);
-        conv.ask("The closest stop for that bus route is at " + closestStop.Name " and the next departure is expected at " + departure);
+        arrival = cataAPIService.getEstimatedArrivalTime(routeDetails, stopData);
+        conv.ask("The closest stop for that bus route is at " + closestStop.Name " and the next departure is expected at " + arrival);
     })
     .catch((error) => {
-
+        console.log(error);
+        conv.ask("I can't get that information right now, please try again.")
     })
 });
 
-app.intent("how long until bus at stop catabus", (conv, {route}) => {
+
+//Needs testing and configuration
+app.intent("how long until bus at stop catabus", (conv, {route, stop}) => {
+    var stopId = cataAPIService.stopIdMatch(stop);
+    var stopName;
+    var routeId = cataAPIService.busIdMatch(route);
+    var stopHasBus = false;
+    var routeDetails;
+
+    if(stopId === 0 && routeId === 0) {
+        conv.ask("I couldnt find that bus or stop, please try again.");
+    }
+    else if (stopId === 0) {
+        conv.ask("I couldnt find that bus stop, please try again.");
+    }
+    else if (routeId === 0) {
+        conv.ask("I couldnt find that bus route, please try again.");
+    }
+    else {
+        return cataAPIService.getRouteDetails(route)
+        .then((routeData) => {
+            routeDetails = routeData;
+            for(var i = 0; i < routeData.Stops.length; i++) {
+                if(routeData.Stops[i].StopId === stopId) {
+                    stopHasBus = true;
+                    stopName = routeData.Stops[i].Name;
+                }
+            }
+            if(stopHasBus) {
+                return cataAPIService.getStopDetails(stopId)
+                .then((stopData) => {
+                    arrival = cataAPIService.getEstimatedArrivalTime(routeDetails, stopData);
+                    conv.ask("The estiamted arrival time for that bus at " + stopName + " is at " + arrival + ".");
+                })
+            }
+            else {
+                conv.ask("That bus is not available at that stop, please try a different combination.");
+            }
+        })
+        .catch((error) => {
+            console.log(error);
+            conv.ask("I can't get that information right now, please try again.");
+        })
+    }
+
 
 });
 
