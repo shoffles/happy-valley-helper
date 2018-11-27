@@ -181,6 +181,31 @@ app.intent("closest bus catabus", route => {
     })
 });
 
+app.intent("how long until bus catabus", (conv, {route}) => {
+    var routeId = cataAPIService.busIdMatch(route);
+    var closestStop;
+    var departure;
+    var routeDetails;
+
+    return cataAPIService.getRouteDetails(route)
+    .then((routeData) => {
+        routeDetails = routeData;
+        closestStop = cataAPIService.findClosestStop(routeData, conv.device.location);
+        return cataAPIService.getStopDetails(closestStop.StopId)
+    })
+    .then((stopData) => {
+        departure = cataAPIService.getStopDeparture(routeDetails, stopData);
+        conv.ask("The closest stop for that bus route is at " + closestStop.Name " and the next departure is expected at " + departure);
+    })
+    .catch((error) => {
+
+    })
+});
+
+app.intent("how long until bus at stop catabus", (conv, {route}) => {
+
+});
+
 
 //This intent fires when permission is asked for
 app.intent('receive location', (conv, params, granted) => {
