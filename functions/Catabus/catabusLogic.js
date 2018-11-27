@@ -62,6 +62,17 @@ class cataAPIService {
         return 0;
     }
 
+    stopIdMatch(userStop) {
+        var stopId;
+        for(var stop in catabusRoutes.STOP_ID_TO_NAME) {
+          if(stop.name === userStop) {
+            stopId = stop[i].stopId;
+            return stopId;
+          }
+        }
+        return 0;
+    }
+
     findClosestStopAllStops(data, location) {
         var distance;
         var closest_stop;
@@ -124,15 +135,30 @@ class cataAPIService {
 
     //Gets the estimated stop departure for a particular stop. Needs both a stop ID and a route ID to get the correct information
     //(Multiple routes use the same stops)
-    getStopDeparture(routeData, stopData) {
+    getEstimatedStopDeparture(routeData, stopData) {
         var stop;
+        var estimatedDeparture;
+
         for(var i = 0; i < stopData[0].RouteDirections.length; i++) {
           if(routeData.RouteId === stopData[0].RouteDirections[i].RouteId) {
             stop = stopData[0].RouteDirections[i];
           }
         }
-        var estimatedDeparture = stop.Departures[0].EDTLocalTime;
+        estimatedDeparture = stop.Departures[0].EDTLocalTime;
         return estimatedDeparture;
+    }
+
+    getEstimatedArrivalTime(routeData, stopData) {
+        var stop;
+        var estimatedArrival;
+
+        for(var i = 0; i < stopData[0].RouteDirections.length; i++) {
+          if(routeData.RouteId === stopData[0].RouteDirections[i].RouteId) {
+            stop = stopData[0].RouteDirections[i];
+          }
+        }
+        estimatedArrival = stop.Departures[0].ETALocalTime;
+        return estimatedArrival;
     }
 
 
