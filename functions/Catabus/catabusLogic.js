@@ -148,6 +148,23 @@ class cataAPIService {
         return estimatedDeparture;
     }
 
+    getAllEstimatedStopDepartures(routeData, stopData) {
+        var stop;
+        var estimatedDeparture;
+        var numberOfDepartures;
+        var data = new Array();
+
+        for(var i = 0; i < stopData[0].RouteDirections.length; i++) {
+          if(routeData.RouteId === stopData[0].RouteDirections[i].RouteId) {
+            stop = stopData[0].RouteDirections[i];
+            numberOfDepartures = stopData[0].RouteDirections[i].Departures.length;
+          }
+        }
+        data.push(estimatedDeparture);
+        data.push(numberOfDepartures);
+        return data;
+    }
+
     getEstimatedArrivalTime(routeData, stopData) {
         var stop;
         var estimatedArrival;
