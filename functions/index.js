@@ -170,7 +170,7 @@ app.intent("bus passengers catabus", (conv, {route}) => {
 });
 
 //Needs testing
-app.intent("closest bus catabus", route => {
+app.intent("closest bus catabus", (conv, {route}) => {
     return cataAPIService.getRouteDetails(route)
     .then((routeData) => {
         var closestBus = cataAPIService.findClosestBus(routeData, conv.device.location);
