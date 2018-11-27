@@ -214,6 +214,7 @@ app.intent("how long until bus at stop catabus", (conv, {route, stop}) => {
     var routeId = cataAPIService.busIdMatch(route);
     var stopHasBus = false;
     var routeDetails;
+    var arrival;
 
     if(stopId === 0 && routeId === 0) {
         conv.ask("I couldnt find that bus or stop, please try again.");
@@ -250,8 +251,53 @@ app.intent("how long until bus at stop catabus", (conv, {route, stop}) => {
             conv.ask("I can't get that information right now, please try again.");
         })
     }
+});
 
 
+//Needs testing and configuration
+app.intent("when bus leaves this stop catabus", (conv, {route, stop}) => {
+    var stopId = cataAPIService.stopIdMatch(stop);
+    var stopName;
+    var routeId = cataAPIService.busIdMatch(route);
+    var stopHasBus = false;
+    var routeDetails;
+    var departure;
+
+    if(stopId === 0 && routeId === 0) {
+        conv.ask("I couldnt find that bus or stop, please try again.");
+    }
+    else if (stopId === 0) {
+        conv.ask("I couldnt find that bus stop, please try again.");
+    }
+    else if (routeId === 0) {
+        conv.ask("I couldnt find that bus route, please try again.");
+    }
+    else {
+        return cataAPIService.getRouteDetails(route)
+        .then((routeData) => {
+            routeDetails = routeData;
+            for(var i = 0; i < routeData.Stops.length; i++) {
+                if(routeData.Stops[i].StopId === stopId) {
+                    stopHasBus = true;
+                    stopName = routeData.Stops[i].Name;
+                }
+            }
+            if(stopHasBus) {
+                return cataAPIService.getStopDetails(stopId)
+                .then((stopData) => {
+                    departure = cataAPIService.getEstimatedStopDeparture(routeDetails, stopData);
+                    conv.ask("The estiamted arrival time for that bus at " + stopName + " is at " + departure + ".");
+                })
+            }
+            else {
+                conv.ask("That bus is not available at that stop, please try a different combination.");
+            }
+        })
+        .catch((error) => {
+            console.log(error);
+            conv.ask("I can't get that information right now, please try again.");
+        })
+    }
 });
 
 
