@@ -156,6 +156,7 @@ app.intent("bus fare catabus", conv => {
   conv.ask("The bus fair for all buses is 2 dollars except for the campus loops which are free.");
 });
 
+//Needs testing
 app.intent("bus passengers catabus", (conv, {route}) => {
     return cataAPIService.getRouteDetails(route)
     .then((routeData) => {
@@ -168,7 +169,7 @@ app.intent("bus passengers catabus", (conv, {route}) => {
     })
 });
 
-
+//Needs testing
 app.intent("closest bus catabus", route => {
     return cataAPIService.getRouteDetails(route)
     .then((routeData) => {
@@ -181,6 +182,8 @@ app.intent("closest bus catabus", route => {
     })
 });
 
+
+//Needs testing
 app.intent("how long until bus catabus", (conv, {route}) => {
     var routeId = cataAPIService.busIdMatch(route);
     var closestStop;
