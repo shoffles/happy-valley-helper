@@ -9,6 +9,28 @@ function getDistance(user_lat, user_lng, stop_lat, stop_lng) {
   return Math.sqrt(Math.pow(user_lat - stop_lat, 2) + Math.pow(user_lng - stop_lng, 2));
 }
 
+function busIdMatch(route) {
+    var busID;
+    for(var i = 0; i < catabusRoutes.BUS_ROUTE_ID.buses.length; i++) {
+      if(catabusRoutes.BUS_ROUTE_ID.buses[i].name === route) {
+        busID = catabusRoutes.BUS_ROUTE_ID.buses[i].id;
+        return busID;
+      }
+    }
+    return 0;
+}
+
+function stopIdMatch(userStop) {
+    var stopId;
+    for(var stop in catabusRoutes.STOP_ID_TO_NAME) {
+      if(stop.name === userStop) {
+        stopId = stop[i].stopId;
+        return stopId;
+      }
+    }
+    return 0;
+}
+
 //Class containing functions regarding catabus infomration and logic
 class cataAPIService {
 
@@ -138,6 +160,10 @@ class cataAPIService {
     getEstimatedStopDeparture(routeData, stopData) {
         var stop;
         var estimatedDeparture;
+
+        console.log("HERERERERERE");
+        console.log(routeData);
+        console.log(stopData);
 
         for(var i = 0; i < stopData[0].RouteDirections.length; i++) {
           if(routeData.RouteId === stopData[0].RouteDirections[i].RouteId) {
