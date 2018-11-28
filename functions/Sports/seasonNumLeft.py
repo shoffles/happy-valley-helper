@@ -12,9 +12,14 @@ def read_in():
 
     return input
 
+def finish(output):
+    print(output)
+
 def main():
     #get our data as an array from read_in()
     lines = read_in()
+
+    output = "There are "
 
     counter = 0
 
@@ -118,7 +123,9 @@ def main():
                                         counter += 1
                                 else:
                                     continue
-    print(counter)
+    output += str(counter) + " games left in the season."
+    finish(output)
+    exit()
 
 if __name__ == '__main__':
     main()
