@@ -1,7 +1,9 @@
 'use strict';
 //Requiring files
 var cataAPIService = require('./Catabus/catabusLogic');
+var sportsInfo = require('./Sports/sportsinfo');
 var academicCalender = require('./Academic Calender/academic_calender_logic');
+
 //Objects used for dialogflow
 const {
     dialogflow, Permission, Confirmation
@@ -363,6 +365,31 @@ app.intent('receive location', (conv, params, granted) => {
 
 });
 
+
+app.intent('upcoming game', (conv, {sport}) => {
+      var dialogue = sportsInfo.pyResult(sport);
+      conv.ask(dialogue);
+});
+
+app.intent('game result', (conv, {sport, data}) => {
+      var dialogue = sportsInfo.pyScore(sport, data);
+      conv.ask(dialogue);
+});
+
+app.intent('left in season', (conv, {sport, year}) => {
+      var dialogue = sportsInfo.pySeasonNum(sport, year);
+      conv.ask(dialogue);
+});
+
+app.intent('upcoming home game', (conv, {sport, year}) => {
+      var dialogue = sportsInfo.pyHome(sport);
+      conv.ask(dialogue);
+});
+
+app.intent('home games left in season', (conv, {sport, year}) => {
+      var dialogue = sportsInfo.pySeasonHomeNum(sport, year);
+      conv.ask(dialogue);
+});
 
 
 exports.dialogflowFirebaseFulfillment = functions.https.onRequest(app);
