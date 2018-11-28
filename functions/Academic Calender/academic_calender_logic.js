@@ -1,10 +1,11 @@
 //Gets year Mappings in JSON
-const = yearMappings = require("./year_mappings");
+const yearMappings = require("./year_mappings");
 
 //Class containing functions for specific calender queries
 class academicCalenderService{
 	async getLateDropBegin(term, year){
 		var date = new Date();
+		var month;
 		console.log(month, year)
 
 		if(term == null){
@@ -44,11 +45,11 @@ class academicCalenderService{
 		});
 
 		var info;
-		for(var i=0; i<respon.length; i++){
+		for(var i=0; i<responseList.length; i++){
 			if(responseList[i].Description === "2Late Drop Begins")
 				info = responseList[i].Date
 		}
-		return "The beginning of the late drop deadline is "+info
+		return "Late drop begins on "+info
 
 
 		//call python script
@@ -62,5 +63,7 @@ class academicCalenderService{
 		//return answer
 	}
 
-	
+
 }
+
+module.exports = new academicCalenderService
