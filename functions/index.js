@@ -1,7 +1,7 @@
 'use strict';
 //Requiring files
 var cataAPIService = require('./Catabus/catabusLogic');
-
+var academicCalender = require('./Academic Calender/academic_calender_logic');
 //Objects used for dialogflow
 const {
     dialogflow, Permission, Confirmation
@@ -24,8 +24,8 @@ app.intent("Default Welcome Intent", conv => {
 });
 
 
-app.intent("late drop", conv => {
-    conv.ask("The late drop period starts on Sunday, August 26th and the late drop deadline is currently scheduled for November 9th at 11:59 PM EST.");
+app.intent("late drop", (conv,{term,year}) => {
+    conv.ask(academicCalender.getLateDropBegin(term,year));
 });
 
 app.intent("latedrop deadline", conv => {
