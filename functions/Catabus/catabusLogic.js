@@ -2,7 +2,7 @@
 
 const axios = require('axios');
 //Gets catabus JSON constant
-const catabusRoutes = require('./busRoutes');
+const catabusRoutes = require('./busConstants');
 
 //Distance calculator for closest stop
 function getDistance(user_lat, user_lng, stop_lat, stop_lng) {
