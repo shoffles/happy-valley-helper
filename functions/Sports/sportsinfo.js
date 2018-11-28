@@ -98,7 +98,34 @@ class sportsInfo {
 
     /*Once the stream is done (on 'end') we want to simply log the received data to the console.*/
     py.stdout.on('end', function() {
-      dataList += " games left."
+      console.log(dataList);
+    });
+
+    /*We have to stringify the data first otherwise our python process wont recognize it*/
+    py.stdin.write(JSON.stringify(fullList));
+
+    py.stdin.end();
+
+    return dataList;
+  }
+  pySeasonHomeNum(sport, year) {
+
+    let dataList = "";
+
+    fullList = start();
+
+    var spawn = require('child_process').spawn,
+      py = spawn('python', ['seasonHomeLeft.py', sport, year]),
+      data,
+      dataString = '';
+
+    /*Here we are saying that every time our node application receives data from the python process output stream(on 'data'), we want to convert that received data into a string and append it to the overall dataString.*/
+    py.stdout.on('data', function(data) {
+      dataList += data.toString();
+    });
+
+    /*Once the stream is done (on 'end') we want to simply log the received data to the console.*/
+    py.stdout.on('end', function() {
       console.log(dataList);
     });
 

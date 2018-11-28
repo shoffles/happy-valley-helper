@@ -385,7 +385,7 @@ app.intent('upcoming home game', (conv, {sport, year}) => {
 });
 
 app.intent('home games left in season', (conv, {sport, year}) => {
-      var dialogue = /* */;
+      var dialogue = sportsInfo.pySeasonHomeNum(sport, year);
       conv.ask(dialogue);
 });
 
