@@ -25,8 +25,7 @@ app.intent("Default Welcome Intent", conv => {
 
 
 app.intent("late drop", (conv,{term,year}) => {
-    academicCalender.getLateDrop(term,year)
-    conv.ask("The late drop period starts on Sunday, August 26th and the late drop deadline is currently scheduled for November 9th at 11:59 PM EST.");
+    conv.ask(academicCalender.getLateDropBegin(term,year));
 });
 
 app.intent("latedrop deadline", conv => {

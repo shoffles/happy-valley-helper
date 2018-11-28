@@ -31,6 +31,8 @@ def changeUrl(term):
     return newUrl
 
 def main():
+    semester = sys.argv[1]
+
     url = changeUrl(semester)
 
     page = requests.get(url)
@@ -80,6 +82,7 @@ def main():
     #df[["Description", "Date"]]
     #orient will change the format of JSON so we can use it accordingly.
     print(df[["Description", "Date"]].to_json(orient='records'))
+    exit()
 
 if __name__ == '__main__':
     main()
