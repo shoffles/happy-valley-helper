@@ -17,9 +17,7 @@ class cataAPIService {
         var busID = busIdMatch(route);
         //Get request to cataAPI
         return axios.get("www.https://realtime.catabus.com/InfoPoint/rest/RouteDetails/Get/" + busID)
-        .then(response => {
-            return response.data;
-        })
+        .then(response => response.data)
         .catch(error => {
             console.log("Error occurred: " + error);
             throw error;
@@ -30,9 +28,7 @@ class cataAPIService {
     async getStopDetails(stopId) {
         //Get request to cataAPI
         return axios.get("https://realtime.catabus.com/InfoPoint/rest/StopDepartures/Get/" + stopId)
-        .then(response => {
-            return response.data;
-        })
+        .then(response => response.data)
         .catch(error => {
             console.log("Error occurred: " + error);
             throw error;
@@ -42,9 +38,7 @@ class cataAPIService {
     async getAllStops() {
         //Get request to cataAPI
         return axios.get("https://realtime.catabus.com/InfoPoint/rest/RouteDetails/GetAllRouteDetails")
-        .then(response => {
-            return response.data;
-        })
+        .then(response => response.data)
         .catch(error => {
             console.log("Error occurred: " + error);
             throw error;
