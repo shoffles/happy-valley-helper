@@ -12,9 +12,14 @@ def read_in():
 
     return input
 
+def finish(output):
+    print(output)
+
 def main():
     #get our data as an array from read_in()
     lines = read_in()
+
+    output = "We took the"
 
     sport = nltk.word_tokenize(sys.argv[1])
 
@@ -35,9 +40,9 @@ def main():
                         if z == s:
                             for w in desc:
                                 if w == "W":
-                                    print(w)
+                                    output += " win with a score of "
                                 elif w == "L":
-                                    print(w)
+                                    output += " loss with a score of "
                             count = 0
                             for w in desc:
                                 count += 1
@@ -48,7 +53,8 @@ def main():
                                         for l in score:
                                             count += 1
                                             if l == "\\":
-                                                print(score[:(count - 1)])
+                                                output += str(score[:(count - 1)])
+                                                finish(output)
                                                 exit()
                                         break
 
@@ -79,9 +85,9 @@ def main():
 
                                     for w in desc:
                                         if w == "W":
-                                            print(w)
+                                            output += " win with a score of "
                                         elif w == "L":
-                                            print(w)
+                                            output += " loss with a score of "
                                     count = 0
                                     for w in desc:
                                         count += 1
@@ -92,7 +98,8 @@ def main():
                                                 for l in score:
                                                     count += 1
                                                     if l == "\\":
-                                                        print(score[:(count - 1)])
+                                                        output += str(score[:(count - 1)])
+                                                        finish(output)
                                                         exit()
                                                 break
 
@@ -113,9 +120,9 @@ def main():
                             if z == s:
                                 for w in desc:
                                     if w == "W":
-                                        print(w)
+                                        output += " win with a score of "
                                     elif w == "L":
-                                        print(w)
+                                        output += " loss with a score of "
                                 count = 0
                                 for w in desc:
                                     count += 1
@@ -126,7 +133,8 @@ def main():
                                             for l in score:
                                                 count += 1
                                                 if l == "\\":
-                                                    print(score[:(count - 1)])
+                                                    output += str(score[:(count - 1)])
+                                                    finish(output)
                                                     exit()
                                             break
 

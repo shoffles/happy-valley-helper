@@ -1,7 +1,9 @@
 'use strict';
 //Requiring files
 var cataAPIService = require('./Catabus/catabusLogic');
+var sportsInfo = require('./Sports/sportsinfo');
 var academicCalender = require('./Academic Calender/academic_calender_logic');
+
 //Objects used for dialogflow
 const {
     dialogflow, Permission, Confirmation
@@ -25,7 +27,8 @@ app.intent("Default Welcome Intent", conv => {
 
 
 app.intent("late drop", (conv,{term,year}) => {
-    conv.ask(academicCalender.getLateDropBegin(term,year));
+    console.log(academicCalender.getLateDropBegin(term,year));
+    conv.ask("Right intent");
 });
 
 app.intent("latedrop deadline", conv => {
@@ -160,10 +163,10 @@ app.intent("bus fare catabus", conv => {
 app.intent("bus passengers catabus", (conv, {route}) => {
     return cataAPIService.getRouteDetails(route)
     .then((routeData) => {
-        var numberOfPassengers = cataAPIService.getBusPassengers(routeData);
+        var numberOfPassengers = cataAPIService.getAllBusPassengers(routeData);
         conv.ask("There are currently " + routeData.Vehicles.length + " busses running for that route, along with " + numberOfPassengers + " people on all buses.");
     })
-    .catch((error) {
+    .catch((error) => {
         console.log(error);
         conv.ask("I can't get that information right now, please try again.");
     })
@@ -174,7 +177,7 @@ app.intent("closest bus catabus", (conv, {route}) => {
     return cataAPIService.getRouteDetails(route)
     .then((routeData) => {
         var closestBus = cataAPIService.findClosestBus(routeData, conv.device.location);
-        conv.ask("The closest bus to you just left " + closestBus.LastStop + " and is currently enroute to + " closestBus.Destination + ".");
+        conv.ask("The closest bus to you just left " + closestBus.LastStop + " and is currently enroute to " + closestBus.Destination + ".");
     })
     .catch((error) => {
         console.log(error);
@@ -183,12 +186,13 @@ app.intent("closest bus catabus", (conv, {route}) => {
 });
 
 
-//Needs testing
+
 app.intent("how long until bus catabus", (conv, {route}) => {
     var routeId = cataAPIService.busIdMatch(route);
     var closestStop;
     var departure;
     var routeDetails;
+    var arrival;
 
     return cataAPIService.getRouteDetails(route)
     .then((routeData) => {
@@ -197,8 +201,8 @@ app.intent("how long until bus catabus", (conv, {route}) => {
         return cataAPIService.getStopDetails(closestStop.StopId)
     })
     .then((stopData) => {
-        arrival = cataAPIService.getEstimatedArrivalTime(routeDetails, stopData);
-        conv.ask("The closest stop for that bus route is at " + closestStop.Name " and the next departure is expected at " + arrival);
+         arrival = cataAPIService.getEstimatedArrivalTime(routeDetails, stopData);
+        conv.ask("The closest stop for that bus route is at " + closestStop.Name + " and the next departure is expected at " + arrival);
     })
     .catch((error) => {
         console.log(error);
@@ -209,7 +213,9 @@ app.intent("how long until bus catabus", (conv, {route}) => {
 
 //Needs testing and configuration
 app.intent("how long until bus at stop catabus", (conv, {route, stop}) => {
+    console.log(stop);
     var stopId = cataAPIService.stopIdMatch(stop);
+    console.log(stopId);
     var stopName;
     var routeId = cataAPIService.busIdMatch(route);
     var stopHasBus = false;
@@ -362,6 +368,31 @@ app.intent('receive location', (conv, params, granted) => {
 
 });
 
+
+app.intent('upcoming game', (conv, {sport}) => {
+      var dialogue = sportsInfo.pyResult(sport);
+      conv.ask(dialogue);
+});
+
+app.intent('game result', (conv, {sport, data}) => {
+      var dialogue = sportsInfo.pyScore(sport, data);
+      conv.ask(dialogue);
+});
+
+app.intent('left in season', (conv, {sport, year}) => {
+      var dialogue = sportsInfo.pySeasonNum(sport, year);
+      conv.ask(dialogue);
+});
+
+app.intent('upcoming home game', (conv, {sport, year}) => {
+      var dialogue = sportsInfo.pyHome(sport);
+      conv.ask(dialogue);
+});
+
+app.intent('home games left in season', (conv, {sport, year}) => {
+      var dialogue = sportsInfo.pySeasonHomeNum(sport, year);
+      conv.ask(dialogue);
+});
 
 
 exports.dialogflowFirebaseFulfillment = functions.https.onRequest(app);
