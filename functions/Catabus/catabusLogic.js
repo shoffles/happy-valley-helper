@@ -114,6 +114,7 @@ class cataAPIService {
 
     //Logic for finding cloesest stop to a users device. Needs further development
     findClosestStop(data, location) {
+      console.log(data);
         var distance;
         var closest_stop;
         //Loops through the colletion of stops returned from the cataAPI, by default sets the first item to the cloesest
