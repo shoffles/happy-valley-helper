@@ -163,7 +163,7 @@ app.intent("bus fare catabus", conv => {
 app.intent("bus passengers catabus", (conv, {route}) => {
     return cataAPIService.getRouteDetails(route)
     .then((routeData) => {
-        var numberOfPassengers = cataAPIService.getBusPassengers(routeData);
+        var numberOfPassengers = cataAPIService.getAllBusPassengers(routeData);
         conv.ask("There are currently " + routeData.Vehicles.length + " busses running for that route, along with " + numberOfPassengers + " people on all buses.");
     })
     .catch((error) => {
@@ -186,12 +186,13 @@ app.intent("closest bus catabus", (conv, {route}) => {
 });
 
 
-//Needs testing
+
 app.intent("how long until bus catabus", (conv, {route}) => {
     var routeId = cataAPIService.busIdMatch(route);
     var closestStop;
     var departure;
     var routeDetails;
+    var arrival;
 
     return cataAPIService.getRouteDetails(route)
     .then((routeData) => {
@@ -200,7 +201,7 @@ app.intent("how long until bus catabus", (conv, {route}) => {
         return cataAPIService.getStopDetails(closestStop.StopId)
     })
     .then((stopData) => {
-        arrival = cataAPIService.getEstimatedArrivalTime(routeDetails, stopData);
+         arrival = cataAPIService.getEstimatedArrivalTime(routeDetails, stopData);
         conv.ask("The closest stop for that bus route is at " + closestStop.Name + " and the next departure is expected at " + arrival);
     })
     .catch((error) => {
@@ -212,7 +213,9 @@ app.intent("how long until bus catabus", (conv, {route}) => {
 
 //Needs testing and configuration
 app.intent("how long until bus at stop catabus", (conv, {route, stop}) => {
+    console.log(stop);
     var stopId = cataAPIService.stopIdMatch(stop);
+    console.log(stopId);
     var stopName;
     var routeId = cataAPIService.busIdMatch(route);
     var stopHasBus = false;
