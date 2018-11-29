@@ -1,3 +1,41 @@
+const fs = require('fs');
+const utils = require('util');
+
+const copyFile = utils.promisify(fs.copyFile);
+const chmod = utils.promisify(fs.chmod);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 //Gets year Mappings in JSON
 const yearMappings = require("./year_mappings");
 
