@@ -9,7 +9,7 @@ function getDistance(user_lat, user_lng, stop_lat, stop_lng) {
   return Math.sqrt(Math.pow(user_lat - stop_lat, 2) + Math.pow(user_lng - stop_lng, 2));
 }
 
-function busIdMatch(route) {
+function busIdMatchGlobal(route) {
     var busID;
     for(var i = 0; i < catabusRoutes.BUS_ROUTE_ID.buses.length; i++) {
       if(catabusRoutes.BUS_ROUTE_ID.buses[i].name === route) {
@@ -20,11 +20,12 @@ function busIdMatch(route) {
     return 0;
 }
 
-function stopIdMatch(userStop) {
+function stopIdMatchGlobal(userStop) {
     var stopId;
-    for(var stop in catabusRoutes.STOP_ID_TO_NAME) {
-      if(stop.name === userStop) {
-        stopId = stop[i].stopId;
+    for(var i = 0; i < catabusRoutes.STOP_ID_TO_NAME.stops.length; i++) {
+      if(catabusRoutes.STOP_ID_TO_NAME.stops[i].Name === userStop) {
+        stopId = catabusRoutes.STOP_ID_TO_NAME.stops[i].StopId;
+        console.log(stopId);
         return stopId;
       }
     }
@@ -36,7 +37,7 @@ class cataAPIService {
 
     //Gets all routes details for a specific bus: ex. Blue loop
     async getRouteDetails(route) {
-        var busID = busIdMatch(route);
+        var busID = busIdMatchGlobal(route);
         //Get request to cataAPI
         return axios.get("www.https://realtime.catabus.com/InfoPoint/rest/RouteDetails/Get/" + busID)
         .then(response => {
@@ -86,9 +87,10 @@ class cataAPIService {
 
     stopIdMatch(userStop) {
         var stopId;
-        for(var stop in catabusRoutes.STOP_ID_TO_NAME) {
-          if(stop.name === userStop) {
-            stopId = stop[i].stopId;
+        for(var i = 0; i < catabusRoutes.STOP_ID_TO_NAME.stops.length; i++) {
+          if(catabusRoutes.STOP_ID_TO_NAME.stops[i].Name === userStop) {
+            stopId = catabusRoutes.STOP_ID_TO_NAME.stops[i].StopId;
+            console.log(stopId);
             return stopId;
           }
         }
