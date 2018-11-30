@@ -158,7 +158,7 @@ class cataAPIService {
     getEstimatedStopDeparture(routeData, stopData) {
         var stop;
         var estimatedDeparture;
-+
+        
         for(var i = 0; i < stopData[0].RouteDirections.length; i++) {
           if(routeData.RouteId === stopData[0].RouteDirections[i].RouteId) {
             stop = stopData[0].RouteDirections[i];
