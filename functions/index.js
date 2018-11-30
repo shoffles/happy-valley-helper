@@ -307,7 +307,7 @@ app.intent("when bus leaves this stop catabus", (conv, {route, stop}) => {
 });
 
 //Needs testing and configuration
-app.intent("bus departures from stop catabus", (conve, {route, stop}) => {
+app.intent("bus departures from stop catabus", (conv, {route, stop}) => {
     var stopId = cataAPIService.stopIdMatch(stop);
     var stopName;
     var routeId = cataAPIService.busIdMatch(route);
