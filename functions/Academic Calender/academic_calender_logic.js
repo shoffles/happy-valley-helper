@@ -1,6 +1,4 @@
-const PythonShell = require('python-shell');
-import {PythonShell} from 'python-shell';
-let pyshell = new PythonShell('Academic_Calendar_Table_Read.py');
+let pyshell = require('python-shell');
 
 //Gets year Mappings in JSON
 const yearMappings = require("./year_mappings");
