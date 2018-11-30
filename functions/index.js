@@ -27,8 +27,7 @@ app.intent("Default Welcome Intent", conv => {
 
 
 app.intent("late drop", (conv,{term,year}) => {
-    console.log(academicCalender.getLateDropBegin(term,year));
-    conv.ask("Right intent");
+    conv.ask("" + academicCalender.getLateDropBegin(term, year));
 });
 
 app.intent("latedrop deadline", conv => {
