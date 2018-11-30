@@ -1,7 +1,3 @@
-//const PythonShell = require('python-shell');
-//import {PythonShell} from 'python-shell';
-let {PythonShell} = require('python-shell')
-let pyshell = new PythonShell('Academic_Calendar_Table_Read.py');
 const rp = require('request-promise');
 const cheerio = require('cheerio');
 
@@ -443,42 +439,15 @@ class academicCalenderService{
 		//	responseList = data;
 		//});
 
-		
+		let map = {};
 		const options = {
 			uri: `https://www.registrar.psu.edu/academic_calendar/${semester}.cfm`,
 			transform: function (body) {
 				return cheerio.load(body);
 		  }
 		};
-		rp(options);
-		    .then(function ($) {
-
-		        let columnOne = [];
-		        let columnThree = [];
-
-		        $('table').find('tr td:nth-child(1)').each(function (index, element) {
-		            columnOne.push($(element).text());
-		          });
-
-		        $('table').find('tr td:nth-child(3)').each(function (index, element) {
-		            columnThree.push($(element).text());
-		        });
-
-		        let map = {};
-		        columnOne.forEach((item, i) => {
-		            map[item] = columnThree[i];
-		        });
-
-		        console.log(map);
-		    })
-		    .catch(function (err) {
-
-		    });
-
-		date = map["2Late Drop Begins"]
-		return "Late drop begins on "+date
-
-
+		let answer = await getCalendarData(rp(options));
+		return answer;
 		//call python script
     	// load here
 		//hardcode latedrop "2Late Drop Begins"
@@ -488,6 +457,27 @@ class academicCalenderService{
 		//get JSON back
 		//parse JSON for answer
 		//return answer
+	}
+
+	async getCalendarData($){
+		let columnOne = [];
+		let columnThree = [];
+
+		$('table').find('tr td:nth-child(1)').each(function (index, element) {
+			columnOne.push($(element).text());
+		  });
+
+		$('table').find('tr td:nth-child(3)').each(function (index, element) {
+			columnThree.push($(element).text());
+		});
+
+		columnOne.forEach((item, i) => {
+			map[item] = columnThree[i];
+		});
+
+		console.log(map);
+		date = map["2Late Drop Begins"];
+		return "Late drop begins on " + date
 	}
 
 	async getLateRegistration(term, year){
