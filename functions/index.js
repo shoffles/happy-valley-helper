@@ -186,7 +186,7 @@ app.intent("closest bus catabus", (conv, {route}) => {
 });
 
 
-
+//Add fix for when routes are done running
 app.intent("how long until bus catabus", (conv, {route}) => {
     var routeId = cataAPIService.busIdMatch(route);
     var closestStop;
@@ -260,7 +260,7 @@ app.intent("how long until bus at stop catabus", (conv, {route, stop}) => {
 });
 
 
-//Needs testing and configuration
+//Needs expansion of stops syn
 app.intent("when bus leaves this stop catabus", (conv, {route, stop}) => {
     var stopId = cataAPIService.stopIdMatch(stop);
     var stopName;
@@ -306,8 +306,8 @@ app.intent("when bus leaves this stop catabus", (conv, {route, stop}) => {
     }
 });
 
-//Needs testing and configuration
-app.intent("bus departures from stop catabus", (conve, {route, stop}) => {
+//LAST ONE TO FIGURE OUT
+app.intent("bus departures from stop catabus", (conv, {route, stop}) => {
     var stopId = cataAPIService.stopIdMatch(stop);
     var stopName;
     var routeId = cataAPIService.busIdMatch(route);

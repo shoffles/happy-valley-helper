@@ -114,6 +114,7 @@ class cataAPIService {
 
     //Logic for finding cloesest stop to a users device. Needs further development
     findClosestStop(data, location) {
+      console.log(data);
         var distance;
         var closest_stop;
         //Loops through the colletion of stops returned from the cataAPI, by default sets the first item to the cloesest
@@ -134,17 +135,18 @@ class cataAPIService {
 
     //
     findClosestBus(routeData, location) {
+        console.log(location);
         var closestBus;
         var closestDistance;
         for(var i = 0; i < routeData.Vehicles.length; i++) {
             if( i == 0) {
                 closestBus = routeData.Vehicles[i];
-                closestDistance = getDistance(location.coordiants.latitude, location.coordiants.longitude, routeData.Vehicles[i].Latitude, routeData.Vehicles[i].Longitude);
+                closestDistance = getDistance(location.coordinates.latitude, location.coordinates.longitude, routeData.Vehicles[i].Latitude, routeData.Vehicles[i].Longitude);
             }
             else {
-                if(getDistance(location.coordiants.latitude, location.coordiants.longitude, routeData.Vehicles[i].Latitude, routeData.Vehicles[i].Longitude) < closestDistance) {
+                if(getDistance(location.coordinates.latitude, location.coordinates.longitude, routeData.Vehicles[i].Latitude, routeData.Vehicles[i].Longitude) < closestDistance) {
                     closestBus = routeData.Vehicles[i];
-                    closestDistance = getDistance(location.coordiants.latitude, location.coordiants.longitude, routeData.Vehicles[i].Latitude, routeData.Vehicles[i].Longitude);
+                    closestDistance = getDistance(location.coordinates.latitude, location.coordinates.longitude, routeData.Vehicles[i].Latitude, routeData.Vehicles[i].Longitude);
                 }
             }
         }
@@ -156,11 +158,7 @@ class cataAPIService {
     getEstimatedStopDeparture(routeData, stopData) {
         var stop;
         var estimatedDeparture;
-
-        console.log("HERERERERERE");
-        console.log(routeData);
-        console.log(stopData);
-
++
         for(var i = 0; i < stopData[0].RouteDirections.length; i++) {
           if(routeData.RouteId === stopData[0].RouteDirections[i].RouteId) {
             stop = stopData[0].RouteDirections[i];
@@ -174,7 +172,7 @@ class cataAPIService {
         var stop;
         var estimatedDeparture;
         var numberOfDepartures;
-        var data = new Array();
+        var data = [];
 
         for(var i = 0; i < stopData[0].RouteDirections.length; i++) {
           if(routeData.RouteId === stopData[0].RouteDirections[i].RouteId) {
