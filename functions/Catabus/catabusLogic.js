@@ -135,17 +135,18 @@ class cataAPIService {
 
     //
     findClosestBus(routeData, location) {
+        console.log(location);
         var closestBus;
         var closestDistance;
         for(var i = 0; i < routeData.Vehicles.length; i++) {
             if( i == 0) {
                 closestBus = routeData.Vehicles[i];
-                closestDistance = getDistance(location.coordiants.latitude, location.coordiants.longitude, routeData.Vehicles[i].Latitude, routeData.Vehicles[i].Longitude);
+                closestDistance = getDistance(location.coordinates.latitude, location.coordinates.longitude, routeData.Vehicles[i].Latitude, routeData.Vehicles[i].Longitude);
             }
             else {
-                if(getDistance(location.coordiants.latitude, location.coordiants.longitude, routeData.Vehicles[i].Latitude, routeData.Vehicles[i].Longitude) < closestDistance) {
+                if(getDistance(location.coordinates.latitude, location.coordinates.longitude, routeData.Vehicles[i].Latitude, routeData.Vehicles[i].Longitude) < closestDistance) {
                     closestBus = routeData.Vehicles[i];
-                    closestDistance = getDistance(location.coordiants.latitude, location.coordiants.longitude, routeData.Vehicles[i].Latitude, routeData.Vehicles[i].Longitude);
+                    closestDistance = getDistance(location.coordinates.latitude, location.coordinates.longitude, routeData.Vehicles[i].Latitude, routeData.Vehicles[i].Longitude);
                 }
             }
         }
