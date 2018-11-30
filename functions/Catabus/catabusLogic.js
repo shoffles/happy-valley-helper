@@ -158,11 +158,7 @@ class cataAPIService {
     getEstimatedStopDeparture(routeData, stopData) {
         var stop;
         var estimatedDeparture;
-
-        console.log("HERERERERERE");
-        console.log(routeData);
-        console.log(stopData);
-
++
         for(var i = 0; i < stopData[0].RouteDirections.length; i++) {
           if(routeData.RouteId === stopData[0].RouteDirections[i].RouteId) {
             stop = stopData[0].RouteDirections[i];
@@ -176,7 +172,7 @@ class cataAPIService {
         var stop;
         var estimatedDeparture;
         var numberOfDepartures;
-        var data = new Array();
+        var data = [];
 
         for(var i = 0; i < stopData[0].RouteDirections.length; i++) {
           if(routeData.RouteId === stopData[0].RouteDirections[i].RouteId) {
