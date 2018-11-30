@@ -1,5 +1,9 @@
-let {PythonShell} = require('python-shell');
-let pyshell = new PythonShell('./Academic_Calendar_Table_Read.py');
+//const PythonShell = require('python-shell');
+//import {PythonShell} from 'python-shell';
+let {PythonShell} = require('python-shell')
+let pyshell = new PythonShell('Academic_Calendar_Table_Read.py');
+const rp = require('request-promise');
+const cheerio = require('cheerio');
 
 //Gets year Mappings in JSON
 const yearMappings = require("./year_mappings");
@@ -431,7 +435,7 @@ class academicCalenderService{
 		var semester = term+strYear.substr(2)
 		//combine term adn year
 
-		var responseList;
+		//var responseList;
 		//var spawn = require('child_process').spawn,
 		//py = spawn('python',['Academic_Calendar_Table_Read.py', semester]), data, dataString ="";
 
@@ -439,17 +443,40 @@ class academicCalenderService{
 		//	responseList = data;
 		//});
 
-		pyshell.send('semester');
-		pyshell.on('message', function (message) {
-			console.log(message);}
-			);
+		
+		const options = {
+			uri: `https://www.registrar.psu.edu/academic_calendar/${semester}.cfm`,
+			transform: function (body) {
+				return cheerio.load(body);
+		  }
+		};
+		rp(options);
+		    .then(function ($) {
 
-		var info;
-		for(var i=0; i<responseList.length; i++){
-			if(responseList[i].Description === "2Late Drop Begins")
-				info = responseList[i].Date
-		}
-		return "Late drop begins on "+info
+		        let columnOne = [];
+		        let columnThree = [];
+
+		        $('table').find('tr td:nth-child(1)').each(function (index, element) {
+		            columnOne.push($(element).text());
+		          });
+
+		        $('table').find('tr td:nth-child(3)').each(function (index, element) {
+		            columnThree.push($(element).text());
+		        });
+
+		        let map = {};
+		        columnOne.forEach((item, i) => {
+		            map[item] = columnThree[i];
+		        });
+
+		        console.log(map);
+		    })
+		    .catch(function (err) {
+
+		    });
+
+		date = map["2Late Drop Begins"]
+		return "Late drop begins on "+date
 
 
 		//call python script
