@@ -1,6 +1,7 @@
 import requests
 import lxml.html as lh
 import pandas as pd
+import sys
 
 def changeUrl(term):
     #split url into scheme, netloc, PATH, query, fragment. We only need this for path
@@ -31,7 +32,8 @@ def changeUrl(term):
     return newUrl
 
 def main():
-    semester = sys.argv[1]
+    #semester = sys.argv[1]
+    semester = sys.stdin.readline()
 
     url = changeUrl(semester)
 
