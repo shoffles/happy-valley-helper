@@ -398,87 +398,74 @@ class academicCalenderService{
 		return "The deadine for regular add is"+info
 	}
 
-	async getLateDropBegin(term, year){
-		var date = new Date();
-		var month;
-		console.log(month, year)
+	async  getLateDropBegin(term, year){
+        var date = new Date();
+        var month;
 
-		if(term == null){
-			month = date.getMonth()
 
-			if(month >= 9 && month <=12){
-				term = "fall"
-				//console.log("fall")
+        if(term == null){
+            month = date.getMonth()
 
-			}
-		  	else if (month >= 1 && month <= 5) {
-		  		term = "spring"
-		  		//console.log("spring")
-			}
-			else {
-				term = "summer"
-				//console.log("summer")
-			}
-		}
+            if(month >= 9 && month <=12){
+                term = "fall"
+                //console.log("fall")
 
-		if(year == null){
-			yearDig = date.getFullYear()
-			year = yearDig
-			//console.log(year)
-		}
-		var strYear = year.toString()
-		//console.log(term+strYear.substr(2))
-		var semester = term+strYear.substr(2)
-		//combine term adn year
+            }
+            else if (month >= 1 && month <= 5) {
+                term = "spring"
+                //console.log("spring")
+            }
+            else {
+                term = "summer"
+                //console.log("summer")
+            }
+        }
 
-		//var responseList;
-		//var spawn = require('child_process').spawn,
-		//py = spawn('python',['Academic_Calendar_Table_Read.py', semester]), data, dataString ="";
+        if(year == null){
+            yearDig = date.getFullYear()
+            year = yearDig
+            //console.log(year)
+        }
+        var strYear = year.toString()
+        var semester = term+strYear.substr(2)
 
-		//py.stdout.on('data',function(data){
-		//	responseList = data;
-		//});
+    //Call cheerio before options, remove from callback.
+        const options = {
+            uri: `https://www.registrar.psu.edu/academic_calendar/${semester}.cfm`,
+            transform: function (body) {
+                return cheerio.load(body);
+          }
+        };
+        rp(options)
+        .then((data) => {
+            return getCalendarData(data);
+        })
+        .catch((error) => {
+            console.log(error);
+        })
+    }
 
-		let map = {};
-		const options = {
-			uri: `https://www.registrar.psu.edu/academic_calendar/${semester}.cfm`,
-			transform: function (body) {
-				return cheerio.load(body);
-		  }
-		};
-		let answer = await getCalendarData(rp(options));
-		return answer;
-		//call python script
-    	// load here
-		//hardcode latedrop "2Late Drop Begins"
-		//returns something like string in final response
-		//append term and year into string
-		//pass to python script
-		//get JSON back
-		//parse JSON for answer
-		//return answer
-	}
+    async  getCalendarData(data){
+        let map = {};
+        let columnOne = [];
+        let columnThree = [];
 
-	async getCalendarData($){
-		let columnOne = [];
-		let columnThree = [];
+        data('table').find('tr td:nth-child(1)').each(function (index, element) {
+            columnOne.push(data(element).text());
+          });
 
-		$('table').find('tr td:nth-child(1)').each(function (index, element) {
-			columnOne.push($(element).text());
-		  });
+        data('table').find('tr td:nth-child(3)').each(function (index, element) {
+            columnThree.push(data(element).text());
+        });
 
-		$('table').find('tr td:nth-child(3)').each(function (index, element) {
-			columnThree.push($(element).text());
-		});
+        columnOne.forEach((item, i) => {
+            map[item] = columnThree[i];
+        });
 
-		columnOne.forEach((item, i) => {
-			map[item] = columnThree[i];
-		});
-
-		console.log(map);
-		date = map["2Late Drop Begins"];
-		return "Late drop begins on " + date
-	}
+        console.log(map);
+        date = map["2Late Drop Begins"];
+        return "Late drop begins on " + date
+    }
 
 	async getLateRegistration(term, year){
 		var date = new Date();

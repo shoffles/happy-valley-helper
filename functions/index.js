@@ -3,6 +3,10 @@
 var cataAPIService = require('./Catabus/catabusLogic');
 var sportsInfo = require('./Sports/sportsinfo');
 var academicCalender = require('./Academic Calender/academic_calender_logic');
+const rp = require('request-promise');
+const cheerio = require('cheerio');
+const yearMappings = require("./Academic Calender/year_mappings");
+
 
 //Objects used for dialogflow
 const {
@@ -15,7 +19,15 @@ const app = dialogflow({
     debug: true
 });
 
-
+function getOptions(semester) {
+    const options = {
+        uri: `https://www.registrar.psu.edu/academic_calendar/${semester}.cfm`,
+        transform: function (body) {
+            return cheerio.load(body);
+      }
+    };
+    return options;
+}
 
 //Welcome intent, asks for permission for location data(To be changed)
 app.intent("Default Welcome Intent", conv => {
@@ -26,52 +38,1345 @@ app.intent("Default Welcome Intent", conv => {
 });
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//ACADEMIC CALENDER SECTION
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 app.intent("late drop", (conv,{term,year}) => {
-    conv.ask("" + academicCalender.getLateDropBegin(term, year));
+    var date = new Date();
+    var month;
+    if(term == null){
+        month = date.getMonth();
+
+        if(month >= 9 && month <=12){
+            term = "fall";
+            //console.log("fall")
+        }
+        else if (month >= 1 && month <= 5) {
+            term = "spring";
+            //console.log("spring")
+        }
+        else {
+            term = "summer";
+            //console.log("summer")
+        }
+    }
+    if(year == null){
+        yearDig = date.getFullYear();
+        year = yearDig;
+        //console.log(year)
+    }
+    var strYear = year.toString();
+    var semester = term+strYear.substr(2);
+    const options = {
+        uri: `https://www.registrar.psu.edu/academic_calendar/${semester}.cfm`,
+        transform: function (body) {
+            return cheerio.load(body);
+      }
+    };
+    return rp(options)
+    .then(($) => {
+        let map = {};
+        let columnOne = [];
+        let columnThree = [];
+
+        $('table').find('tr td:nth-child(1)').each(function (index, element) {
+            columnOne.push($(element).text());
+          });
+
+        $('table').find('tr td:nth-child(3)').each(function (index, element) {
+            columnThree.push($(element).text());
+        });
+
+        columnOne.forEach((item, i) => {
+            map[item] = columnThree[i];
+        });
+
+        console.log(map);
+        date = map["2Late Drop Begins"];
+        conv.ask("The late drop period begins on " + map["2Late Drop Begins"] + " and ends on " + map["2Late Drop - Deadline"]);
+    })
+    .catch((error) => {
+        console.log(error);
+        conv.ask("An error occured, please try again.");
+    })
 });
 
-app.intent("latedrop deadline", conv => {
-    conv.ask("The late drop deadline is currently scheduled for November 9th at 11:59 PM EST.");
+app.intent("latedrop deadline", (conv, {term, year}) => {
+    var date = new Date();
+    var month;
+    if(term == null){
+        month = date.getMonth();
+
+        if(month >= 9 && month <=12){
+            term = "fall";
+            //console.log("fall")
+        }
+        else if (month >= 1 && month <= 5) {
+            term = "spring";
+            //console.log("spring")
+        }
+        else {
+            term = "summer";
+            //console.log("summer")
+        }
+    }
+    if(year == null){
+        yearDig = date.getFullYear();
+        year = yearDig;
+        //console.log(year)
+    }
+    var strYear = year.toString();
+    var semester = term+strYear.substr(2);
+    const options = {
+        uri: `https://www.registrar.psu.edu/academic_calendar/${semester}.cfm`,
+        transform: function (body) {
+            return cheerio.load(body);
+      }
+    };
+    return rp(options)
+    .then(($) => {
+        let map = {};
+        let columnOne = [];
+        let columnThree = [];
+
+        $('table').find('tr td:nth-child(1)').each(function (index, element) {
+            columnOne.push($(element).text());
+          });
+
+        $('table').find('tr td:nth-child(3)').each(function (index, element) {
+            columnThree.push($(element).text());
+        });
+
+        columnOne.forEach((item, i) => {
+            map[item] = columnThree[i];
+        });
+
+        console.log(map);
+        date = map["2Late Drop - Deadline"];
+        conv.ask("The late drop period deadline is on " + map["2Late Drop - Deadline"]);
+    })
+    .catch((error) => {
+        console.log(error);
+        conv.ask("An error occured, please try again.");
+    })
 });
 
-app.intent("latedrop start", conv => {
-    conv.ask("The late drop period starts on Sunday, August 26th");
+app.intent("latedrop start", (conv, {term, year}) => {
+    var date = new Date();
+    var month;
+    if(term == null){
+        month = date.getMonth();
+
+        if(month >= 9 && month <=12){
+            term = "fall";
+            //console.log("fall")
+        }
+        else if (month >= 1 && month <= 5) {
+            term = "spring";
+            //console.log("spring")
+        }
+        else {
+            term = "summer";
+            //console.log("summer")
+        }
+    }
+    if(year == null){
+        yearDig = date.getFullYear();
+        year = yearDig;
+        //console.log(year)
+    }
+    var strYear = year.toString();
+    var semester = term+strYear.substr(2);
+    const options = {
+        uri: `https://www.registrar.psu.edu/academic_calendar/${semester}.cfm`,
+        transform: function (body) {
+            return cheerio.load(body);
+      }
+    };
+    return rp(options)
+    .then(($) => {
+        let map = {};
+        let columnOne = [];
+        let columnThree = [];
+
+        $('table').find('tr td:nth-child(1)').each(function (index, element) {
+            columnOne.push($(element).text());
+          });
+
+        $('table').find('tr td:nth-child(3)').each(function (index, element) {
+            columnThree.push($(element).text());
+        });
+
+        columnOne.forEach((item, i) => {
+            map[item] = columnThree[i];
+        });
+
+        console.log(map);
+        date = map["2Late Drop Begins"];
+        conv.ask("The late drop period begins on " + map["2Late Drop Begins"]);
+    })
+    .catch((error) => {
+        console.log(error);
+        conv.ask("An error occured, please try again.");
+    })
 });
 
-app.intent("class start", conv => {
-    conv.ask("The first day of class for the fall semester is Monday, August 20th.");
+app.intent("class start", (conv, {term, year}) => {
+    var date = new Date();
+    var month;
+    if(term == null){
+        month = date.getMonth();
+
+        if(month >= 9 && month <=12){
+            term = "fall";
+            //console.log("fall")
+        }
+        else if (month >= 1 && month <= 5) {
+            term = "spring";
+            //console.log("spring")
+        }
+        else {
+            term = "summer";
+            //console.log("summer")
+        }
+    }
+    if(year == null){
+        yearDig = date.getFullYear();
+        year = yearDig;
+        //console.log(year)
+    }
+    var strYear = year.toString();
+    var semester = term+strYear.substr(2);
+    const options = {
+        uri: `https://www.registrar.psu.edu/academic_calendar/${semester}.cfm`,
+        transform: function (body) {
+            return cheerio.load(body);
+      }
+    };
+    return rp(options)
+    .then(($) => {
+        let map = {};
+        let columnOne = [];
+        let columnThree = [];
+
+        $('table').find('tr td:nth-child(1)').each(function (index, element) {
+            columnOne.push($(element).text());
+          });
+
+        $('table').find('tr td:nth-child(3)').each(function (index, element) {
+            columnThree.push($(element).text());
+        });
+
+        columnOne.forEach((item, i) => {
+            map[item] = columnThree[i];
+        });
+
+        console.log(map);
+        date = map["Classes Begin"];
+        conv.ask("Classes will begin on " + map["Classes Begin"]);
+    })
+    .catch((error) => {
+        console.log(error);
+        conv.ask("An error occured, please try again.");
+    })
 });
 
-
-app.intent("latedrop start", conv => {
-    conv.ask("The late drop period starts on Sunday, August 26th");
-});
 
 
 app.intent("graduation intent", conv => {
-    conv.ask("The activation period for intending to graduate is from Monday, August 13th to Tuesday, September 4th.");
+    var date = new Date();
+    var month;
+    if(term == null){
+        month = date.getMonth();
+
+        if(month >= 9 && month <=12){
+            term = "fall";
+            //console.log("fall")
+        }
+        else if (month >= 1 && month <= 5) {
+            term = "spring";
+            //console.log("spring")
+        }
+        else {
+            term = "summer";
+            //console.log("summer")
+        }
+    }
+    if(year == null){
+        yearDig = date.getFullYear();
+        year = yearDig;
+        //console.log(year)
+    }
+    var strYear = year.toString();
+    var semester = term+strYear.substr(2);
+    const options = {
+        uri: `https://www.registrar.psu.edu/academic_calendar/${semester}.cfm`,
+        transform: function (body) {
+            return cheerio.load(body);
+      }
+    };
+    return rp(options)
+    .then(($) => {
+        let map = {};
+        let columnOne = [];
+        let columnThree = [];
+
+        $('table').find('tr td:nth-child(1)').each(function (index, element) {
+            columnOne.push($(element).text());
+          });
+
+        $('table').find('tr td:nth-child(3)').each(function (index, element) {
+            columnThree.push($(element).text());
+        });
+
+        columnOne.forEach((item, i) => {
+            map[item] = columnThree[i];
+        });
+
+        console.log(map);
+        date = map["Intent to Graduate - Activation Period"];
+        conv.ask("The intent to graduate activation period is from " + map["Intent to Graduate - Activation Period"]);
+    })
+    .catch((error) => {
+        console.log(error);
+        conv.ask("An error occured, please try again.");
+    })
 });
 
 app.intent("regular drop", conv => {
-    conv.ask("The regular drop deadline is scheduled for Saturday August 25th at 11:59PM EST.");
+    var date = new Date();
+    var month;
+    if(term == null){
+        month = date.getMonth();
+
+        if(month >= 9 && month <=12){
+            term = "fall";
+            //console.log("fall")
+        }
+        else if (month >= 1 && month <= 5) {
+            term = "spring";
+            //console.log("spring")
+        }
+        else {
+            term = "summer";
+            //console.log("summer")
+        }
+    }
+    if(year == null){
+        yearDig = date.getFullYear();
+        year = yearDig;
+        //console.log(year)
+    }
+    var strYear = year.toString();
+    var semester = term+strYear.substr(2);
+    const options = {
+        uri: `https://www.registrar.psu.edu/academic_calendar/${semester}.cfm`,
+        transform: function (body) {
+            return cheerio.load(body);
+      }
+    };
+    return rp(options)
+    .then(($) => {
+        let map = {};
+        let columnOne = [];
+        let columnThree = [];
+
+        $('table').find('tr td:nth-child(1)').each(function (index, element) {
+            columnOne.push($(element).text());
+          });
+
+        $('table').find('tr td:nth-child(3)').each(function (index, element) {
+            columnThree.push($(element).text());
+        });
+
+        columnOne.forEach((item, i) => {
+            map[item] = columnThree[i];
+        });
+
+        console.log(map);
+        date = map["2Regular Drop - Deadline"];
+        conv.ask("The reguar drop dealine is on " + map["2Regular Drop - Deadline"]);
+    })
+    .catch((error) => {
+        console.log(error);
+        conv.ask("An error occured, please try again.");
+    })
 });
 
 app.intent("regular add", conv => {
-    conv.ask("The regular add deadline is scheduled for Saturday August 26th at 11:59PM EST.");
+    var date = new Date();
+    var month;
+    if(term == null){
+        month = date.getMonth();
+
+        if(month >= 9 && month <=12){
+            term = "fall";
+            //console.log("fall")
+        }
+        else if (month >= 1 && month <= 5) {
+            term = "spring";
+            //console.log("spring")
+        }
+        else {
+            term = "summer";
+            //console.log("summer")
+        }
+    }
+    if(year == null){
+        yearDig = date.getFullYear();
+        year = yearDig;
+        //console.log(year)
+    }
+    var strYear = year.toString();
+    var semester = term+strYear.substr(2);
+    const options = {
+        uri: `https://www.registrar.psu.edu/academic_calendar/${semester}.cfm`,
+        transform: function (body) {
+            return cheerio.load(body);
+      }
+    };
+    return rp(options)
+    .then(($) => {
+        let map = {};
+        let columnOne = [];
+        let columnThree = [];
+
+        $('table').find('tr td:nth-child(1)').each(function (index, element) {
+            columnOne.push($(element).text());
+          });
+
+        $('table').find('tr td:nth-child(3)').each(function (index, element) {
+            columnThree.push($(element).text());
+        });
+
+        columnOne.forEach((item, i) => {
+            map[item] = columnThree[i];
+        });
+
+        console.log(map);
+        date = map["2Regular Add - Deadline"];
+        conv.ask("The reguar add dealine is on " + map["2Regular Add - Deadline"]);
+    })
+    .catch((error) => {
+        console.log(error);
+        conv.ask("An error occured, please try again.");
+    })
 });
 
 app.intent("classes end", conv => {
-    conv.ask("The final day of class for the fall semester is Friday, December 7th.");
+    var date = new Date();
+    var month;
+    if(term == null){
+        month = date.getMonth();
+
+        if(month >= 9 && month <=12){
+            term = "fall";
+            //console.log("fall")
+        }
+        else if (month >= 1 && month <= 5) {
+            term = "spring";
+            //console.log("spring")
+        }
+        else {
+            term = "summer";
+            //console.log("summer")
+        }
+    }
+    if(year == null){
+        yearDig = date.getFullYear();
+        year = yearDig;
+        //console.log(year)
+    }
+    var strYear = year.toString();
+    var semester = term+strYear.substr(2);
+    const options = {
+        uri: `https://www.registrar.psu.edu/academic_calendar/${semester}.cfm`,
+        transform: function (body) {
+            return cheerio.load(body);
+      }
+    };
+    return rp(options)
+    .then(($) => {
+        let map = {};
+        let columnOne = [];
+        let columnThree = [];
+
+        $('table').find('tr td:nth-child(1)').each(function (index, element) {
+            columnOne.push($(element).text());
+          });
+
+        $('table').find('tr td:nth-child(3)').each(function (index, element) {
+            columnThree.push($(element).text());
+        });
+
+        columnOne.forEach((item, i) => {
+            map[item] = columnThree[i];
+        });
+
+        console.log(map);
+        date = map["Classes End"];
+        conv.ask("Classes end on " + map["Classes End"]);
+    })
+    .catch((error) => {
+        console.log(error);
+        conv.ask("An error occured, please try again.");
+    })
 });
 
 app.intent("final exams", conv => {
-    conv.ask("Final exams for the fall semester start on Monday, December 10th and end on Friday, December 14th.");
+    var date = new Date();
+    var month;
+    if(term == null){
+        month = date.getMonth();
+
+        if(month >= 9 && month <=12){
+            term = "fall";
+            //console.log("fall")
+        }
+        else if (month >= 1 && month <= 5) {
+            term = "spring";
+            //console.log("spring")
+        }
+        else {
+            term = "summer";
+            //console.log("summer")
+        }
+    }
+    if(year == null){
+        yearDig = date.getFullYear();
+        year = yearDig;
+        //console.log(year)
+    }
+    var strYear = year.toString();
+    var semester = term+strYear.substr(2);
+    const options = {
+        uri: `https://www.registrar.psu.edu/academic_calendar/${semester}.cfm`,
+        transform: function (body) {
+            return cheerio.load(body);
+      }
+    };
+    return rp(options)
+    .then(($) => {
+        let map = {};
+        let columnOne = [];
+        let columnThree = [];
+
+        $('table').find('tr td:nth-child(1)').each(function (index, element) {
+            columnOne.push($(element).text());
+          });
+
+        $('table').find('tr td:nth-child(3)').each(function (index, element) {
+            columnThree.push($(element).text());
+        });
+
+        columnOne.forEach((item, i) => {
+            map[item] = columnThree[i];
+        });
+
+        console.log(map);
+        date = map["3Final Exams"];
+        conv.ask("Final Exams are from" + map["3Final Exams"]);
+    })
+    .catch((error) => {
+        console.log(error);
+        conv.ask("An error occured, please try again.");
+    })
 });
 
 app.intent("thanksgiving break", conv => {
-    conv.ask("There will be no classes from Sunday November 18th thru Saturday November 24th due to the Thanksgiving holiday.");
+    var date = new Date();
+    var month;
+    if(term == null){
+        month = date.getMonth();
+
+        if(month >= 9 && month <=12){
+            term = "fall";
+            //console.log("fall")
+        }
+        else if (month >= 1 && month <= 5) {
+            term = "spring";
+            //console.log("spring")
+        }
+        else {
+            term = "summer";
+            //console.log("summer")
+        }
+    }
+    if(year == null){
+        yearDig = date.getFullYear();
+        year = yearDig;
+        //console.log(year)
+    }
+    var strYear = year.toString();
+    var semester = term+strYear.substr(2);
+    const options = {
+        uri: `https://www.registrar.psu.edu/academic_calendar/${semester}.cfm`,
+        transform: function (body) {
+            return cheerio.load(body);
+      }
+    };
+    return rp(options)
+    .then(($) => {
+        let map = {};
+        let columnOne = [];
+        let columnThree = [];
+
+        $('table').find('tr td:nth-child(1)').each(function (index, element) {
+            columnOne.push($(element).text());
+          });
+
+        $('table').find('tr td:nth-child(3)').each(function (index, element) {
+            columnThree.push($(element).text());
+        });
+
+        columnOne.forEach((item, i) => {
+            map[item] = columnThree[i];
+        });
+
+        console.log(map);
+        date = map["Thanksgiving Holiday - No Classes"];
+        conv.ask("The Thanksgiving Holiday is from " + map["Thanksgiving Holiday - No Classes"]);
+    })
+    .catch((error) => {
+        console.log(error);
+        conv.ask("An error occured, please try again.");
+    })
 });
 
+
+app.intent("leave of absence deadline", (conv, {term, year}) => {
+    var date = new Date();
+    var month;
+    if(term == null){
+        month = date.getMonth();
+
+        if(month >= 9 && month <=12){
+            term = "fall";
+            //console.log("fall")
+        }
+        else if (month >= 1 && month <= 5) {
+            term = "spring";
+            //console.log("spring")
+        }
+        else {
+            term = "summer";
+            //console.log("summer")
+        }
+    }
+    if(year == null){
+        yearDig = date.getFullYear();
+        year = yearDig;
+        //console.log(year)
+    }
+    var strYear = year.toString();
+    var semester = term+strYear.substr(2);
+    const options = {
+        uri: `https://www.registrar.psu.edu/academic_calendar/${semester}.cfm`,
+        transform: function (body) {
+            return cheerio.load(body);
+      }
+    };
+    return rp(options)
+    .then(($) => {
+        let map = {};
+        let columnOne = [];
+        let columnThree = [];
+
+        $('table').find('tr td:nth-child(1)').each(function (index, element) {
+            columnOne.push($(element).text());
+          });
+
+        $('table').find('tr td:nth-child(3)').each(function (index, element) {
+            columnThree.push($(element).text());
+        });
+
+        columnOne.forEach((item, i) => {
+            map[item] = columnThree[i];
+        });
+
+        console.log(map);
+        date = map["Leave of Absence - Deadline"];
+        conv.ask("The leave of absence deadline is on " + map["Leave of Absence - Deadline"]);
+    })
+    .catch((error) => {
+        console.log(error);
+        conv.ask("An error occured, please try again.");
+    })
+});
+
+
+
+app.intent("arrival day new students", (conv, {term, year}) => {
+    var date = new Date();
+    var month;
+    if(term == null){
+        month = date.getMonth();
+
+        if(month >= 9 && month <=12){
+            term = "fall";
+            //console.log("fall")
+        }
+        else if (month >= 1 && month <= 5) {
+            term = "spring";
+            //console.log("spring")
+        }
+        else {
+            term = "summer";
+            //console.log("summer")
+        }
+    }
+    if(year == null){
+        yearDig = date.getFullYear();
+        year = yearDig;
+        //console.log(year)
+    }
+    var strYear = year.toString();
+    var semester = term+strYear.substr(2);
+    const options = {
+        uri: `https://www.registrar.psu.edu/academic_calendar/${semester}.cfm`,
+        transform: function (body) {
+            return cheerio.load(body);
+      }
+    };
+    return rp(options)
+    .then(($) => {
+        let map = {};
+        let columnOne = [];
+        let columnThree = [];
+
+        $('table').find('tr td:nth-child(1)').each(function (index, element) {
+            columnOne.push($(element).text());
+          });
+
+        $('table').find('tr td:nth-child(3)').each(function (index, element) {
+            columnThree.push($(element).text());
+        });
+
+        columnOne.forEach((item, i) => {
+            map[item] = columnThree[i];
+        });
+
+        console.log(map);
+        date = map["1 3Arrival Day - New Students"];
+        conv.ask("The arrival day for new students in on " + map["1 3Arrival Day - New Students"]);
+    })
+    .catch((error) => {
+        console.log(error);
+        conv.ask("An error occured, please try again.");
+    })
+});
+
+
+app.intent("arrival day returning students", (conv, {term, year}) => {
+    var date = new Date();
+    var month;
+    if(term == null){
+        month = date.getMonth();
+
+        if(month >= 9 && month <=12){
+            term = "fall";
+            //console.log("fall")
+        }
+        else if (month >= 1 && month <= 5) {
+            term = "spring";
+            //console.log("spring")
+        }
+        else {
+            term = "summer";
+            //console.log("summer")
+        }
+    }
+    if(year == null){
+        yearDig = date.getFullYear();
+        year = yearDig;
+        //console.log(year)
+    }
+    var strYear = year.toString();
+    var semester = term+strYear.substr(2);
+    const options = {
+        uri: `https://www.registrar.psu.edu/academic_calendar/${semester}.cfm`,
+        transform: function (body) {
+            return cheerio.load(body);
+      }
+    };
+    return rp(options)
+    .then(($) => {
+        let map = {};
+        let columnOne = [];
+        let columnThree = [];
+
+        $('table').find('tr td:nth-child(1)').each(function (index, element) {
+            columnOne.push($(element).text());
+          });
+
+        $('table').find('tr td:nth-child(3)').each(function (index, element) {
+            columnThree.push($(element).text());
+        });
+
+        columnOne.forEach((item, i) => {
+            map[item] = columnThree[i];
+        });
+
+        console.log(map);
+        date = map["1 3Arrival Day - Returning  Students"];
+        conv.ask("The arrival day for returning students in on " + map["1 3Arrival Day - Returning  Students"]);
+    })
+    .catch((error) => {
+        console.log(error);
+        conv.ask("An error occured, please try again.");
+    })
+});
+
+
+
+
+
+
+
+app.intent("student registration deadline", (conv, {term, year}) => {
+    var date = new Date();
+    var month;
+    if(term == null){
+        month = date.getMonth();
+
+        if(month >= 9 && month <=12){
+            term = "fall";
+            //console.log("fall")
+        }
+        else if (month >= 1 && month <= 5) {
+            term = "spring";
+            //console.log("spring")
+        }
+        else {
+            term = "summer";
+            //console.log("summer")
+        }
+    }
+    if(year == null){
+        yearDig = date.getFullYear();
+        year = yearDig;
+        //console.log(year)
+    }
+    var strYear = year.toString();
+    var semester = term+strYear.substr(2);
+    const options = {
+        uri: `https://www.registrar.psu.edu/academic_calendar/${semester}.cfm`,
+        transform: function (body) {
+            return cheerio.load(body);
+      }
+    };
+    return rp(options)
+    .then(($) => {
+        let map = {};
+        let columnOne = [];
+        let columnThree = [];
+
+        $('table').find('tr td:nth-child(1)').each(function (index, element) {
+            columnOne.push($(element).text());
+          });
+
+        $('table').find('tr td:nth-child(3)').each(function (index, element) {
+            columnThree.push($(element).text());
+        });
+
+        columnOne.forEach((item, i) => {
+            map[item] = columnThree[i];
+        });
+
+        console.log(map);
+        date = map["Student Registration - Deadline"];
+        conv.ask("The student registration deadline is on " + map["Student Registration - Deadline"]);
+    })
+    .catch((error) => {
+        console.log(error);
+        conv.ask("An error occured, please try again.");
+    })
+});
+
+
+
+app.intent("late registration begin", (conv, {term, year}) => {
+    var date = new Date();
+    var month;
+    if(term == null){
+        month = date.getMonth();
+
+        if(month >= 9 && month <=12){
+            term = "fall";
+            //console.log("fall")
+        }
+        else if (month >= 1 && month <= 5) {
+            term = "spring";
+            //console.log("spring")
+        }
+        else {
+            term = "summer";
+            //console.log("summer")
+        }
+    }
+    if(year == null){
+        yearDig = date.getFullYear();
+        year = yearDig;
+        //console.log(year)
+    }
+    var strYear = year.toString();
+    var semester = term+strYear.substr(2);
+    const options = {
+        uri: `https://www.registrar.psu.edu/academic_calendar/${semester}.cfm`,
+        transform: function (body) {
+            return cheerio.load(body);
+      }
+    };
+    return rp(options)
+    .then(($) => {
+        let map = {};
+        let columnOne = [];
+        let columnThree = [];
+
+        $('table').find('tr td:nth-child(1)').each(function (index, element) {
+            columnOne.push($(element).text());
+          });
+
+        $('table').find('tr td:nth-child(3)').each(function (index, element) {
+            columnThree.push($(element).text());
+        });
+
+        columnOne.forEach((item, i) => {
+            map[item] = columnThree[i];
+        });
+
+        console.log(map);
+        date = map["2Late Registration Begins"];
+        conv.ask("Late registration begins on " + map["2Late Registration Begins"]);
+    })
+    .catch((error) => {
+        console.log(error);
+        conv.ask("An error occured, please try again.");
+    })
+});
+
+
+app.intent("labor day", (conv, {term, year}) => {
+    var date = new Date();
+    var month;
+    if(term == null){
+        month = date.getMonth();
+
+        if(month >= 9 && month <=12){
+            term = "fall";
+            //console.log("fall")
+        }
+        else if (month >= 1 && month <= 5) {
+            term = "spring";
+            //console.log("spring")
+        }
+        else {
+            term = "summer";
+            //console.log("summer")
+        }
+    }
+    if(year == null){
+        yearDig = date.getFullYear();
+        year = yearDig;
+        //console.log(year)
+    }
+    var strYear = year.toString();
+    var semester = term+strYear.substr(2);
+    const options = {
+        uri: `https://www.registrar.psu.edu/academic_calendar/${semester}.cfm`,
+        transform: function (body) {
+            return cheerio.load(body);
+      }
+    };
+    return rp(options)
+    .then(($) => {
+        let map = {};
+        let columnOne = [];
+        let columnThree = [];
+
+        $('table').find('tr td:nth-child(1)').each(function (index, element) {
+            columnOne.push($(element).text());
+          });
+
+        $('table').find('tr td:nth-child(3)').each(function (index, element) {
+            columnThree.push($(element).text());
+        });
+
+        columnOne.forEach((item, i) => {
+            map[item] = columnThree[i];
+        });
+
+        console.log(map);
+        date = map["Labor Day Holiday - No Classes"];
+        conv.ask("There will be no classes on " + map["Labor Day Holiday - No Classes"] + " because of the labor day holiday.");
+    })
+    .catch((error) => {
+        console.log(error);
+        conv.ask("An error occured, please try again.");
+    })
+});
+
+app.intent("final exam conflict period", (conv, {term, year}) => {
+    var date = new Date();
+    var month;
+    if(term == null){
+        month = date.getMonth();
+
+        if(month >= 9 && month <=12){
+            term = "fall";
+            //console.log("fall")
+        }
+        else if (month >= 1 && month <= 5) {
+            term = "spring";
+            //console.log("spring")
+        }
+        else {
+            term = "summer";
+            //console.log("summer")
+        }
+    }
+    if(year == null){
+        yearDig = date.getFullYear();
+        year = yearDig;
+        //console.log(year)
+    }
+    var strYear = year.toString();
+    var semester = term+strYear.substr(2);
+    const options = {
+        uri: `https://www.registrar.psu.edu/academic_calendar/${semester}.cfm`,
+        transform: function (body) {
+            return cheerio.load(body);
+      }
+    };
+    return rp(options)
+    .then(($) => {
+        let map = {};
+        let columnOne = [];
+        let columnThree = [];
+
+        $('table').find('tr td:nth-child(1)').each(function (index, element) {
+            columnOne.push($(element).text());
+          });
+
+        $('table').find('tr td:nth-child(3)').each(function (index, element) {
+            columnThree.push($(element).text());
+        });
+
+        columnOne.forEach((item, i) => {
+            map[item] = columnThree[i];
+        });
+
+        console.log(map);
+        date = map["Final Exam Conflict - Filing Period"];
+        conv.ask("The final exam conflict filing period is from " + map["Final Exam Conflict - Filing Period"]);
+    })
+    .catch((error) => {
+        console.log(error);
+        conv.ask("An error occured, please try again.");
+    })
+});
+
+
+app.intent("declare minor deadline", (conv, {term, year}) => {
+    var date = new Date();
+    var month;
+    if(term == null){
+        month = date.getMonth();
+
+        if(month >= 9 && month <=12){
+            term = "fall";
+            //console.log("fall")
+        }
+        else if (month >= 1 && month <= 5) {
+            term = "spring";
+            //console.log("spring")
+        }
+        else {
+            term = "summer";
+            //console.log("summer")
+        }
+    }
+    if(year == null){
+        yearDig = date.getFullYear();
+        year = yearDig;
+        //console.log(year)
+    }
+    var strYear = year.toString();
+    var semester = term+strYear.substr(2);
+    const options = {
+        uri: `https://www.registrar.psu.edu/academic_calendar/${semester}.cfm`,
+        transform: function (body) {
+            return cheerio.load(body);
+      }
+    };
+    return rp(options)
+    .then(($) => {
+        let map = {};
+        let columnOne = [];
+        let columnThree = [];
+
+        $('table').find('tr td:nth-child(1)').each(function (index, element) {
+            columnOne.push($(element).text());
+          });
+
+        $('table').find('tr td:nth-child(3)').each(function (index, element) {
+            columnThree.push($(element).text());
+        });
+
+        columnOne.forEach((item, i) => {
+            map[item] = columnThree[i];
+        });
+
+        console.log(map);
+        date = map["Declare Minor - Deadline (Graduating Students"];
+        conv.ask("The final day to declare a minor for graduating students is on " + map["Declare Minor - Deadline (Graduating Students"]);
+    })
+    .catch((error) => {
+        console.log(error);
+        conv.ask("An error occured, please try again.");
+    })
+});
+
+app.intent("withdrawal deadline", (conv, {term, year}) => {
+    var date = new Date();
+    var month;
+    if(term == null){
+        month = date.getMonth();
+
+        if(month >= 9 && month <=12){
+            term = "fall";
+            //console.log("fall")
+        }
+        else if (month >= 1 && month <= 5) {
+            term = "spring";
+            //console.log("spring")
+        }
+        else {
+            term = "summer";
+            //console.log("summer")
+        }
+    }
+    if(year == null){
+        yearDig = date.getFullYear();
+        year = yearDig;
+        //console.log(year)
+    }
+    var strYear = year.toString();
+    var semester = term+strYear.substr(2);
+    const options = {
+        uri: `https://www.registrar.psu.edu/academic_calendar/${semester}.cfm`,
+        transform: function (body) {
+            return cheerio.load(body);
+      }
+    };
+    return rp(options)
+    .then(($) => {
+        let map = {};
+        let columnOne = [];
+        let columnThree = [];
+
+        $('table').find('tr td:nth-child(1)').each(function (index, element) {
+            columnOne.push($(element).text());
+          });
+
+        $('table').find('tr td:nth-child(3)').each(function (index, element) {
+            columnThree.push($(element).text());
+        });
+
+        columnOne.forEach((item, i) => {
+            map[item] = columnThree[i];
+        });
+
+        console.log(map);
+        date = map["Withdrawal - Deadline"];
+        conv.ask("The withdrawal deadline is on " + map["Withdrawal - Deadline"]);
+    })
+    .catch((error) => {
+        console.log(error);
+        conv.ask("An error occured, please try again.");
+    })
+});
+
+
+app.intent("study days", (conv, {term, year}) => {
+    var date = new Date();
+    var month;
+    if(term == null){
+        month = date.getMonth();
+
+        if(month >= 9 && month <=12){
+            term = "fall";
+            //console.log("fall")
+        }
+        else if (month >= 1 && month <= 5) {
+            term = "spring";
+            //console.log("spring")
+        }
+        else {
+            term = "summer";
+            //console.log("summer")
+        }
+    }
+    if(year == null){
+        yearDig = date.getFullYear();
+        year = yearDig;
+        //console.log(year)
+    }
+    var strYear = year.toString();
+    var semester = term+strYear.substr(2);
+    const options = {
+        uri: `https://www.registrar.psu.edu/academic_calendar/${semester}.cfm`,
+        transform: function (body) {
+            return cheerio.load(body);
+      }
+    };
+    return rp(options)
+    .then(($) => {
+        let map = {};
+        let columnOne = [];
+        let columnThree = [];
+
+        $('table').find('tr td:nth-child(1)').each(function (index, element) {
+            columnOne.push($(element).text());
+          });
+
+        $('table').find('tr td:nth-child(3)').each(function (index, element) {
+            columnThree.push($(element).text());
+        });
+
+        columnOne.forEach((item, i) => {
+            map[item] = columnThree[i];
+        });
+
+        console.log(map);
+        date = map["3Study Days"];
+        conv.ask("The study days for this semester are from " + map["3Study Days"]);
+    })
+    .catch((error) => {
+        console.log(error);
+        conv.ask("An error occured, please try again.");
+    })
+});
+
+app.intent("commencement", (conv, {term, year}) => {
+    var date = new Date();
+    var month;
+    if(term == null){
+        month = date.getMonth();
+
+        if(month >= 9 && month <=12){
+            term = "fall";
+            //console.log("fall")
+        }
+        else if (month >= 1 && month <= 5) {
+            term = "spring";
+            //console.log("spring")
+        }
+        else {
+            term = "summer";
+            //console.log("summer")
+        }
+    }
+    if(year == null){
+        yearDig = date.getFullYear();
+        year = yearDig;
+        //console.log(year)
+    }
+    var strYear = year.toString();
+    var semester = term+strYear.substr(2);
+    const options = {
+        uri: `https://www.registrar.psu.edu/academic_calendar/${semester}.cfm`,
+        transform: function (body) {
+            return cheerio.load(body);
+      }
+    };
+    return rp(options)
+    .then(($) => {
+        let map = {};
+        let columnOne = [];
+        let columnThree = [];
+
+        $('table').find('tr td:nth-child(1)').each(function (index, element) {
+            columnOne.push($(element).text());
+          });
+
+        $('table').find('tr td:nth-child(3)').each(function (index, element) {
+            columnThree.push($(element).text());
+        });
+
+        columnOne.forEach((item, i) => {
+            map[item] = columnThree[i];
+        });
+
+        console.log(map);
+        date = map["3Commencement"];
+        conv.ask("Commencement for this smester is on " + map["3Commencement"]);
+    })
+    .catch((error) => {
+        console.log(error);
+        conv.ask("An error occured, please try again.");
+    })
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//CATABUS SECTION
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 //Collects bus parameter for use in route definition
 app.intent("wheres the catabus", (conv, {route}) => {
