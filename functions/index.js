@@ -73,7 +73,9 @@ app.intent("Default Welcome Intent", conv => {
 app.intent("late drop", (conv,{term,year}) => {
     var date = new Date();
     var month;
-    if(term == null){
+    var yearDig;
+    console.log(term);
+    if(term == ""){
         month = date.getMonth();
 
         if(month >= 9 && month <=12){
@@ -89,7 +91,7 @@ app.intent("late drop", (conv,{term,year}) => {
             //console.log("summer")
         }
     }
-    if(year == null){
+    if(year == ""){
         yearDig = date.getFullYear();
         year = yearDig;
         //console.log(year)
@@ -133,7 +135,9 @@ app.intent("late drop", (conv,{term,year}) => {
 app.intent("latedrop deadline", (conv, {term, year}) => {
     var date = new Date();
     var month;
-    if(term == null){
+    var yearDig;
+    console.log(term);
+    if(term == ""){
         month = date.getMonth();
 
         if(month >= 9 && month <=12){
@@ -149,7 +153,7 @@ app.intent("latedrop deadline", (conv, {term, year}) => {
             //console.log("summer")
         }
     }
-    if(year == null){
+    if(year == ""){
         yearDig = date.getFullYear();
         year = yearDig;
         //console.log(year)
@@ -193,7 +197,9 @@ app.intent("latedrop deadline", (conv, {term, year}) => {
 app.intent("latedrop start", (conv, {term, year}) => {
     var date = new Date();
     var month;
-    if(term == null){
+    var yearDig;
+    console.log(term);
+    if(term == ""){
         month = date.getMonth();
 
         if(month >= 9 && month <=12){
@@ -209,7 +215,7 @@ app.intent("latedrop start", (conv, {term, year}) => {
             //console.log("summer")
         }
     }
-    if(year == null){
+    if(year == ""){
         yearDig = date.getFullYear();
         year = yearDig;
         //console.log(year)
@@ -253,7 +259,9 @@ app.intent("latedrop start", (conv, {term, year}) => {
 app.intent("class start", (conv, {term, year}) => {
     var date = new Date();
     var month;
-    if(term == null){
+    var yearDig;
+    console.log(term);
+    if(term == ""){
         month = date.getMonth();
 
         if(month >= 9 && month <=12){
@@ -269,7 +277,7 @@ app.intent("class start", (conv, {term, year}) => {
             //console.log("summer")
         }
     }
-    if(year == null){
+    if(year == ""){
         yearDig = date.getFullYear();
         year = yearDig;
         //console.log(year)
@@ -312,10 +320,12 @@ app.intent("class start", (conv, {term, year}) => {
 
 
 
-app.intent("graduation intent", conv => {
+app.intent("graduation intent", (conv, {term, year}) => {
     var date = new Date();
     var month;
-    if(term == null){
+    var yearDig;
+    console.log(term);
+    if(term == ""){
         month = date.getMonth();
 
         if(month >= 9 && month <=12){
@@ -331,7 +341,7 @@ app.intent("graduation intent", conv => {
             //console.log("summer")
         }
     }
-    if(year == null){
+    if(year == ""){
         yearDig = date.getFullYear();
         year = yearDig;
         //console.log(year)
@@ -372,10 +382,12 @@ app.intent("graduation intent", conv => {
     })
 });
 
-app.intent("regular drop", conv => {
+app.intent("regular drop", (conv, {term, year}) => {
     var date = new Date();
     var month;
-    if(term == null){
+    var yearDig;
+    console.log(term);
+    if(term == ""){
         month = date.getMonth();
 
         if(month >= 9 && month <=12){
@@ -391,7 +403,7 @@ app.intent("regular drop", conv => {
             //console.log("summer")
         }
     }
-    if(year == null){
+    if(year == ""){
         yearDig = date.getFullYear();
         year = yearDig;
         //console.log(year)
@@ -432,10 +444,12 @@ app.intent("regular drop", conv => {
     })
 });
 
-app.intent("regular add", conv => {
+app.intent("regular add", (conv, {term, year}) => {
     var date = new Date();
     var month;
-    if(term == null){
+    var yearDig;
+    console.log(term);
+    if(term == ""){
         month = date.getMonth();
 
         if(month >= 9 && month <=12){
@@ -451,7 +465,7 @@ app.intent("regular add", conv => {
             //console.log("summer")
         }
     }
-    if(year == null){
+    if(year == ""){
         yearDig = date.getFullYear();
         year = yearDig;
         //console.log(year)
@@ -492,10 +506,12 @@ app.intent("regular add", conv => {
     })
 });
 
-app.intent("classes end", conv => {
+app.intent("classes end", (conv, {term, year}) => {
     var date = new Date();
     var month;
-    if(term == null){
+    var yearDig;
+    console.log(term);
+    if(term == ""){
         month = date.getMonth();
 
         if(month >= 9 && month <=12){
@@ -511,7 +527,7 @@ app.intent("classes end", conv => {
             //console.log("summer")
         }
     }
-    if(year == null){
+    if(year == ""){
         yearDig = date.getFullYear();
         year = yearDig;
         //console.log(year)
@@ -552,10 +568,12 @@ app.intent("classes end", conv => {
     })
 });
 
-app.intent("final exams", conv => {
+app.intent("final exams", (conv, {term, year}) => {
     var date = new Date();
     var month;
-    if(term == null){
+    var yearDig;
+    console.log(term);
+    if(term == ""){
         month = date.getMonth();
 
         if(month >= 9 && month <=12){
@@ -571,7 +589,7 @@ app.intent("final exams", conv => {
             //console.log("summer")
         }
     }
-    if(year == null){
+    if(year == ""){
         yearDig = date.getFullYear();
         year = yearDig;
         //console.log(year)
@@ -604,7 +622,7 @@ app.intent("final exams", conv => {
 
         console.log(map);
         date = map["3Final Exams"];
-        conv.ask("Final Exams are from" + map["3Final Exams"]);
+        conv.ask("Final Exams are from " + map["3Final Exams"] + ".");
     })
     .catch((error) => {
         console.log(error);
@@ -612,10 +630,12 @@ app.intent("final exams", conv => {
     })
 });
 
-app.intent("thanksgiving break", conv => {
+app.intent("thanksgiving break", (conv, {term, year}) => {
     var date = new Date();
     var month;
-    if(term == null){
+    var yearDig;
+    console.log(term);
+    if(term == ""){
         month = date.getMonth();
 
         if(month >= 9 && month <=12){
@@ -631,7 +651,7 @@ app.intent("thanksgiving break", conv => {
             //console.log("summer")
         }
     }
-    if(year == null){
+    if(year == ""){
         yearDig = date.getFullYear();
         year = yearDig;
         //console.log(year)
@@ -676,7 +696,9 @@ app.intent("thanksgiving break", conv => {
 app.intent("leave of absence deadline", (conv, {term, year}) => {
     var date = new Date();
     var month;
-    if(term == null){
+    var yearDig;
+    console.log(term);
+    if(term == ""){
         month = date.getMonth();
 
         if(month >= 9 && month <=12){
@@ -692,7 +714,7 @@ app.intent("leave of absence deadline", (conv, {term, year}) => {
             //console.log("summer")
         }
     }
-    if(year == null){
+    if(year == ""){
         yearDig = date.getFullYear();
         year = yearDig;
         //console.log(year)
@@ -738,7 +760,9 @@ app.intent("leave of absence deadline", (conv, {term, year}) => {
 app.intent("arrival day new students", (conv, {term, year}) => {
     var date = new Date();
     var month;
-    if(term == null){
+    var yearDig;
+    console.log(term);
+    if(term == ""){
         month = date.getMonth();
 
         if(month >= 9 && month <=12){
@@ -754,7 +778,7 @@ app.intent("arrival day new students", (conv, {term, year}) => {
             //console.log("summer")
         }
     }
-    if(year == null){
+    if(year == ""){
         yearDig = date.getFullYear();
         year = yearDig;
         //console.log(year)
@@ -799,7 +823,9 @@ app.intent("arrival day new students", (conv, {term, year}) => {
 app.intent("arrival day returning students", (conv, {term, year}) => {
     var date = new Date();
     var month;
-    if(term == null){
+    var yearDig;
+    console.log(term);
+    if(term == ""){
         month = date.getMonth();
 
         if(month >= 9 && month <=12){
@@ -815,7 +841,7 @@ app.intent("arrival day returning students", (conv, {term, year}) => {
             //console.log("summer")
         }
     }
-    if(year == null){
+    if(year == ""){
         yearDig = date.getFullYear();
         year = yearDig;
         //console.log(year)
@@ -865,7 +891,9 @@ app.intent("arrival day returning students", (conv, {term, year}) => {
 app.intent("student registration deadline", (conv, {term, year}) => {
     var date = new Date();
     var month;
-    if(term == null){
+    var yearDig;
+    console.log(term);
+    if(term == ""){
         month = date.getMonth();
 
         if(month >= 9 && month <=12){
@@ -881,7 +909,7 @@ app.intent("student registration deadline", (conv, {term, year}) => {
             //console.log("summer")
         }
     }
-    if(year == null){
+    if(year == ""){
         yearDig = date.getFullYear();
         year = yearDig;
         //console.log(year)
@@ -927,7 +955,9 @@ app.intent("student registration deadline", (conv, {term, year}) => {
 app.intent("late registration begin", (conv, {term, year}) => {
     var date = new Date();
     var month;
-    if(term == null){
+    var yearDig;
+    console.log(term);
+    if(term == ""){
         month = date.getMonth();
 
         if(month >= 9 && month <=12){
@@ -943,7 +973,7 @@ app.intent("late registration begin", (conv, {term, year}) => {
             //console.log("summer")
         }
     }
-    if(year == null){
+    if(year == ""){
         yearDig = date.getFullYear();
         year = yearDig;
         //console.log(year)
@@ -988,7 +1018,9 @@ app.intent("late registration begin", (conv, {term, year}) => {
 app.intent("labor day", (conv, {term, year}) => {
     var date = new Date();
     var month;
-    if(term == null){
+    var yearDig;
+    console.log(term);
+    if(term == ""){
         month = date.getMonth();
 
         if(month >= 9 && month <=12){
@@ -1004,7 +1036,7 @@ app.intent("labor day", (conv, {term, year}) => {
             //console.log("summer")
         }
     }
-    if(year == null){
+    if(year == ""){
         yearDig = date.getFullYear();
         year = yearDig;
         //console.log(year)
@@ -1048,7 +1080,9 @@ app.intent("labor day", (conv, {term, year}) => {
 app.intent("final exam conflict period", (conv, {term, year}) => {
     var date = new Date();
     var month;
-    if(term == null){
+    var yearDig;
+    console.log(term);
+    if(term == ""){
         month = date.getMonth();
 
         if(month >= 9 && month <=12){
@@ -1064,7 +1098,7 @@ app.intent("final exam conflict period", (conv, {term, year}) => {
             //console.log("summer")
         }
     }
-    if(year == null){
+    if(year == ""){
         yearDig = date.getFullYear();
         year = yearDig;
         //console.log(year)
@@ -1109,7 +1143,9 @@ app.intent("final exam conflict period", (conv, {term, year}) => {
 app.intent("declare minor deadline", (conv, {term, year}) => {
     var date = new Date();
     var month;
-    if(term == null){
+    var yearDig;
+    console.log(term);
+    if(term == ""){
         month = date.getMonth();
 
         if(month >= 9 && month <=12){
@@ -1125,7 +1161,7 @@ app.intent("declare minor deadline", (conv, {term, year}) => {
             //console.log("summer")
         }
     }
-    if(year == null){
+    if(year == ""){
         yearDig = date.getFullYear();
         year = yearDig;
         //console.log(year)
@@ -1169,7 +1205,9 @@ app.intent("declare minor deadline", (conv, {term, year}) => {
 app.intent("withdrawal deadline", (conv, {term, year}) => {
     var date = new Date();
     var month;
-    if(term == null){
+    var yearDig;
+    console.log(term);
+    if(term == ""){
         month = date.getMonth();
 
         if(month >= 9 && month <=12){
@@ -1185,7 +1223,7 @@ app.intent("withdrawal deadline", (conv, {term, year}) => {
             //console.log("summer")
         }
     }
-    if(year == null){
+    if(year == ""){
         yearDig = date.getFullYear();
         year = yearDig;
         //console.log(year)
@@ -1230,7 +1268,9 @@ app.intent("withdrawal deadline", (conv, {term, year}) => {
 app.intent("study days", (conv, {term, year}) => {
     var date = new Date();
     var month;
-    if(term == null){
+    var yearDig;
+    console.log(term);
+    if(term == ""){
         month = date.getMonth();
 
         if(month >= 9 && month <=12){
@@ -1246,7 +1286,7 @@ app.intent("study days", (conv, {term, year}) => {
             //console.log("summer")
         }
     }
-    if(year == null){
+    if(year == ""){
         yearDig = date.getFullYear();
         year = yearDig;
         //console.log(year)
@@ -1290,7 +1330,9 @@ app.intent("study days", (conv, {term, year}) => {
 app.intent("commencement", (conv, {term, year}) => {
     var date = new Date();
     var month;
-    if(term == null){
+    var yearDig;
+    console.log(term);
+    if(term == ""){
         month = date.getMonth();
 
         if(month >= 9 && month <=12){
@@ -1306,7 +1348,7 @@ app.intent("commencement", (conv, {term, year}) => {
             //console.log("summer")
         }
     }
-    if(year == null){
+    if(year == ""){
         yearDig = date.getFullYear();
         year = yearDig;
         //console.log(year)
@@ -1382,6 +1424,7 @@ app.intent("commencement", (conv, {term, year}) => {
 app.intent("wheres the catabus", (conv, {route}) => {
     var routeDetails;
     var closest_stop;
+    var finalString;
     return cataAPIService.getRouteDetails(route)
     .then((routeData) => {
         routeDetails = routeData;
@@ -1390,7 +1433,9 @@ app.intent("wheres the catabus", (conv, {route}) => {
     })
     .then((stopData) => {
         var departure = cataAPIService.getEstimatedStopDeparture(routeDetails, stopData);
-        const final = departure.slice(departure.indexOf("t")+1, departure.length-1);
+        console.log(typeof departure);
+        console.log(departure);
+        finalString = departure.slice(departure.indexOf('T')+1, departure.length - 3);
         //Add logic for when the loop is done running.
         /*
         if(done) {
@@ -1400,7 +1445,7 @@ app.intent("wheres the catabus", (conv, {route}) => {
             conv.ask("The closest stop to you is at " + closest_stop.Name + ". The next departure is scheduled for " + final);
         }
         */
-        conv.ask("The closest stop to you is at " + closest_stop.Name + ". The next departure is scheduled for " + final);
+        conv.ask('The closest stop to you is at ' + closest_stop.Name + '. The next departure is scheduled for ' + finalString + ".");
     })
     .catch((error) => {
         console.log(error);
@@ -1460,7 +1505,7 @@ app.intent("closest bus stop catabus", conv => {
 
 
 app.intent("bus fare catabus", conv => {
-  conv.ask("The bus fair for all buses is 2 dollars except for the campus loops which are free.");
+  conv.ask("The bus fare for all buses is 2 dollars except for the campus loops which are free.");
 });
 
 //Needs testing
@@ -1481,7 +1526,7 @@ app.intent("closest bus catabus", (conv, {route}) => {
     return cataAPIService.getRouteDetails(route)
     .then((routeData) => {
         var closestBus = cataAPIService.findClosestBus(routeData, conv.device.location);
-        conv.ask("The closest bus to you just left " + closestBus.LastStop + " and is currently enroute to " + closestBus.Destination + ".");
+        conv.ask("The closest bus to you just left " + closestBus.LastStop + " and is currently enroute " + closestBus.Destination + ".");
     })
     .catch((error) => {
         console.log(error);
@@ -1497,6 +1542,7 @@ app.intent("how long until bus catabus", (conv, {route}) => {
     var departure;
     var routeDetails;
     var arrival;
+    var finalString;
 
     return cataAPIService.getRouteDetails(route)
     .then((routeData) => {
@@ -1506,7 +1552,8 @@ app.intent("how long until bus catabus", (conv, {route}) => {
     })
     .then((stopData) => {
          arrival = cataAPIService.getEstimatedArrivalTime(routeDetails, stopData);
-        conv.ask("The closest stop for that bus route is at " + closestStop.Name + " and the next departure is expected at " + arrival);
+         finalString = arrival.slice(arrival.indexOf('T')+1, arrival.length - 3);
+        conv.ask("The closest stop for that bus route is at " + closestStop.Name + " and the next departure is expected at " + finalString + ".");
     })
     .catch((error) => {
         console.log(error);
@@ -1525,6 +1572,7 @@ app.intent("how long until bus at stop catabus", (conv, {route, stop}) => {
     var stopHasBus = false;
     var routeDetails;
     var arrival;
+    var finalString;
 
     if(stopId === 0 && routeId === 0) {
         conv.ask("I couldnt find that bus or stop, please try again.");
@@ -1549,7 +1597,8 @@ app.intent("how long until bus at stop catabus", (conv, {route, stop}) => {
                 return cataAPIService.getStopDetails(stopId)
                 .then((stopData) => {
                     arrival = cataAPIService.getEstimatedArrivalTime(routeDetails, stopData);
-                    conv.ask("The estiamted arrival time for that bus at " + stopName + " is at " + arrival + ".");
+                    finalString = arrival.slice(arrival.indexOf('T')+1, arrival.length - 3);
+                    conv.ask("The estimated arrival time for that bus at " + stopName + " is at " + finalString + ".");
                 })
             }
             else {
@@ -1572,6 +1621,7 @@ app.intent("when bus leaves this stop catabus", (conv, {route, stop}) => {
     var stopHasBus = false;
     var routeDetails;
     var departure;
+    var finalString;
 
     if(stopId === 0 && routeId === 0) {
         conv.ask("I couldnt find that bus or stop, please try again.");
@@ -1596,7 +1646,8 @@ app.intent("when bus leaves this stop catabus", (conv, {route, stop}) => {
                 return cataAPIService.getStopDetails(stopId)
                 .then((stopData) => {
                     departure = cataAPIService.getEstimatedStopDeparture(routeDetails, stopData);
-                    conv.ask("The estiamted arrival time for that bus at " + stopName + " is at " + departure + ".");
+                    finalString = departure.slice(departure.indexOf('T')+1, departure.length - 3);
+                    conv.ask("The estimated departure time for that bus at " + stopName + " is at " + finalString + ".");
                 })
             }
             else {
@@ -1618,6 +1669,7 @@ app.intent("bus departures from stop catabus", (conv, {route, stop}) => {
     var stopHasBus = false;
     var routeDetails;
     var departures = [];
+    var finalString;
 
     if(stopId === 0 && routeId === 0) {
         conv.ask("I couldnt find that bus or stop, please try again.");
@@ -1641,8 +1693,9 @@ app.intent("bus departures from stop catabus", (conv, {route, stop}) => {
             if(stopHasBus) {
                 return cataAPIService.getStopDetails(stopId)
                 .then((stopData) => {
-                    departures = cataAPIService.getAllEstimatedStopDeparture(routeDetails, stopData);
-                    conv.ask("There are currently " + departures[0] + " scheduled right now with the next one being at " + departures[1] + ".");
+                    departures = cataAPIService.getAllEstimatedStopDepartures(routeDetails, stopData);
+                    finalString = departures[0].slice(departures[0].indexOf('T')+1, departures[0].length - 3);
+                    conv.ask("There are currently " + departures.length + " scheduled right now with the next one being at " + finalString + ".");
                 })
             }
             else {
@@ -1674,8 +1727,9 @@ app.intent('receive location', (conv, params, granted) => {
 
 
 app.intent('upcoming game', (conv, {sport}) => {
-      var dialogue = sportsInfo.pyResult(sport);
-      conv.ask(dialogue);
+    var sports = sportsInfo.getCalenderEvents();
+    var dialogue = sportsInfo.pyResult(sport);
+    conv.ask(dialogue);
 });
 
 app.intent('game result', (conv, {sport, data}) => {

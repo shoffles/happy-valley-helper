@@ -26,7 +26,7 @@ let parser = new Parser({
 */
 class sportsInfo {
 
-  start() {
+  getCalenderEvents() {
     let fullList = [];
 
 
@@ -43,9 +43,9 @@ class sportsInfo {
           }
         }
         fullList.push(newItem);
-
       })
     })
+    console.log(fullList);
     return fullList;
   }
 
