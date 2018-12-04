@@ -1390,11 +1390,131 @@ app.intent("commencement", (conv, {term, year}) => {
 });
 
 
+app.intent("martin luther king", (conv, {term, year}) => {
+    var date = new Date();
+    var month;
+    var yearDig;
+    console.log(term);
+    if(term == ""){
+        month = date.getMonth();
+
+        if(month >= 9 && month <=12){
+            term = "fall";
+            //console.log("fall")
+        }
+        else if (month >= 1 && month <= 5) {
+            term = "spring";
+            //console.log("spring")
+        }
+        else {
+            term = "summer";
+            //console.log("summer")
+        }
+    }
+    if(year == ""){
+        yearDig = date.getFullYear();
+        year = yearDig;
+        //console.log(year)
+    }
+    var strYear = year.toString();
+    var semester = term+strYear.substr(2);
+    const options = {
+        uri: `https://www.registrar.psu.edu/academic_calendar/${semester}.cfm`,
+        transform: function (body) {
+            return cheerio.load(body);
+      }
+    };
+    return rp(options)
+    .then(($) => {
+        let map = {};
+        let columnOne = [];
+        let columnThree = [];
+
+        $('table').find('tr td:nth-child(1)').each(function (index, element) {
+            columnOne.push($(element).text());
+          });
+
+        $('table').find('tr td:nth-child(3)').each(function (index, element) {
+            columnThree.push($(element).text());
+        });
+
+        columnOne.forEach((item, i) => {
+            map[item] = columnThree[i];
+        });
+
+        console.log(map);
+        date = map["Martin Luther King Day - No Classes"];
+        conv.ask("There will be no classes on " + map["Martin Luther King Day - No Classest"] + " for the Martin Luther King holiday");
+    })
+    .catch((error) => {
+        console.log(error);
+        conv.ask("An error occured, please try again.");
+    })
+});
 
 
 
+app.intent("spring break", (conv, {term, year}) => {
+    var date = new Date();
+    var month;
+    var yearDig;
+    console.log(term);
+    if(term == ""){
+        month = date.getMonth();
 
+        if(month >= 9 && month <=12){
+            term = "fall";
+            //console.log("fall")
+        }
+        else if (month >= 1 && month <= 5) {
+            term = "spring";
+            //console.log("spring")
+        }
+        else {
+            term = "summer";
+            //console.log("summer")
+        }
+    }
+    if(year == ""){
+        yearDig = date.getFullYear();
+        year = yearDig;
+        //console.log(year)
+    }
+    var strYear = year.toString();
+    var semester = term+strYear.substr(2);
+    const options = {
+        uri: `https://www.registrar.psu.edu/academic_calendar/${semester}.cfm`,
+        transform: function (body) {
+            return cheerio.load(body);
+      }
+    };
+    return rp(options)
+    .then(($) => {
+        let map = {};
+        let columnOne = [];
+        let columnThree = [];
 
+        $('table').find('tr td:nth-child(1)').each(function (index, element) {
+            columnOne.push($(element).text());
+          });
+
+        $('table').find('tr td:nth-child(3)').each(function (index, element) {
+            columnThree.push($(element).text());
+        });
+
+        columnOne.forEach((item, i) => {
+            map[item] = columnThree[i];
+        });
+
+        console.log(map);
+        date = map["Spring Break - No Classes"];
+        conv.ask("There will be no classes on " + map["Spring Break - No Classes"] + " for spring break");
+    })
+    .catch((error) => {
+        console.log(error);
+        conv.ask("An error occured, please try again.");
+    })
+});
 
 
 
@@ -1694,8 +1814,9 @@ app.intent("bus departures from stop catabus", (conv, {route, stop}) => {
                 return cataAPIService.getStopDetails(stopId)
                 .then((stopData) => {
                     departures = cataAPIService.getAllEstimatedStopDepartures(routeDetails, stopData);
+                    console.log(departures);
                     finalString = departures[0].slice(departures[0].indexOf('T')+1, departures[0].length - 3);
-                    conv.ask("There are currently " + departures.length + " scheduled right now with the next one being at " + finalString + ".");
+                    conv.ask("There are currently " + departures[1] + " scheduled right now with the next one being at " + finalString + ".");
                 })
             }
             else {

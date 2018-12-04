@@ -178,6 +178,7 @@ class cataAPIService {
           if(routeData.RouteId === stopData[0].RouteDirections[i].RouteId) {
             stop = stopData[0].RouteDirections[i];
             numberOfDepartures = stopData[0].RouteDirections[i].Departures.length;
+            estimatedDeparture = stopData[0].RouteDirections[i].Departures[0].EDTLocalTime;
           }
         }
         data.push(estimatedDeparture);
