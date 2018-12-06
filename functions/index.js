@@ -1545,70 +1545,82 @@ app.intent("wheres the catabus", (conv, {route}) => {
     var routeDetails;
     var closest_stop;
     var finalString;
-    return cataAPIService.getRouteDetails(route)
-    .then((routeData) => {
-        routeDetails = routeData;
-        closest_stop = cataAPIService.findClosestStop(routeData, conv.device.location);
-        return cataAPIService.getStopDetails(closest_stop.StopId)
-    })
-    .then((stopData) => {
-        var departure = cataAPIService.getEstimatedStopDeparture(routeDetails, stopData);
-        console.log(typeof departure);
-        console.log(departure);
-        finalString = departure.slice(departure.indexOf('T')+1, departure.length - 3);
-        //Add logic for when the loop is done running.
-        /*
-        if(done) {
-            conv.ask("The closest stop to you is at " + closest_stop.Name + ". There are no buses running right now.")
-        }
-        else {
-            conv.ask("The closest stop to you is at " + closest_stop.Name + ". The next departure is scheduled for " + final);
-        }
-        */
-        conv.ask('The closest stop to you is at ' + closest_stop.Name + '. The next departure is scheduled for ' + finalString + ".");
-    })
-    .catch((error) => {
-        console.log(error);
-        conv.ask("I can't get that information right now, please try again.");
-    });
+    var routeId = cataAPIService.busIdMatch(route);
+    if(routeId === 0) {
+        conv.ask("I couldnt find that bus, please try again.");
+    }
+    else {
+        return cataAPIService.getRouteDetails(route)
+        .then((routeData) => {
+            routeDetails = routeData;
+            if(routeData.Vehicles.length === 0) {
+                conv.ask("That route is not running right now.");
+            }
+            else {
+                closest_stop = cataAPIService.findClosestStop(routeData, conv.device.location);
+                return cataAPIService.getStopDetails(closest_stop.StopId)
+                .then((stopData) => {
+                    var departure = cataAPIService.getEstimatedStopDeparture(routeDetails, stopData);
+                    finalString = departure.slice(departure.indexOf('T')+1, departure.length - 3);
+                    conv.ask('The closest stop to you is at ' + closest_stop.Name + '. The next departure is scheduled for ' + finalString + ".");
+                })
+            }
+        })
+        .catch((error) => {
+            console.log(error);
+            conv.ask("I can't get that information right now, please try again.");
+        });
+    }
 });
 
 app.intent("how many catabus", (conv, {route}) => {
     var number_of_buses;
-    return cataAPIService.getRouteDetails(route)
-    .then((routeData) => {
-        number_of_buses = cataAPIService.getNumberOfBuses(routeData);
-        if(number_of_buses == 0) {
-            conv.ask("There arent any buses running on that route right now.");
-        }
-        else if(number_of_buses == 1) {
-            conv.ask("There is " + number_of_buses + " bus running on that route.");
-        }
-        else {
-            conv.ask("There are " + number_of_buses + " buses running on that route.");
-        }
+    var routeId = cataAPIService.busIdMatch(route);
+    if(routeId === 0) {
+        conv.ask("I couldnt find that bus, please try again.");
+    }
+    else {
+        return cataAPIService.getRouteDetails(route)
+        .then((routeData) => {
+            number_of_buses = cataAPIService.getNumberOfBuses(routeData);
+            if(number_of_buses == 0) {
+                conv.ask("There arent any buses running on that route right now.");
+            }
+            else if(number_of_buses == 1) {
+                conv.ask("There is " + number_of_buses + " bus running on that route.");
+            }
+            else {
+                conv.ask("There are " + number_of_buses + " buses running on that route.");
+            }
 
-    })
-    .catch((error) => {
-        console.log(error);
-        conv.ask("I can't get that information right now, please try again.");
-    })
+        })
+        .catch((error) => {
+            console.log(error);
+            conv.ask("I can't get that information right now, please try again.");
+        })
+    }
 });
 
 app.intent("is the catabus", (conv, {route}) => {
-    return cataAPIService.getRouteDetails(route)
-    .then((routeData) => {
-        if(routeData.Vehicles.length == 0 ) {
-            conv.ask("That route is not running right now.");
-        }
-        else {
-            conv.ask("That route is running right now.");
-        }
-    })
-    .catch((error) => {
-        console.log(error);
-        conv.ask("I can't get that information right now, please try again.");
-    })
+    var routeId = cataAPIService.busIdMatch(route);
+    if(routeId === 0) {
+        conv.ask("I couldnt find that bus, please try again.");
+    }
+    else {
+        return cataAPIService.getRouteDetails(route)
+        .then((routeData) => {
+            if(routeData.Vehicles.length == 0 ) {
+                conv.ask("That route is not running right now.");
+            }
+            else {
+                conv.ask("That route is running right now.");
+            }
+        })
+        .catch((error) => {
+            console.log(error);
+            conv.ask("I can't get that information right now, please try again.");
+        })
+    }
 });
 
 app.intent("closest bus stop catabus", conv => {
@@ -1630,28 +1642,50 @@ app.intent("bus fare catabus", conv => {
 
 //Needs testing
 app.intent("bus passengers catabus", (conv, {route}) => {
-    return cataAPIService.getRouteDetails(route)
-    .then((routeData) => {
-        var numberOfPassengers = cataAPIService.getAllBusPassengers(routeData);
-        conv.ask("There are currently " + routeData.Vehicles.length + " busses running for that route, along with " + numberOfPassengers + " people on all buses.");
-    })
-    .catch((error) => {
-        console.log(error);
-        conv.ask("I can't get that information right now, please try again.");
-    })
+    var routeId = cataAPIService.busIdMatch(route);
+    if(routeId === 0) {
+        conv.ask("I couldnt find that bus, please try again.");
+    }
+    else {
+        return cataAPIService.getRouteDetails(route)
+        .then((routeData) => {
+            if(routeData.Vehicles.length === 0) {
+                conv.ask("That route is not running right now.");
+            }
+            else {
+                var numberOfPassengers = cataAPIService.getAllBusPassengers(routeData);
+                conv.ask("There are currently " + routeData.Vehicles.length + " busses running for that route, along with " + numberOfPassengers + " people on all buses.");
+            }
+        })
+        .catch((error) => {
+            console.log(error);
+            conv.ask("I can't get that information right now, please try again.");
+        })
+    }
 });
 
 //Needs testing
 app.intent("closest bus catabus", (conv, {route}) => {
-    return cataAPIService.getRouteDetails(route)
-    .then((routeData) => {
-        var closestBus = cataAPIService.findClosestBus(routeData, conv.device.location);
-        conv.ask("The closest bus to you just left " + closestBus.LastStop + " and is currently enroute " + closestBus.Destination + ".");
-    })
-    .catch((error) => {
-        console.log(error);
-        conv.ask("I can't get that information right now, please try again.");
-    })
+    var routeId = cataAPIService.busIdMatch(route);
+    if(routeId === 0) {
+        conv.ask("I couldnt find that bus, please try again.");
+    }
+    else {
+        return cataAPIService.getRouteDetails(route)
+        .then((routeData) => {
+            if(routeData.Vehicles.length === 0) {
+                conv.ask("That route is not running right now.");
+            }
+            else {
+                var closestBus = cataAPIService.findClosestBus(routeData, conv.device.location);
+                conv.ask("The closest bus to you just left " + closestBus.LastStop + " and is currently enroute " + closestBus.Destination + ".");
+            }
+        })
+        .catch((error) => {
+            console.log(error);
+            conv.ask("I can't get that information right now, please try again.");
+        })
+    }
 });
 
 
@@ -1666,14 +1700,20 @@ app.intent("how long until bus catabus", (conv, {route}) => {
 
     return cataAPIService.getRouteDetails(route)
     .then((routeData) => {
-        routeDetails = routeData;
-        closestStop = cataAPIService.findClosestStop(routeData, conv.device.location);
-        return cataAPIService.getStopDetails(closestStop.StopId)
-    })
-    .then((stopData) => {
-         arrival = cataAPIService.getEstimatedArrivalTime(routeDetails, stopData);
-         finalString = arrival.slice(arrival.indexOf('T')+1, arrival.length - 3);
-        conv.ask("The closest stop for that bus route is at " + closestStop.Name + " and the next departure is expected at " + finalString + ".");
+        if(routeData.Vehicles.length === 0) {
+            conv.ask("That route is not running right now.");
+        }
+        else {
+            routeDetails = routeData;
+            closestStop = cataAPIService.findClosestStop(routeData, conv.device.location);
+            return cataAPIService.getStopDetails(closestStop.StopId)
+            .then((stopData) => {
+                 arrival = cataAPIService.getEstimatedArrivalTime(routeDetails, stopData);
+                 finalString = arrival.slice(arrival.indexOf('T')+1, arrival.length - 3);
+                 conv.ask("The closest stop for that bus route is at " + closestStop.Name + " and the next departure is expected at " + finalString + ".");
+            })
+        }
+
     })
     .catch((error) => {
         console.log(error);
@@ -1706,23 +1746,28 @@ app.intent("how long until bus at stop catabus", (conv, {route, stop}) => {
     else {
         return cataAPIService.getRouteDetails(route)
         .then((routeData) => {
-            routeDetails = routeData;
-            for(var i = 0; i < routeData.Stops.length; i++) {
-                if(routeData.Stops[i].StopId === stopId) {
-                    stopHasBus = true;
-                    stopName = routeData.Stops[i].Name;
-                }
-            }
-            if(stopHasBus) {
-                return cataAPIService.getStopDetails(stopId)
-                .then((stopData) => {
-                    arrival = cataAPIService.getEstimatedArrivalTime(routeDetails, stopData);
-                    finalString = arrival.slice(arrival.indexOf('T')+1, arrival.length - 3);
-                    conv.ask("The estimated arrival time for that bus at " + stopName + " is at " + finalString + ".");
-                })
+            if(routeData.Vehicles.length === 0) {
+                conv.ask("That route is not running right now.");
             }
             else {
-                conv.ask("That bus is not available at that stop, please try a different combination.");
+                routeDetails = routeData;
+                for(var i = 0; i < routeData.Stops.length; i++) {
+                    if(routeData.Stops[i].StopId === stopId) {
+                        stopHasBus = true;
+                        stopName = routeData.Stops[i].Name;
+                    }
+                }
+                if(stopHasBus) {
+                    return cataAPIService.getStopDetails(stopId)
+                    .then((stopData) => {
+                        arrival = cataAPIService.getEstimatedArrivalTime(routeDetails, stopData);
+                        finalString = arrival.slice(arrival.indexOf('T')+1, arrival.length - 3);
+                        conv.ask("The estimated arrival time for that bus at " + stopName + " is at " + finalString + ".");
+                    })
+                }
+                else {
+                    conv.ask("That bus is not available at that stop, please try a different combination.");
+                }
             }
         })
         .catch((error) => {
@@ -1735,13 +1780,13 @@ app.intent("how long until bus at stop catabus", (conv, {route, stop}) => {
 
 //Needs expansion of stops syn
 app.intent("when bus leaves this stop catabus", (conv, {route, stop}) => {
-    var stopId = cataAPIService.stopIdMatch(stop);
     var stopName;
-    var routeId = cataAPIService.busIdMatch(route);
     var stopHasBus = false;
     var routeDetails;
     var departure;
     var finalString;
+    var stopId = cataAPIService.stopIdMatch(stop);
+    var routeId = cataAPIService.busIdMatch(route);
 
     if(stopId === 0 && routeId === 0) {
         conv.ask("I couldnt find that bus or stop, please try again.");
@@ -1755,23 +1800,28 @@ app.intent("when bus leaves this stop catabus", (conv, {route, stop}) => {
     else {
         return cataAPIService.getRouteDetails(route)
         .then((routeData) => {
-            routeDetails = routeData;
-            for(var i = 0; i < routeData.Stops.length; i++) {
-                if(routeData.Stops[i].StopId === stopId) {
-                    stopHasBus = true;
-                    stopName = routeData.Stops[i].Name;
-                }
-            }
-            if(stopHasBus) {
-                return cataAPIService.getStopDetails(stopId)
-                .then((stopData) => {
-                    departure = cataAPIService.getEstimatedStopDeparture(routeDetails, stopData);
-                    finalString = departure.slice(departure.indexOf('T')+1, departure.length - 3);
-                    conv.ask("The estimated departure time for that bus at " + stopName + " is at " + finalString + ".");
-                })
+            if(routeData.Vehicles.length === 0) {
+                conv.ask("That route is not running right now.");
             }
             else {
-                conv.ask("That bus is not available at that stop, please try a different combination.");
+                routeDetails = routeData;
+                for(var i = 0; i < routeData.Stops.length; i++) {
+                    if(routeData.Stops[i].StopId === stopId) {
+                        stopHasBus = true;
+                        stopName = routeData.Stops[i].Name;
+                    }
+                }
+                if(stopHasBus) {
+                    return cataAPIService.getStopDetails(stopId)
+                    .then((stopData) => {
+                        departure = cataAPIService.getEstimatedStopDeparture(routeDetails, stopData);
+                        finalString = departure.slice(departure.indexOf('T')+1, departure.length - 3);
+                        conv.ask("The estimated departure time for that bus at " + stopName + " is at " + finalString + ".");
+                    })
+                }
+                else {
+                    conv.ask("That bus is not available at that stop, please try a different combination.");
+                }
             }
         })
         .catch((error) => {
@@ -1803,24 +1853,29 @@ app.intent("bus departures from stop catabus", (conv, {route, stop}) => {
     else {
         return cataAPIService.getRouteDetails(route)
         .then((routeData) => {
-            routeDetails = routeData;
-            for(var i = 0; i < routeData.Stops.length; i++) {
-                if(routeData.Stops[i].StopId === stopId) {
-                    stopHasBus = true;
-                    stopName = routeData.Stops[i].Name;
-                }
-            }
-            if(stopHasBus) {
-                return cataAPIService.getStopDetails(stopId)
-                .then((stopData) => {
-                    departures = cataAPIService.getAllEstimatedStopDepartures(routeDetails, stopData);
-                    console.log(departures);
-                    finalString = departures[0].slice(departures[0].indexOf('T')+1, departures[0].length - 3);
-                    conv.ask("There are currently " + departures[1] + " scheduled right now with the next one being at " + finalString + ".");
-                })
+            if(routeData.Vehicles.length === 0) {
+                conv.ask("That route is not running right now.");
             }
             else {
-                conv.ask("That bus is not available at that stop, please try a different combination.");
+                routeDetails = routeData;
+                for(var i = 0; i < routeData.Stops.length; i++) {
+                    if(routeData.Stops[i].StopId === stopId) {
+                        stopHasBus = true;
+                        stopName = routeData.Stops[i].Name;
+                    }
+                }
+                if(stopHasBus) {
+                    return cataAPIService.getStopDetails(stopId)
+                    .then((stopData) => {
+                        departures = cataAPIService.getAllEstimatedStopDepartures(routeDetails, stopData);
+                        console.log(departures);
+                        finalString = departures[0].slice(departures[0].indexOf('T')+1, departures[0].length - 3);
+                        conv.ask("There are currently " + departures[1] + " scheduled right now with the next one being at " + finalString + ".");
+                    })
+                }
+                else {
+                    conv.ask("That bus is not available at that stop, please try a different combination.");
+                }
             }
         })
         .catch((error) => {
