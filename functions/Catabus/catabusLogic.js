@@ -195,6 +195,7 @@ class cataAPIService {
             stop = stopData[0].RouteDirections[i];
           }
         }
+        console.log(stop);
         estimatedArrival = stop.Departures[0].ETALocalTime;
         return estimatedArrival;
     }

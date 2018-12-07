@@ -80,21 +80,21 @@ app.intent("late drop", (conv,{term,year}) => {
 
         if(month >= 9 && month <=12){
             term = "fall";
-            //console.log("fall")
+
         }
         else if (month >= 1 && month <= 5) {
             term = "spring";
-            //console.log("spring")
+
         }
         else {
             term = "summer";
-            //console.log("summer")
+
         }
     }
     if(year == ""){
         yearDig = date.getFullYear();
         year = yearDig;
-        //console.log(year)
+
     }
     var strYear = year.toString();
     var semester = term+strYear.substr(2);
@@ -124,7 +124,7 @@ app.intent("late drop", (conv,{term,year}) => {
 
         console.log(map);
         date = map["2Late Drop Begins"];
-        conv.ask("The late drop period begins on " + map["2Late Drop Begins"] + " and ends on " + map["2Late Drop - Deadline"]);
+        conv.ask("The late drop period begins on " + map["2Late Drop Begins"] + " and ends on " + map["2Late Drop - Deadline"] + ".");
     })
     .catch((error) => {
         console.log(error);
@@ -142,21 +142,21 @@ app.intent("latedrop deadline", (conv, {term, year}) => {
 
         if(month >= 9 && month <=12){
             term = "fall";
-            //console.log("fall")
+
         }
         else if (month >= 1 && month <= 5) {
             term = "spring";
-            //console.log("spring")
+
         }
         else {
             term = "summer";
-            //console.log("summer")
+
         }
     }
     if(year == ""){
         yearDig = date.getFullYear();
         year = yearDig;
-        //console.log(year)
+
     }
     var strYear = year.toString();
     var semester = term+strYear.substr(2);
@@ -186,7 +186,7 @@ app.intent("latedrop deadline", (conv, {term, year}) => {
 
         console.log(map);
         date = map["2Late Drop - Deadline"];
-        conv.ask("The late drop period deadline is on " + map["2Late Drop - Deadline"]);
+        conv.ask("The late drop period deadline is on " + map["2Late Drop - Deadline"] + ".");
     })
     .catch((error) => {
         console.log(error);
@@ -204,21 +204,21 @@ app.intent("latedrop start", (conv, {term, year}) => {
 
         if(month >= 9 && month <=12){
             term = "fall";
-            //console.log("fall")
+
         }
         else if (month >= 1 && month <= 5) {
             term = "spring";
-            //console.log("spring")
+
         }
         else {
             term = "summer";
-            //console.log("summer")
+
         }
     }
     if(year == ""){
         yearDig = date.getFullYear();
         year = yearDig;
-        //console.log(year)
+
     }
     var strYear = year.toString();
     var semester = term+strYear.substr(2);
@@ -248,7 +248,7 @@ app.intent("latedrop start", (conv, {term, year}) => {
 
         console.log(map);
         date = map["2Late Drop Begins"];
-        conv.ask("The late drop period begins on " + map["2Late Drop Begins"]);
+        conv.ask("The late drop period begins on " + map["2Late Drop Begins"] + ".");
     })
     .catch((error) => {
         console.log(error);
@@ -266,21 +266,21 @@ app.intent("class start", (conv, {term, year}) => {
 
         if(month >= 9 && month <=12){
             term = "fall";
-            //console.log("fall")
+
         }
         else if (month >= 1 && month <= 5) {
             term = "spring";
-            //console.log("spring")
+
         }
         else {
             term = "summer";
-            //console.log("summer")
+
         }
     }
     if(year == ""){
         yearDig = date.getFullYear();
         year = yearDig;
-        //console.log(year)
+
     }
     var strYear = year.toString();
     var semester = term+strYear.substr(2);
@@ -310,7 +310,7 @@ app.intent("class start", (conv, {term, year}) => {
 
         console.log(map);
         date = map["Classes Begin"];
-        conv.ask("Classes will begin on " + map["Classes Begin"]);
+        conv.ask("Classes will begin on " + map["Classes Begin"] + ".");
     })
     .catch((error) => {
         console.log(error);
@@ -330,21 +330,21 @@ app.intent("graduation intent", (conv, {term, year}) => {
 
         if(month >= 9 && month <=12){
             term = "fall";
-            //console.log("fall")
+
         }
         else if (month >= 1 && month <= 5) {
             term = "spring";
-            //console.log("spring")
+
         }
         else {
             term = "summer";
-            //console.log("summer")
+
         }
     }
     if(year == ""){
         yearDig = date.getFullYear();
         year = yearDig;
-        //console.log(year)
+
     }
     var strYear = year.toString();
     var semester = term+strYear.substr(2);
@@ -374,7 +374,7 @@ app.intent("graduation intent", (conv, {term, year}) => {
 
         console.log(map);
         date = map["Intent to Graduate - Activation Period"];
-        conv.ask("The intent to graduate activation period is from " + map["Intent to Graduate - Activation Period"]);
+        conv.ask("The intent to graduate activation period is from " + map["Intent to Graduate - Activation Period"] + ".");
     })
     .catch((error) => {
         console.log(error);
@@ -392,21 +392,21 @@ app.intent("regular drop", (conv, {term, year}) => {
 
         if(month >= 9 && month <=12){
             term = "fall";
-            //console.log("fall")
+
         }
         else if (month >= 1 && month <= 5) {
             term = "spring";
-            //console.log("spring")
+
         }
         else {
             term = "summer";
-            //console.log("summer")
+
         }
     }
     if(year == ""){
         yearDig = date.getFullYear();
         year = yearDig;
-        //console.log(year)
+
     }
     var strYear = year.toString();
     var semester = term+strYear.substr(2);
@@ -436,7 +436,7 @@ app.intent("regular drop", (conv, {term, year}) => {
 
         console.log(map);
         date = map["2Regular Drop - Deadline"];
-        conv.ask("The reguar drop dealine is on " + map["2Regular Drop - Deadline"]);
+        conv.ask("The reguar drop dealine is on " + map["2Regular Drop - Deadline"] + ".");
     })
     .catch((error) => {
         console.log(error);
@@ -454,21 +454,21 @@ app.intent("regular add", (conv, {term, year}) => {
 
         if(month >= 9 && month <=12){
             term = "fall";
-            //console.log("fall")
+
         }
         else if (month >= 1 && month <= 5) {
             term = "spring";
-            //console.log("spring")
+
         }
         else {
             term = "summer";
-            //console.log("summer")
+
         }
     }
     if(year == ""){
         yearDig = date.getFullYear();
         year = yearDig;
-        //console.log(year)
+
     }
     var strYear = year.toString();
     var semester = term+strYear.substr(2);
@@ -498,7 +498,7 @@ app.intent("regular add", (conv, {term, year}) => {
 
         console.log(map);
         date = map["2Regular Add - Deadline"];
-        conv.ask("The reguar add dealine is on " + map["2Regular Add - Deadline"]);
+        conv.ask("The reguar add dealine is on " + map["2Regular Add - Deadline"] + ".");
     })
     .catch((error) => {
         console.log(error);
@@ -516,21 +516,21 @@ app.intent("classes end", (conv, {term, year}) => {
 
         if(month >= 9 && month <=12){
             term = "fall";
-            //console.log("fall")
+
         }
         else if (month >= 1 && month <= 5) {
             term = "spring";
-            //console.log("spring")
+
         }
         else {
             term = "summer";
-            //console.log("summer")
+
         }
     }
     if(year == ""){
         yearDig = date.getFullYear();
         year = yearDig;
-        //console.log(year)
+
     }
     var strYear = year.toString();
     var semester = term+strYear.substr(2);
@@ -560,7 +560,7 @@ app.intent("classes end", (conv, {term, year}) => {
 
         console.log(map);
         date = map["Classes End"];
-        conv.ask("Classes end on " + map["Classes End"]);
+        conv.ask("Classes end on " + map["Classes End"] + ".");
     })
     .catch((error) => {
         console.log(error);
@@ -578,21 +578,21 @@ app.intent("final exams", (conv, {term, year}) => {
 
         if(month >= 9 && month <=12){
             term = "fall";
-            //console.log("fall")
+
         }
         else if (month >= 1 && month <= 5) {
             term = "spring";
-            //console.log("spring")
+
         }
         else {
             term = "summer";
-            //console.log("summer")
+
         }
     }
     if(year == ""){
         yearDig = date.getFullYear();
         year = yearDig;
-        //console.log(year)
+
     }
     var strYear = year.toString();
     var semester = term+strYear.substr(2);
@@ -634,62 +634,66 @@ app.intent("thanksgiving break", (conv, {term, year}) => {
     var date = new Date();
     var month;
     var yearDig;
-    console.log(term);
     if(term == ""){
         month = date.getMonth();
 
         if(month >= 9 && month <=12){
             term = "fall";
-            //console.log("fall")
+
         }
         else if (month >= 1 && month <= 5) {
             term = "spring";
-            //console.log("spring")
+
         }
         else {
             term = "summer";
-            //console.log("summer")
+
         }
     }
     if(year == ""){
         yearDig = date.getFullYear();
         year = yearDig;
-        //console.log(year)
+
     }
-    var strYear = year.toString();
-    var semester = term+strYear.substr(2);
-    const options = {
-        uri: `https://www.registrar.psu.edu/academic_calendar/${semester}.cfm`,
-        transform: function (body) {
-            return cheerio.load(body);
-      }
-    };
-    return rp(options)
-    .then(($) => {
-        let map = {};
-        let columnOne = [];
-        let columnThree = [];
+    if(term != "fall") {
+        conv.ask("The thanksgiving holiday is only in the fall semester!");
+    }
+    else {
+        var strYear = year.toString();
+        var semester = term+strYear.substr(2);
+        const options = {
+            uri: `https://www.registrar.psu.edu/academic_calendar/${semester}.cfm`,
+            transform: function (body) {
+                return cheerio.load(body);
+          }
+        };
+        return rp(options)
+        .then(($) => {
+            let map = {};
+            let columnOne = [];
+            let columnThree = [];
 
-        $('table').find('tr td:nth-child(1)').each(function (index, element) {
-            columnOne.push($(element).text());
-          });
+            $('table').find('tr td:nth-child(1)').each(function (index, element) {
+                columnOne.push($(element).text());
+              });
 
-        $('table').find('tr td:nth-child(3)').each(function (index, element) {
-            columnThree.push($(element).text());
-        });
+            $('table').find('tr td:nth-child(3)').each(function (index, element) {
+                columnThree.push($(element).text());
+            });
 
-        columnOne.forEach((item, i) => {
-            map[item] = columnThree[i];
-        });
+            columnOne.forEach((item, i) => {
+                map[item] = columnThree[i];
+            });
 
-        console.log(map);
-        date = map["Thanksgiving Holiday - No Classes"];
-        conv.ask("The Thanksgiving Holiday is from " + map["Thanksgiving Holiday - No Classes"]);
-    })
-    .catch((error) => {
-        console.log(error);
-        conv.ask("An error occured, please try again.");
-    })
+            console.log(map);
+            date = map["Thanksgiving Holiday - No Classes"];
+            conv.ask("The Thanksgiving Holiday is from " + map["Thanksgiving Holiday - No Classes"] + ".");
+        })
+        .catch((error) => {
+            console.log(error);
+            conv.ask("An error occured, please try again.");
+        })
+    }
 });
 
 
@@ -703,21 +707,21 @@ app.intent("leave of absence deadline", (conv, {term, year}) => {
 
         if(month >= 9 && month <=12){
             term = "fall";
-            //console.log("fall")
+
         }
         else if (month >= 1 && month <= 5) {
             term = "spring";
-            //console.log("spring")
+
         }
         else {
             term = "summer";
-            //console.log("summer")
+
         }
     }
     if(year == ""){
         yearDig = date.getFullYear();
         year = yearDig;
-        //console.log(year)
+
     }
     var strYear = year.toString();
     var semester = term+strYear.substr(2);
@@ -747,7 +751,7 @@ app.intent("leave of absence deadline", (conv, {term, year}) => {
 
         console.log(map);
         date = map["Leave of Absence - Deadline"];
-        conv.ask("The leave of absence deadline is on " + map["Leave of Absence - Deadline"]);
+        conv.ask("The leave of absence deadline is on " + map["Leave of Absence - Deadline"] + ".");
     })
     .catch((error) => {
         console.log(error);
@@ -767,21 +771,21 @@ app.intent("arrival day new students", (conv, {term, year}) => {
 
         if(month >= 9 && month <=12){
             term = "fall";
-            //console.log("fall")
+
         }
         else if (month >= 1 && month <= 5) {
             term = "spring";
-            //console.log("spring")
+
         }
         else {
             term = "summer";
-            //console.log("summer")
+
         }
     }
     if(year == ""){
         yearDig = date.getFullYear();
         year = yearDig;
-        //console.log(year)
+
     }
     var strYear = year.toString();
     var semester = term+strYear.substr(2);
@@ -811,7 +815,7 @@ app.intent("arrival day new students", (conv, {term, year}) => {
 
         console.log(map);
         date = map["1 3Arrival Day - New Students"];
-        conv.ask("The arrival day for new students in on " + map["1 3Arrival Day - New Students"]);
+        conv.ask("The arrival day for new students in on " + map["1 3Arrival Day - New Students"] + ".");
     })
     .catch((error) => {
         console.log(error);
@@ -830,56 +834,61 @@ app.intent("arrival day returning students", (conv, {term, year}) => {
 
         if(month >= 9 && month <=12){
             term = "fall";
-            //console.log("fall")
+
         }
         else if (month >= 1 && month <= 5) {
             term = "spring";
-            //console.log("spring")
+
         }
         else {
             term = "summer";
-            //console.log("summer")
+
         }
     }
     if(year == ""){
         yearDig = date.getFullYear();
         year = yearDig;
-        //console.log(year)
+
     }
-    var strYear = year.toString();
-    var semester = term+strYear.substr(2);
-    const options = {
-        uri: `https://www.registrar.psu.edu/academic_calendar/${semester}.cfm`,
-        transform: function (body) {
-            return cheerio.load(body);
-      }
-    };
-    return rp(options)
-    .then(($) => {
-        let map = {};
-        let columnOne = [];
-        let columnThree = [];
+    if(term != "fall") {
+        conv.ask("Returning students do not have a scheduled day for the spring semester!");
+    }
+    else {
+        var strYear = year.toString();
+        var semester = term+strYear.substr(2);
+        const options = {
+            uri: `https://www.registrar.psu.edu/academic_calendar/${semester}.cfm`,
+            transform: function (body) {
+                return cheerio.load(body);
+          }
+        };
+        return rp(options)
+        .then(($) => {
+            let map = {};
+            let columnOne = [];
+            let columnThree = [];
 
-        $('table').find('tr td:nth-child(1)').each(function (index, element) {
-            columnOne.push($(element).text());
-          });
+            $('table').find('tr td:nth-child(1)').each(function (index, element) {
+                columnOne.push($(element).text());
+              });
 
-        $('table').find('tr td:nth-child(3)').each(function (index, element) {
-            columnThree.push($(element).text());
-        });
+            $('table').find('tr td:nth-child(3)').each(function (index, element) {
+                columnThree.push($(element).text());
+            });
 
-        columnOne.forEach((item, i) => {
-            map[item] = columnThree[i];
-        });
+            columnOne.forEach((item, i) => {
+                map[item] = columnThree[i];
+            });
 
-        console.log(map);
-        date = map["1 3Arrival Day - Returning  Students"];
-        conv.ask("The arrival day for returning students in on " + map["1 3Arrival Day - Returning  Students"]);
-    })
-    .catch((error) => {
-        console.log(error);
-        conv.ask("An error occured, please try again.");
-    })
+            console.log(map);
+            date = map["1 3Arrival Day - Returning  Students"];
+            conv.ask("The arrival day for returning students in on " + map["1 3Arrival Day - Returning  Students"] + ".");
+        })
+        .catch((error) => {
+            console.log(error);
+            conv.ask("An error occured, please try again.");
+        })
+    }
 });
 
 
@@ -898,21 +907,21 @@ app.intent("student registration deadline", (conv, {term, year}) => {
 
         if(month >= 9 && month <=12){
             term = "fall";
-            //console.log("fall")
+
         }
         else if (month >= 1 && month <= 5) {
             term = "spring";
-            //console.log("spring")
+
         }
         else {
             term = "summer";
-            //console.log("summer")
+
         }
     }
     if(year == ""){
         yearDig = date.getFullYear();
         year = yearDig;
-        //console.log(year)
+
     }
     var strYear = year.toString();
     var semester = term+strYear.substr(2);
@@ -942,7 +951,7 @@ app.intent("student registration deadline", (conv, {term, year}) => {
 
         console.log(map);
         date = map["Student Registration - Deadline"];
-        conv.ask("The student registration deadline is on " + map["Student Registration - Deadline"]);
+        conv.ask("The student registration deadline is on " + map["Student Registration - Deadline"] + ".");
     })
     .catch((error) => {
         console.log(error);
@@ -962,21 +971,21 @@ app.intent("late registration begin", (conv, {term, year}) => {
 
         if(month >= 9 && month <=12){
             term = "fall";
-            //console.log("fall")
+
         }
         else if (month >= 1 && month <= 5) {
             term = "spring";
-            //console.log("spring")
+
         }
         else {
             term = "summer";
-            //console.log("summer")
+
         }
     }
     if(year == ""){
         yearDig = date.getFullYear();
         year = yearDig;
-        //console.log(year)
+
     }
     var strYear = year.toString();
     var semester = term+strYear.substr(2);
@@ -1006,7 +1015,7 @@ app.intent("late registration begin", (conv, {term, year}) => {
 
         console.log(map);
         date = map["2Late Registration Begins"];
-        conv.ask("Late registration begins on " + map["2Late Registration Begins"]);
+        conv.ask("Late registration begins on " + map["2Late Registration Begins"] + ".");
     })
     .catch((error) => {
         console.log(error);
@@ -1025,56 +1034,61 @@ app.intent("labor day", (conv, {term, year}) => {
 
         if(month >= 9 && month <=12){
             term = "fall";
-            //console.log("fall")
+
         }
         else if (month >= 1 && month <= 5) {
             term = "spring";
-            //console.log("spring")
+
         }
         else {
             term = "summer";
-            //console.log("summer")
+
         }
     }
     if(year == ""){
         yearDig = date.getFullYear();
         year = yearDig;
-        //console.log(year)
+
     }
-    var strYear = year.toString();
-    var semester = term+strYear.substr(2);
-    const options = {
-        uri: `https://www.registrar.psu.edu/academic_calendar/${semester}.cfm`,
-        transform: function (body) {
-            return cheerio.load(body);
-      }
-    };
-    return rp(options)
-    .then(($) => {
-        let map = {};
-        let columnOne = [];
-        let columnThree = [];
+    if(term != "fall") {
+        conv.ask("Labor Day is only during the fall semester!.");
+    }
+    else {
+        var strYear = year.toString();
+        var semester = term+strYear.substr(2);
+        const options = {
+            uri: `https://www.registrar.psu.edu/academic_calendar/${semester}.cfm`,
+            transform: function (body) {
+                return cheerio.load(body);
+          }
+        };
+        return rp(options)
+        .then(($) => {
+            let map = {};
+            let columnOne = [];
+            let columnThree = [];
 
-        $('table').find('tr td:nth-child(1)').each(function (index, element) {
-            columnOne.push($(element).text());
-          });
+            $('table').find('tr td:nth-child(1)').each(function (index, element) {
+                columnOne.push($(element).text());
+              });
 
-        $('table').find('tr td:nth-child(3)').each(function (index, element) {
-            columnThree.push($(element).text());
-        });
+            $('table').find('tr td:nth-child(3)').each(function (index, element) {
+                columnThree.push($(element).text());
+            });
 
-        columnOne.forEach((item, i) => {
-            map[item] = columnThree[i];
-        });
+            columnOne.forEach((item, i) => {
+                map[item] = columnThree[i];
+            });
 
-        console.log(map);
-        date = map["Labor Day Holiday - No Classes"];
-        conv.ask("There will be no classes on " + map["Labor Day Holiday - No Classes"] + " because of the labor day holiday.");
-    })
-    .catch((error) => {
-        console.log(error);
-        conv.ask("An error occured, please try again.");
-    })
+            console.log(map);
+            date = map["Labor Day Holiday - No Classes"];
+            conv.ask("There will be no classes on " + map["Labor Day Holiday - No Classes"] + " because of the labor day holiday.");
+        })
+        .catch((error) => {
+            console.log(error);
+            conv.ask("An error occured, please try again.");
+        })
+    }
 });
 
 app.intent("final exam conflict period", (conv, {term, year}) => {
@@ -1087,21 +1101,21 @@ app.intent("final exam conflict period", (conv, {term, year}) => {
 
         if(month >= 9 && month <=12){
             term = "fall";
-            //console.log("fall")
+
         }
         else if (month >= 1 && month <= 5) {
             term = "spring";
-            //console.log("spring")
+
         }
         else {
             term = "summer";
-            //console.log("summer")
+
         }
     }
     if(year == ""){
         yearDig = date.getFullYear();
         year = yearDig;
-        //console.log(year)
+
     }
     var strYear = year.toString();
     var semester = term+strYear.substr(2);
@@ -1131,7 +1145,7 @@ app.intent("final exam conflict period", (conv, {term, year}) => {
 
         console.log(map);
         date = map["Final Exam Conflict - Filing Period"];
-        conv.ask("The final exam conflict filing period is from " + map["Final Exam Conflict - Filing Period"]);
+        conv.ask("The final exam conflict filing period is from " + map["Final Exam Conflict - Filing Period"] + ".");
     })
     .catch((error) => {
         console.log(error);
@@ -1150,21 +1164,21 @@ app.intent("declare minor deadline", (conv, {term, year}) => {
 
         if(month >= 9 && month <=12){
             term = "fall";
-            //console.log("fall")
+
         }
         else if (month >= 1 && month <= 5) {
             term = "spring";
-            //console.log("spring")
+
         }
         else {
             term = "summer";
-            //console.log("summer")
+
         }
     }
     if(year == ""){
         yearDig = date.getFullYear();
         year = yearDig;
-        //console.log(year)
+
     }
     var strYear = year.toString();
     var semester = term+strYear.substr(2);
@@ -1194,7 +1208,7 @@ app.intent("declare minor deadline", (conv, {term, year}) => {
 
         console.log(map);
         date = map["Declare Minor - Deadline (Graduating Students"];
-        conv.ask("The final day to declare a minor for graduating students is on " + map["Declare Minor - Deadline (Graduating Students"]);
+        conv.ask("The final day to declare a minor for graduating students is on " + map["Declare Minor - Deadline (Graduating Students"] + ".");
     })
     .catch((error) => {
         console.log(error);
@@ -1212,21 +1226,21 @@ app.intent("withdrawal deadline", (conv, {term, year}) => {
 
         if(month >= 9 && month <=12){
             term = "fall";
-            //console.log("fall")
+
         }
         else if (month >= 1 && month <= 5) {
             term = "spring";
-            //console.log("spring")
+
         }
         else {
             term = "summer";
-            //console.log("summer")
+
         }
     }
     if(year == ""){
         yearDig = date.getFullYear();
         year = yearDig;
-        //console.log(year)
+
     }
     var strYear = year.toString();
     var semester = term+strYear.substr(2);
@@ -1256,7 +1270,7 @@ app.intent("withdrawal deadline", (conv, {term, year}) => {
 
         console.log(map);
         date = map["Withdrawal - Deadline"];
-        conv.ask("The withdrawal deadline is on " + map["Withdrawal - Deadline"]);
+        conv.ask("The withdrawal deadline is on " + map["Withdrawal - Deadline"] + ".");
     })
     .catch((error) => {
         console.log(error);
@@ -1275,21 +1289,21 @@ app.intent("study days", (conv, {term, year}) => {
 
         if(month >= 9 && month <=12){
             term = "fall";
-            //console.log("fall")
+
         }
         else if (month >= 1 && month <= 5) {
             term = "spring";
-            //console.log("spring")
+
         }
         else {
             term = "summer";
-            //console.log("summer")
+
         }
     }
     if(year == ""){
         yearDig = date.getFullYear();
         year = yearDig;
-        //console.log(year)
+
     }
     var strYear = year.toString();
     var semester = term+strYear.substr(2);
@@ -1319,7 +1333,7 @@ app.intent("study days", (conv, {term, year}) => {
 
         console.log(map);
         date = map["3Study Days"];
-        conv.ask("The study days for this semester are from " + map["3Study Days"]);
+        conv.ask("The study days for this semester are from " + map["3Study Days"] + ".");
     })
     .catch((error) => {
         console.log(error);
@@ -1337,21 +1351,21 @@ app.intent("commencement", (conv, {term, year}) => {
 
         if(month >= 9 && month <=12){
             term = "fall";
-            //console.log("fall")
+
         }
         else if (month >= 1 && month <= 5) {
             term = "spring";
-            //console.log("spring")
+
         }
         else {
             term = "summer";
-            //console.log("summer")
+
         }
     }
     if(year == ""){
         yearDig = date.getFullYear();
         year = yearDig;
-        //console.log(year)
+
     }
     var strYear = year.toString();
     var semester = term+strYear.substr(2);
@@ -1381,7 +1395,7 @@ app.intent("commencement", (conv, {term, year}) => {
 
         console.log(map);
         date = map["3Commencement"];
-        conv.ask("Commencement for this smester is on " + map["3Commencement"]);
+        conv.ask("Commencement for this semester is on " + map["3Commencement"] + ".");
     })
     .catch((error) => {
         console.log(error);
@@ -1400,56 +1414,61 @@ app.intent("martin luther king", (conv, {term, year}) => {
 
         if(month >= 9 && month <=12){
             term = "fall";
-            //console.log("fall")
+
         }
         else if (month >= 1 && month <= 5) {
             term = "spring";
-            //console.log("spring")
+
         }
         else {
             term = "summer";
-            //console.log("summer")
+
         }
     }
     if(year == ""){
         yearDig = date.getFullYear();
         year = yearDig;
-        //console.log(year)
+
     }
-    var strYear = year.toString();
-    var semester = term+strYear.substr(2);
-    const options = {
-        uri: `https://www.registrar.psu.edu/academic_calendar/${semester}.cfm`,
-        transform: function (body) {
-            return cheerio.load(body);
-      }
-    };
-    return rp(options)
-    .then(($) => {
-        let map = {};
-        let columnOne = [];
-        let columnThree = [];
+    if(term != "spring") {
+        conv.ask("The Martin Luther King holiday is only in the spring semester!");
+    }
+    else {
+        var strYear = year.toString();
+        var semester = term+strYear.substr(2);
+        const options = {
+            uri: `https://www.registrar.psu.edu/academic_calendar/${semester}.cfm`,
+            transform: function (body) {
+                return cheerio.load(body);
+          }
+        };
+        return rp(options)
+        .then(($) => {
+            let map = {};
+            let columnOne = [];
+            let columnThree = [];
 
-        $('table').find('tr td:nth-child(1)').each(function (index, element) {
-            columnOne.push($(element).text());
-          });
+            $('table').find('tr td:nth-child(1)').each(function (index, element) {
+                columnOne.push($(element).text());
+              });
 
-        $('table').find('tr td:nth-child(3)').each(function (index, element) {
-            columnThree.push($(element).text());
-        });
+            $('table').find('tr td:nth-child(3)').each(function (index, element) {
+                columnThree.push($(element).text());
+            });
 
-        columnOne.forEach((item, i) => {
-            map[item] = columnThree[i];
-        });
+            columnOne.forEach((item, i) => {
+                map[item] = columnThree[i];
+            });
 
-        console.log(map);
-        date = map["Martin Luther King Day - No Classes"];
-        conv.ask("There will be no classes on " + map["Martin Luther King Day - No Classest"] + " for the Martin Luther King holiday");
-    })
-    .catch((error) => {
-        console.log(error);
-        conv.ask("An error occured, please try again.");
-    })
+            console.log(map);
+            date = map["Martin Luther King Day - No Classes"];
+            conv.ask("There will be no classes on " + map["Martin Luther King Day - No Classest"] + " for the Martin Luther King holiday.");
+        })
+        .catch((error) => {
+            console.log(error);
+            conv.ask("An error occured, please try again.");
+        })
+    }
 });
 
 
@@ -1464,56 +1483,61 @@ app.intent("spring break", (conv, {term, year}) => {
 
         if(month >= 9 && month <=12){
             term = "fall";
-            //console.log("fall")
+
         }
         else if (month >= 1 && month <= 5) {
             term = "spring";
-            //console.log("spring")
+
         }
         else {
             term = "summer";
-            //console.log("summer")
+
         }
     }
     if(year == ""){
         yearDig = date.getFullYear();
         year = yearDig;
-        //console.log(year)
+
     }
-    var strYear = year.toString();
-    var semester = term+strYear.substr(2);
-    const options = {
-        uri: `https://www.registrar.psu.edu/academic_calendar/${semester}.cfm`,
-        transform: function (body) {
-            return cheerio.load(body);
-      }
-    };
-    return rp(options)
-    .then(($) => {
-        let map = {};
-        let columnOne = [];
-        let columnThree = [];
+    if(term != "spring") {
+        conv.ask("Spring Break is only in the spring semester!");
+    }
+    else {
+        var strYear = year.toString();
+        var semester = term+strYear.substr(2);
+        const options = {
+            uri: `https://www.registrar.psu.edu/academic_calendar/${semester}.cfm`,
+            transform: function (body) {
+                return cheerio.load(body);
+          }
+        };
+        return rp(options)
+        .then(($) => {
+            let map = {};
+            let columnOne = [];
+            let columnThree = [];
 
-        $('table').find('tr td:nth-child(1)').each(function (index, element) {
-            columnOne.push($(element).text());
-          });
+            $('table').find('tr td:nth-child(1)').each(function (index, element) {
+                columnOne.push($(element).text());
+              });
 
-        $('table').find('tr td:nth-child(3)').each(function (index, element) {
-            columnThree.push($(element).text());
-        });
+            $('table').find('tr td:nth-child(3)').each(function (index, element) {
+                columnThree.push($(element).text());
+            });
 
-        columnOne.forEach((item, i) => {
-            map[item] = columnThree[i];
-        });
+            columnOne.forEach((item, i) => {
+                map[item] = columnThree[i];
+            });
 
-        console.log(map);
-        date = map["Spring Break - No Classes"];
-        conv.ask("There will be no classes on " + map["Spring Break - No Classes"] + " for spring break");
-    })
-    .catch((error) => {
-        console.log(error);
-        conv.ask("An error occured, please try again.");
-    })
+            console.log(map);
+            date = map["Spring Break - No Classes"];
+            conv.ask("There will be no classes on " + map["Spring Break - No Classes"] + " for spring break.");
+        })
+        .catch((error) => {
+            console.log(error);
+            conv.ask("An error occured, please try again.");
+        })
+    }
 });
 
 
@@ -1704,14 +1728,19 @@ app.intent("how long until bus catabus", (conv, {route}) => {
             conv.ask("That route is not running right now.");
         }
         else {
-            routeDetails = routeData;
-            closestStop = cataAPIService.findClosestStop(routeData, conv.device.location);
-            return cataAPIService.getStopDetails(closestStop.StopId)
-            .then((stopData) => {
-                 arrival = cataAPIService.getEstimatedArrivalTime(routeDetails, stopData);
-                 finalString = arrival.slice(arrival.indexOf('T')+1, arrival.length - 3);
-                 conv.ask("The closest stop for that bus route is at " + closestStop.Name + " and the next departure is expected at " + finalString + ".");
-            })
+            if(routeId === 55 || routeId === 57) {
+                conv.ask("I cannot get stop departures for the Blue or White loops, but they can be expected about every 5 to 10 minutes at any campus stop.");
+            }
+            else {
+                routeDetails = routeData;
+                closestStop = cataAPIService.findClosestStop(routeData, conv.device.location);
+                return cataAPIService.getStopDetails(closestStop.StopId)
+                .then((stopData) => {
+                     arrival = cataAPIService.getEstimatedArrivalTime(routeDetails, stopData);
+                     finalString = arrival.slice(arrival.indexOf('T')+1, arrival.length - 3);
+                     conv.ask("The closest stop for that bus route is at " + closestStop.Name + " and the next departure is expected at " + finalString + ".");
+                })
+            }
         }
 
     })
