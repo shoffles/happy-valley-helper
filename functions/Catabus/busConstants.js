@@ -3,7 +3,7 @@
 exports.BUS_ROUTE_ID = {
   "buses": [
     {"name": "Blue loop", "id": 55},
-    {"name": "White Loop", "id": 57},
+    {"name": "White loop", "id": 57},
     {"name": "Red link", "id": 51},
     {"name": "Green link", "id": 53},
     {"name": "A", "id": 1},
