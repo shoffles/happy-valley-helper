@@ -124,7 +124,7 @@ app.intent("late drop", (conv,{term,year}) => {
 
         console.log(map);
         date = map["2Late Drop Begins"];
-        conv.ask("The late drop period begins on " + map["2Late Drop Begins"] + " and ends on " + map["2Late Drop - Deadline"] + ".");
+        conv.ask("The late drop period begins on " + map["2Late Drop Begins"] + " and ends on " + map["2Late Drop - Deadline"] + " for " + term + " " + year +".");
     })
     .catch((error) => {
         console.log(error);
@@ -186,7 +186,7 @@ app.intent("latedrop deadline", (conv, {term, year}) => {
 
         console.log(map);
         date = map["2Late Drop - Deadline"];
-        conv.ask("The late drop period deadline is on " + map["2Late Drop - Deadline"] + ".");
+        conv.ask("The late drop period deadline is on " + map["2Late Drop - Deadline"] + " for " + term + " " + year +".");
     })
     .catch((error) => {
         console.log(error);
@@ -248,7 +248,7 @@ app.intent("latedrop start", (conv, {term, year}) => {
 
         console.log(map);
         date = map["2Late Drop Begins"];
-        conv.ask("The late drop period begins on " + map["2Late Drop Begins"] + ".");
+        conv.ask("The late drop period begins on " + map["2Late Drop Begins"] + " for " + term + " " + year +".");
     })
     .catch((error) => {
         console.log(error);
@@ -310,7 +310,7 @@ app.intent("class start", (conv, {term, year}) => {
 
         console.log(map);
         date = map["Classes Begin"];
-        conv.ask("Classes will begin on " + map["Classes Begin"] + ".");
+        conv.ask("Classes will begin on " + map["Classes Begin"] + " for " + term + " " + year +".");
     })
     .catch((error) => {
         console.log(error);
@@ -374,7 +374,7 @@ app.intent("graduation intent", (conv, {term, year}) => {
 
         console.log(map);
         date = map["Intent to Graduate - Activation Period"];
-        conv.ask("The intent to graduate activation period is from " + map["Intent to Graduate - Activation Period"] + ".");
+        conv.ask("The intent to graduate activation period is from " + map["Intent to Graduate - Activation Period"] + " for " + term + " " + year +".");
     })
     .catch((error) => {
         console.log(error);
@@ -436,7 +436,7 @@ app.intent("regular drop", (conv, {term, year}) => {
 
         console.log(map);
         date = map["2Regular Drop - Deadline"];
-        conv.ask("The reguar drop dealine is on " + map["2Regular Drop - Deadline"] + ".");
+        conv.ask("The reguar drop dealine is on " + map["2Regular Drop - Deadline"] + " for " + term + " " + year +".");
     })
     .catch((error) => {
         console.log(error);
@@ -498,7 +498,7 @@ app.intent("regular add", (conv, {term, year}) => {
 
         console.log(map);
         date = map["2Regular Add - Deadline"];
-        conv.ask("The reguar add dealine is on " + map["2Regular Add - Deadline"] + ".");
+        conv.ask("The reguar add dealine is on " + map["2Regular Add - Deadline"] + " for " + term + " " + year +".");
     })
     .catch((error) => {
         console.log(error);
@@ -560,7 +560,7 @@ app.intent("classes end", (conv, {term, year}) => {
 
         console.log(map);
         date = map["Classes End"];
-        conv.ask("Classes end on " + map["Classes End"] + ".");
+        conv.ask("Classes end on " + map["Classes End"] + " for " + term + " " + year +".");
     })
     .catch((error) => {
         console.log(error);
@@ -622,7 +622,7 @@ app.intent("final exams", (conv, {term, year}) => {
 
         console.log(map);
         date = map["3Final Exams"];
-        conv.ask("Final Exams are from " + map["3Final Exams"] + ".");
+        conv.ask("Final Exams are from " + map["3Final Exams"] + " for " + term + " " + year +".");
     })
     .catch((error) => {
         console.log(error);
@@ -687,7 +687,7 @@ app.intent("thanksgiving break", (conv, {term, year}) => {
 
             console.log(map);
             date = map["Thanksgiving Holiday - No Classes"];
-            conv.ask("The Thanksgiving Holiday is from " + map["Thanksgiving Holiday - No Classes"] + ".");
+            conv.ask("The Thanksgiving Holiday is from " + map["Thanksgiving Holiday - No Classes"] + " for " + term + " " + year +".");
         })
         .catch((error) => {
             console.log(error);
@@ -751,7 +751,7 @@ app.intent("leave of absence deadline", (conv, {term, year}) => {
 
         console.log(map);
         date = map["Leave of Absence - Deadline"];
-        conv.ask("The leave of absence deadline is on " + map["Leave of Absence - Deadline"] + ".");
+        conv.ask("The leave of absence deadline is on " + map["Leave of Absence - Deadline"] + " for " + term + " " + year +".");
     })
     .catch((error) => {
         console.log(error);
@@ -815,7 +815,7 @@ app.intent("arrival day new students", (conv, {term, year}) => {
 
         console.log(map);
         date = map["1 3Arrival Day - New Students"];
-        conv.ask("The arrival day for new students in on " + map["1 3Arrival Day - New Students"] + ".");
+        conv.ask("The arrival day for new students in on " + map["1 3Arrival Day - New Students"] + " for " + term + " " + year +".");
     })
     .catch((error) => {
         console.log(error);
@@ -882,7 +882,7 @@ app.intent("arrival day returning students", (conv, {term, year}) => {
 
             console.log(map);
             date = map["1 3Arrival Day - Returning  Students"];
-            conv.ask("The arrival day for returning students in on " + map["1 3Arrival Day - Returning  Students"] + ".");
+            conv.ask("The arrival day for returning students in on " + map["1 3Arrival Day - Returning  Students"] + " for " + term + " " + year +".");
         })
         .catch((error) => {
             console.log(error);
@@ -951,7 +951,7 @@ app.intent("student registration deadline", (conv, {term, year}) => {
 
         console.log(map);
         date = map["Student Registration - Deadline"];
-        conv.ask("The student registration deadline is on " + map["Student Registration - Deadline"] + ".");
+        conv.ask("The student registration deadline is on " + map["Student Registration - Deadline"] + " for " + term + " " + year +".");
     })
     .catch((error) => {
         console.log(error);
@@ -1015,7 +1015,7 @@ app.intent("late registration begin", (conv, {term, year}) => {
 
         console.log(map);
         date = map["2Late Registration Begins"];
-        conv.ask("Late registration begins on " + map["2Late Registration Begins"] + ".");
+        conv.ask("Late registration begins on " + map["2Late Registration Begins"] + " for " + term + " " + year +".");
     })
     .catch((error) => {
         console.log(error);
@@ -1145,7 +1145,7 @@ app.intent("final exam conflict period", (conv, {term, year}) => {
 
         console.log(map);
         date = map["Final Exam Conflict - Filing Period"];
-        conv.ask("The final exam conflict filing period is from " + map["Final Exam Conflict - Filing Period"] + ".");
+        conv.ask("The final exam conflict filing period is from " + map["Final Exam Conflict - Filing Period"] + " for " + term + " " + year +".");
     })
     .catch((error) => {
         console.log(error);
@@ -1208,7 +1208,7 @@ app.intent("declare minor deadline", (conv, {term, year}) => {
 
         console.log(map);
         date = map["Declare Minor - Deadline (Graduating Students"];
-        conv.ask("The final day to declare a minor for graduating students is on " + map["Declare Minor - Deadline (Graduating Students"] + ".");
+        conv.ask("The final day to declare a minor for graduating students is on " + map["Declare Minor - Deadline (Graduating Students"] + " for " + term + " " + year +".");
     })
     .catch((error) => {
         console.log(error);
@@ -1270,7 +1270,7 @@ app.intent("withdrawal deadline", (conv, {term, year}) => {
 
         console.log(map);
         date = map["Withdrawal - Deadline"];
-        conv.ask("The withdrawal deadline is on " + map["Withdrawal - Deadline"] + ".");
+        conv.ask("The withdrawal deadline is on " + map["Withdrawal - Deadline"] + " for " + term + " " + year +".");
     })
     .catch((error) => {
         console.log(error);
@@ -1333,7 +1333,7 @@ app.intent("study days", (conv, {term, year}) => {
 
         console.log(map);
         date = map["3Study Days"];
-        conv.ask("The study days for this semester are from " + map["3Study Days"] + ".");
+        conv.ask("The study days for this semester are from " + map["3Study Days"] + " for " + term + " " + year +".");
     })
     .catch((error) => {
         console.log(error);
@@ -1395,7 +1395,7 @@ app.intent("commencement", (conv, {term, year}) => {
 
         console.log(map);
         date = map["3Commencement"];
-        conv.ask("Commencement for this semester is on " + map["3Commencement"] + ".");
+        conv.ask("Commencement for " + term + " " + year +" is on " + map["3Commencement"] + " for " + term + " " + year +".");
     })
     .catch((error) => {
         console.log(error);
