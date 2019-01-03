@@ -61,29 +61,32 @@ async function getResponse(sportDates, sport) {
   }
   var response;
   if (sportDates) {
-    let title = sportDates.event.title;
-    let date = title.match(/^(((0)[0-9])|((1)[0-2])|[0-9])(\/)([0-2][0-9]|(3)[0-1]|[1-9])/);
-    let answer;
-    if (date !== null) {
-      title = title.replace(date[0], '');
-      answer = `${date[0]} ${title}`;
-    } else {
-      answer = title;
-    }
+        let title = sportDates.event.title;
+        let date = title.match(/^(((0)[0-9])|((1)[0-2])|[0-9])(\/)([0-2][0-9]|(3)[0-1]|[1-9])/);
+        let answer;
+        if (date !== null) {
+          title = title.replace(date[0], '');
+          answer = `${date[0]} ${title}`;
+        }
+        else {
+          answer = title;
+        }
 
-    if (sportDates.event.title.includes('vs')) {
-      response = `${answer} at ${sportDates.event.location}`;
-    } else {
-      response = answer;
+        if (sportDates.event.title.includes('vs')) {
+          response = `${answer} at ${sportDates.event.location}`;
+        }
+        else {
+          response = answer;
+        }
     }
-  } else {
-    let adjustedSport = sport;
-    if (sport.includes('&')) {
-      adjustedSport = sport.replace('&', 'and');
+    else {
+        let adjustedSport = sport;
+        if (sport.includes('&')) {
+          adjustedSport = sport.replace('&', 'and');
+        }
+        response = `No events were found for ${adjustedSport} at this time`;
     }
-    response = `No events were found for ${adjustedSport} at this time`;
-  }
-  return response;
+   return response;
 }
 
 //Done
@@ -92,7 +95,8 @@ async function getRemainingAnswer(sportDates, sport) {
   let speechText;
   if (length > 0) {
     speechText = `There are ${length} scheduled ${sport} events left in ${moment().year()}.`;
-  } else {
+  }
+  else {
     speechText = `There are no scheduled ${sport} events left in ${moment().year()}.`;
   }
   return speechText;
