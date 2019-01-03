@@ -1,7 +1,6 @@
 'use strict';
 //Requiring files
 const cataAPIService = require('./Catabus/catabusLogic');
-const sportsInfo = require('./Sports/sportsinfo');
 const academicCalender = require('./Academic Calender/academic_calender_logic');
 const rp = require('request-promise');
 const cheerio = require('cheerio');
