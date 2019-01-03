@@ -1927,7 +1927,7 @@ app.intent("bus departures from stop catabus", (conv, {route, stop}) => {
 
 //Sports section
 app.intent('next game', (conv, {sport}) => {
-    return sportsFunctions.getUpcomingSport('Baseball')
+    return sportsFunctions.getUpcomingSport(sport)
     .then((response) => {
         conv.close(response);
     })
@@ -1938,7 +1938,7 @@ app.intent('next game', (conv, {sport}) => {
 });
 
 app.intent('next home game', (conv, {sport}) => {
-    return sportsFunctions.getUpcomingHomeSport('Baseball')
+    return sportsFunctions.getUpcomingHomeSport(sport)
     .then((response) => {
         conv.close(response);
     })
@@ -1949,7 +1949,7 @@ app.intent('next home game', (conv, {sport}) => {
 });
 
 app.intent('remaining games', (conv, {sport}) => {
-    return sportsFunctions.getRemainingSport('Football')
+    return sportsFunctions.getRemainingSport(sport)
     .then((response) => {
         conv.close(response);
     })
@@ -1960,7 +1960,7 @@ app.intent('remaining games', (conv, {sport}) => {
 });
 
 app.intent('remaining home games', (conv, {sport}) => {
-    return sportsFunctions.getRemainingHomeSport('Football')
+    return sportsFunctions.getRemainingHomeSport(sport)
     .then((response) => {
         conv.close(response);
     })

@@ -136,7 +136,6 @@ class sportsRssFeed {
 
     //Done
     async getUpcomingHomeSport(sport) {
-
         let fullList = await getSportList(sport);
         if(fullList === 0) {
             return ('I could not find that sport, please try again!');
