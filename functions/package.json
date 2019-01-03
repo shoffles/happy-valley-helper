@@ -1,5 +1,7 @@
 {
-  "engines": {"node": "8"},
+  "engines": {
+    "node": "8"
+  },
   "name": "functions",
   "description": "Cloud Functions for Firebase",
   "scripts": {
@@ -12,13 +14,14 @@
   "dependencies": {
     "actions-on-google": "^2.4.1",
     "axios": "^0.18.0",
+    "cheerio": "^1.0.0-rc.2",
     "firebase-admin": "~6.0.0",
     "firebase-functions": "^2.0.3",
-    "rss-parser": "^3.5.4",
+    "moment-timezone": "^0.5.23",
     "python-shell": "^1.0.6",
-    "request-promise" : "^4.2.2",
-    "request" : "^2.88.0",
-    "cheerio" : "^1.0.0-rc.2"
+    "request": "^2.88.0",
+    "request-promise": "^4.2.2",
+    "rss-parser": "^3.5.4"
   },
   "private": true
 }

@@ -1,11 +1,12 @@
 'use strict';
 //Requiring files
-var cataAPIService = require('./Catabus/catabusLogic');
-var sportsInfo = require('./Sports/sportsinfo');
-var academicCalender = require('./Academic Calender/academic_calender_logic');
+const cataAPIService = require('./Catabus/catabusLogic');
+const sportsInfo = require('./Sports/sportsinfo');
+const academicCalender = require('./Academic Calender/academic_calender_logic');
 const rp = require('request-promise');
 const cheerio = require('cheerio');
 const yearMappings = require("./Academic Calender/year_mappings");
+const sportsFunctions = require('./Sports/sports.js');
 
 
 //Objects used for dialogflow
@@ -1913,6 +1914,63 @@ app.intent("bus departures from stop catabus", (conv, {route, stop}) => {
         })
     }
 });
+
+
+
+
+
+
+
+
+
+
+
+
+//Sports section
+app.intent('next game', (conv, {sport}) => {
+    return sportsFunctions.getUpcomingSport('Baseball')
+    .then((response) => {
+        conv.close(response);
+    })
+    .catch((error) => {
+        console.log(error);
+        conv.ask("I can't get that information right now, please try again.");
+    });
+});
+
+app.intent('next home game', (conv, {sport}) => {
+    return sportsFunctions.getUpcomingHomeSport('Baseball')
+    .then((response) => {
+        conv.close(response);
+    })
+    .catch((error) => {
+        console.log(error);
+        conv.ask("I can't get that information right now, please try again.");
+    });
+});
+
+app.intent('remaining games', (conv, {sport}) => {
+    return sportsFunctions.getRemainingSport('Football')
+    .then((response) => {
+        conv.close(response);
+    })
+    .catch((error) => {
+        console.log(error);
+        conv.ask("I can't get that information right now, please try again.");
+    });
+});
+
+app.intent('remaining home games', (conv, {sport}) => {
+    return sportsFunctions.getRemainingHomeSport('Football')
+    .then((response) => {
+        conv.close(response);
+    })
+    .catch((error) => {
+        console.log(error);
+        conv.ask("I can't get that information right now, please try again.");
+    });
+});
+
 
 
 //This intent fires when permission is asked for
